@@ -10,7 +10,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(toolbarHeight: 200,title:Container(child:Center(child: Column(children: [Logo(),],)),)),
-      body: Container(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column(children:<Widget>[,Text("Welcome Back",style: TextStyle(fontSize: 34,fontWeight: FontWeight.bold),),Text("Please Enter Your Personal data",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito'))],),Button(onPress:(){
+      body: Container(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column(children:<Widget>[MyTitle(text: "Welcome Back"),Text("Please Enter Your Personal data",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito'))],),Button(onPress:(){
         Navigator.of(context).pushReplacementNamed("/signin");
       }, text:"Get Started"),],),),
     ));
