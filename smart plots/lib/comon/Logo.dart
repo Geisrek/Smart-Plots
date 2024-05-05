@@ -5,6 +5,9 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(width: 150,height: 200,child:ClipRRect(
+        child:Image.asset("./images/Smartplots.png"),
+        
+      ));
   }
 }
