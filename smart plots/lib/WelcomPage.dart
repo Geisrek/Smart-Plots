@@ -6,7 +6,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(toolbarHeight: 200,title:Container(child:Center(child: Column(children: [Container(height: 100,child:ClipRRect(
+      appBar:AppBar(toolbarHeight: 200,title:Container(child:Center(child: Column(children: [Container(width: 150,height: 200,child:ClipRRect(
         child:Image.asset("./images/Smartplots.png"),
         
       )),],)),)),
