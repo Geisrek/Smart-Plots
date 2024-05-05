@@ -21,11 +21,13 @@ class _PasswordInput extends State<PasswordInput> {
   @override
   Widget build(BuildContext context) {
     return  Container(child:TextFormField(
+      
       controller: _textController,
       obscureText: !_passwordVisible, 
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(7),),
         labelText: 'Password',
+        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18),
         suffixIcon: IconButton(
           icon: Icon(
             _passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -44,13 +46,20 @@ class _PasswordInput extends State<PasswordInput> {
     ),height: 48,width: 300,);
   }
 }
-class MyWidget extends StatelessWidget {
-  final String text;
-  MyWidget({super.key,required this.text});
+class InputText extends StatelessWidget {
+  InputText({super.key});
   final TextEditingController TextValue =TextEditingController();
   
   @override
   Widget build(BuildContext context) {
-    return Container() ;
+    return Container(width: 300,
+    height: 48
+      ,child: TextFormField(
+      controller: TextValue,
+      decoration: InputDecoration(
+        labelText: "Email",
+        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
+    ),) ;
   }
 }
