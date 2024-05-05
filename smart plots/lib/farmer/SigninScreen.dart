@@ -9,7 +9,7 @@ class SigninScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
-      body: Container(child: Center(child: Column(children: <Widget>[InputText(),SizedBox(height: 20,),PasswordInput()],)),),
+      body: Container(child: Center(child: Column(children: <Widget>[SizedBox(height: 20,),InputText(),SizedBox(height: 20,),PasswordInput()],)),),
     );
   }
 }
