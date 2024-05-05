@@ -49,6 +49,9 @@ class _PasswordInput extends State<PasswordInput> {
 class InputText extends StatelessWidget {
   InputText({super.key});
   final TextEditingController TextValue =TextEditingController();
+  String getText(){
+    return TextValue.text;
+  }
   
   @override
   Widget build(BuildContext context) {
