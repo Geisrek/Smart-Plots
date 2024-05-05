@@ -6,7 +6,7 @@ class SigninScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: ,),),
+      appBar: AppBar(toolbarHeight: 200,title: Center(child: ,),),
     );
   }
 }
