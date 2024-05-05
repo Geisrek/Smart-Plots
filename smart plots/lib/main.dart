@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
      routes: {
-      "/":(context)=> const WelcomeScreen(),
-      "/signin":(context)=>const SigninScreen()
+      "/":(context)=> WelcomeScreen(),
+      "/signin":(context)=> SigninScreen()
      },
     );
   }
