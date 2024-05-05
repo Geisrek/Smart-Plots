@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'farmer/WelcomScreen.dart';
+import './farmer/SigninScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
      routes: {
-      "/":(context)=> const WelcomeScreen()
+      "/":(context)=> const WelcomeScreen(),
+      "/signin":(context)=>const SigninScreen()
      },
     );
   }
