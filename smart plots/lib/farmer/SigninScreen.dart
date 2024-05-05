@@ -13,7 +13,7 @@ class SigninScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
-      body: Container(child: Center(child: Column(children: <Widget>[MyTitle(text: "Welcome back !"),MyText(text: "Glad to See you !"),SizedBox(height: 20,),email,SizedBox(height: 20,),password,SizedBox(height: 20,),Button(onPress: (){}, text: "Login")],)),),
+      body: Container(child: Center(child: Column(children: <Widget>[MyTitle(text: "Welcome back !"),MyText(text: "Glad to See you !"),SizedBox(height: 20,),email,SizedBox(height: 20,),password,SizedBox(height: 20,),Button(onPress: (){print(password.getText());}, text: "Login")],)),),
     );
   }
 }

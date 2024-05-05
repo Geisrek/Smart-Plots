@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PasswordInput extends StatefulWidget {
-  const PasswordInput({super.key});
-
+   PasswordInput({super.key});
+  final state=_PasswordInput();
   @override
-  State<PasswordInput> createState() => _PasswordInput();
+  State<PasswordInput> createState() => state;
+  String getText(){
+    return state.getText();
+  }
 }
 
 class _PasswordInput extends State<PasswordInput> {
