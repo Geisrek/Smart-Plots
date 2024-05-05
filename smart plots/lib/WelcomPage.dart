@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './Button.dart';
+import './TextInputs.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
@@ -10,7 +11,7 @@ class WelcomePage extends StatelessWidget {
         child:Image.asset("./images/Smartplots.png"),
         
       )),],)),)),
-      body: Container(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column(children:<Widget>[Text("Welcome Back",style: TextStyle(fontSize: 34,fontWeight: FontWeight.bold),),Text("Please Enter Your Personal data",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito'))],),Button(onPress:(){}, text:"Get Started")],),),
+      body: Container(child: Center(child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Column(children:<Widget>[Text("Welcome Back",style: TextStyle(fontSize: 34,fontWeight: FontWeight.bold),),Text("Please Enter Your Personal data",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito'))],),Button(onPress:(){}, text:"Get Started"),],),),
     ));
   }
 }
