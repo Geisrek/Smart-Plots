@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Button.dart';
-import 'TextInputs.dart';
+import '../comon/Button.dart';
+import '../comon/TextInputs.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
