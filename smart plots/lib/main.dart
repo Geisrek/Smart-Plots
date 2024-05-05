@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'farmer/WelcomPage.dart';
+import 'farmer/WelcomScreen.dart';
 void main() {
   runApp(const MyApp());
 } 

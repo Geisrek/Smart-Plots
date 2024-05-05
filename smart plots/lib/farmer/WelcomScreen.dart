@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../comon/Button.dart';
 import '../comon/TextInputs.dart';
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
