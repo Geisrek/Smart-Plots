@@ -4,27 +4,23 @@ class UserType extends StatefulWidget {
   final  Color color;
   final String  text;
   final String  path;
-  UserType({super.key,required this.color,required this.text,required this.path});
+  final toggle;
+  double width;
+  UserType({super.key,required this.color,required this.text,required this.path,required this.toggle,required this.width});
   State<UserType> createState() => _UserType();
   }
   class _UserType extends State<UserType> {
-   double width=0;
+   
   @override
   Widget build(BuildContext context) {
     return InkWell( 
-      onTap: (){
-        setState(() {
-           this.width=this.width>0?0:3;
-        });
-       
-        print(this.width);
-      }, 
+      onTap: widget.toggle(),
       child:  Container(height: 170,
     width: 350,
     padding: EdgeInsets.only(left: 5),
     
     decoration: BoxDecoration(
-      border: Border.all(width: this.width,color: Color.fromARGB(225, 100, 200, 150)),
+      border: Border.all(width: widget.width,color: Color.fromARGB(225, 100, 200, 150)),
       borderRadius: BorderRadius.circular(7),color:widget.color ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,19 +34,5 @@ class UserType extends StatefulWidget {
          fontWeight: FontWeight.bold),)],),
         ),
       );
-  }
-}
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
