@@ -30,7 +30,7 @@ class SigninScreen extends StatelessWidget {
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
             [Text( "do you want to create an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
             TextButton(style: TextButton.styleFrom(fixedSize: Size(80, 80)),child: 
-            Text("Signin",style:TextStyle(fontSize: 18,color: Colors.black,fontFamily: 'Nunito')),onPressed: (){Navigator.of(context).pushReplacementNamed("/sinup")},)],)),
+            Text("Signup",style:TextStyle(fontSize: 18,color: Colors.black,fontFamily: 'Nunito')),onPressed: (){Navigator.of(context).pushReplacementNamed("/sinup");},)],)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:
              [Container(width: 130,child: Divider(thickness: 2,),)
              ,MyText(text: "Signin with"),
