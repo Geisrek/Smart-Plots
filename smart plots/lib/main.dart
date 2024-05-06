@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'farmer/WelcomScreen.dart';
-import './farmer/SigninScreen.dart';
-import './farmer/SingnupScreen.dart';
-import './farmer/PickUserTypeScreen.dart';
+import 'credebtials/WelcomScreen.dart';
+import 'credebtials/SigninScreen.dart';
+import 'credebtials/SingnupScreen.dart';
+import 'credebtials/PickUserTypeScreen.dart';
 void main() {
   runApp(const MyApp());
 } 

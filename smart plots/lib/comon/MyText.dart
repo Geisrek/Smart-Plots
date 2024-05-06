@@ -6,6 +6,6 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(this.text,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito'));
+    return Text(this.text,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito',));
   }
 }
