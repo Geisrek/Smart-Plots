@@ -12,7 +12,12 @@ class _DashBoard extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-     appBar: AppBar(toolbarHeight: 100,backgroundColor: Color(0xFF00651F),title: Center(child: ,),),
+     appBar: AppBar(toolbarHeight: 100,backgroundColor: Color(0xFF00651F),title: Column(
+       children: [
+         Center(child: MyTitle(text: "Dashboard"),),
+         Row(children: [],)
+       ],
+     ),),
     );
   }
 }

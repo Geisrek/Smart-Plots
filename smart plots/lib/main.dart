@@ -3,6 +3,7 @@ import 'credebtials/WelcomScreen.dart';
 import 'credebtials/SigninScreen.dart';
 import 'credebtials/SingnupScreen.dart';
 import 'credebtials/PickUserTypeScreen.dart';
+import './farmer/Dashboard.dart';
 void main() {
   runApp(const MyApp());
 } 
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       "/":(context)=> WelcomeScreen(),
       "/signin":(context)=> SigninScreen(),
       "/signup":(context)=>SignupScreen(),
-      "/pickuser":(context) => PickUserType()
+      "/pickuser":(context) => PickUserType(),
+      "/dashboard":(context) => DashBoard()
      },
     );
   }
