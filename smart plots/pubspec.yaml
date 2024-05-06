@@ -62,9 +62,9 @@ flutter:
     - images/Smartplots.png
     - images/google.svg
     - images/facebook.svg
-     - images/farmer-avatar.png
-     - images/vendor-avatar.png
-     - images/client-avatar.png
+    - images/farmer-avatar.png
+    - images/vendor-avatar.png
+    - images/client-avatar.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
