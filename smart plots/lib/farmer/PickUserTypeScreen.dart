@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+import '../comon/MyTitle.dart';
+class PickUserType extends StatelessWidget {
+  const PickUserType({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( appBar: AppBar(title: Container(),),);
+    return Scaffold( appBar: AppBar(title: Center(child: MyTitle(text: "Pick your user type",),),),);
   }
 }

@@ -30,7 +30,7 @@ class SignupScreen extends StatelessWidget {
           SizedBox(height: 20,),
           password,
           SizedBox(height: 20,),
-          Button(onPress: (){}, text: "Login"),
+          Button(onPress: (){Navigator.of(context).pushNamed("/");}, text: "Login"),
           Container(padding: 
           EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 10),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
