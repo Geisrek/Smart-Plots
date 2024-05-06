@@ -34,7 +34,7 @@ class _PickUserType extends State<PickUserType> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( appBar: AppBar(toolbarHeight: 80,
-    title: Center(child: MyTitle(text: "Pick your user type",)
+    title: Center(child: MyTitle(text: "Pick your user type",color: Colors.black,)
     ,)
     ,)
     ,
