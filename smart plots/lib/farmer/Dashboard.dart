@@ -8,8 +8,11 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return  Scaffold(
+     appBar: AppBar(),
+    );
   }
 }
