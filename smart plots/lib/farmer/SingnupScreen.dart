@@ -20,7 +20,8 @@ class SignupScreen extends StatelessWidget {
         <Widget>[
           MyTitle(text: "Welcome back !"),
           MyText(text: "Glad to See you !"),
-          SizedBox(height: 20,)
+          SizedBox(height: 20,),
+          userName
           ,
           SizedBox(height: 20,),
           email,
