@@ -8,6 +8,6 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(margin: EdgeInsets.only(bottom: 70),height: 48,width: 300,child:  ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: this.onPress,child: Text(this.text,style: TextStyle(fontSize: 16,fontFamily: 'Nunito',fontWeight: FontWeight.w100,color: Colors.black ),)),decoration: BoxDecoration(color: Color(0xFFDEDEDE),borderRadius: BorderRadius.circular(7)),);
+    return Container(margin: EdgeInsets.only(bottom: 20),height: 48,width: 300,child:  ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: this.onPress,child: Text(this.text,style: TextStyle(fontSize: 16,fontFamily: 'Nunito',fontWeight: FontWeight.w100,color: Colors.black ),)),decoration: BoxDecoration(color: Color(0xFFDEDEDE),borderRadius: BorderRadius.circular(7)),);
   }
 }

@@ -14,8 +14,10 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
-      body: Container(child: Center(child:
+      body: Container(padding: EdgeInsets.only(bottom: 10),child: Center(child:
        Column(children:
         <Widget>[
           MyTitle(text: "Welcome back !"),
@@ -30,7 +32,7 @@ class SignupScreen extends StatelessWidget {
           SizedBox(height: 20,),
           Button(onPress: (){}, text: "Login"),
           Container(padding: 
-          EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 5,left: 5),height: 40,child:
+          EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 5),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
             [
               Text( "do you want to create an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
