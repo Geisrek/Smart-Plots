@@ -8,7 +8,7 @@ import '../comon/MyText.dart';
 import '../comon/Button.dart';
 class SigninScreen extends StatelessWidget {
    SigninScreen({super.key});
-  final   email=InputText();
+  final   email=InputText(text: "Email");
   final  password=PasswordInput();
   @override
   Widget build(BuildContext context) {

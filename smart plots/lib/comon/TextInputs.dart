@@ -50,7 +50,8 @@ class _PasswordInput extends State<PasswordInput> {
   }
 }
 class InputText extends StatelessWidget {
-  InputText({super.key});
+  String text;
+  InputText({super.key,required this.text});
   final TextEditingController TextValue =TextEditingController();
   String getText(){
     return TextValue.text;
@@ -63,7 +64,7 @@ class InputText extends StatelessWidget {
       ,child: TextFormField(
       controller: TextValue,
       decoration: InputDecoration(
-        labelText: "Email",
+        labelText: text,
         labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
     ),) ;

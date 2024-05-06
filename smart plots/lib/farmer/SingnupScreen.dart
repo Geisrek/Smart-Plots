@@ -6,9 +6,10 @@ import '../comon/TextInputs.dart';
 import '../comon/MyTitle.dart';
 import '../comon/MyText.dart';
 import '../comon/Button.dart';
-class SigninScreen extends StatelessWidget {
-   SigninScreen({super.key});
-  final   email=InputText();
+class SignupScreen extends StatelessWidget {
+   SignupScreen({super.key});
+   final   userName=InputText(text: "username",);
+  final   email=InputText(text: "Email",);
   final  password=PasswordInput();
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,8 @@ class SigninScreen extends StatelessWidget {
         <Widget>[
           MyTitle(text: "Welcome back !"),
           MyText(text: "Glad to See you !"),
+          SizedBox(height: 20,)
+          ,
           SizedBox(height: 20,),
           email,
           SizedBox(height: 20,),
@@ -28,7 +31,8 @@ class SigninScreen extends StatelessWidget {
           Container(padding: 
           EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 25,left: 5),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
-            [Text( "do you want to create an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
+            [
+              Text( "do you want to create an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
             TextButton(style: TextButton.styleFrom(fixedSize: Size(80, 80)),child: 
             Text("Signin",style:TextStyle(fontSize: 18,color: Colors.black,fontFamily: 'Nunito')),onPressed: (){},)],)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:
