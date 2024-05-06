@@ -13,6 +13,6 @@ class PickUserType extends StatelessWidget {
     ,)
     ,
     body: Center(child: 
-    Column(children: [SizedBox(height: 30,),UserType(color: Color(0x9900651F),text: "Farmer",),SizedBox(height: 20,),UserType(color: Color(0x995508D1),text: "Vendor",),SizedBox(height: 20,),UserType(color: Color(0x99FFAA00),text: "Client",),SizedBox(height: 10,),Button(onPress: (){}, text: "Signup")],),),);
+    Column(children: [SizedBox(height: 30,),UserType(color: Color(0x9900651F),text: "Farmer",path: "./images/farmer-avatar.png",),SizedBox(height: 20,),UserType(color: Color(0x995508D1),text: "Vendor",path: "./images/vendor-avatar.png",),SizedBox(height: 20,),UserType(color: Color(0x99FFAA00),text: "Client",),SizedBox(height: 10,),Button(onPress: (){}, text: "Signup")],),),);
   }
 }
