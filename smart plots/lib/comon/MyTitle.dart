@@ -6,6 +6,6 @@ class MyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Welcome Back",style: TextStyle(fontSize: 34,fontWeight: FontWeight.bold));
+    return Text(this.text,style: TextStyle(fontSize: 34,fontWeight: FontWeight.bold,),overflow: TextOverflow.visible,softWrap: true,);
   }
 }
