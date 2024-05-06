@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../comon/MyTitle.dart';
 import './UserType.dart';
+import '../comon/Button.dart';
 class PickUserType extends StatelessWidget {
   const PickUserType({super.key});
 
@@ -12,6 +13,6 @@ class PickUserType extends StatelessWidget {
     ,)
     ,
     body: Center(child: 
-    Column(children: [SizedBox(height: 30,),UserType(color: Color(0x9900651F))],),),);
+    Column(children: [SizedBox(height: 30,),UserType(color: Color(0x9900651F),text: "Farmer",),SizedBox(height: 20,),UserType(color: Color(0x995508D1),text: "Vendor",),SizedBox(height: 20,),UserType(color: Color(0x99FFAA00),text: "Client",),SizedBox(height: 10,),Button(onPress: (){}, text: "Signup")],),),);
   }
 }
