@@ -30,7 +30,7 @@ class _DashBoard extends State<DashBoard> {
          Container(margin: EdgeInsets.only(right: 120,bottom: 70),child: MyTitle(text: "Dashboard",color: Colors.white,),),
          SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(children: [PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),],))
+          child: Row(children: [PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),PlotWidget(path: "./images/add.svg", name: "", function:updateIndex, id: 2)],))
        ],
      ),),
      body: Container(
