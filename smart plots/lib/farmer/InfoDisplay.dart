@@ -17,8 +17,8 @@ class _InfoDisplayer extends State<InfoDisplayer
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 5,top: 1),
-      width: 350,
+      margin: EdgeInsets.only(bottom: 5,top: 1,left: 10,right: 5),
+      width: 320,
       height: 58,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),border: Border.all(width: 1.0)),
       child: Row(crossAxisAlignment: CrossAxisAlignment.center,children: [SizedBox(width: 5,),Container(height: 30,width:30,child: SvgPicture.asset(widget.path)),SizedBox(width: 10,),MyText(text: widget.label),Expanded(child: SizedBox(width: 200,)),MyText(text: widget.value),SizedBox(width: 10,),MyText(text: widget.unit)],),

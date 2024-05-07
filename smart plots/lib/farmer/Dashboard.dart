@@ -37,9 +37,9 @@ class _DashBoard extends State<DashBoard> {
        ],
      ),),
      body: Container(
-      margin:EdgeInsets.only(left: 10,top: 20),
-      height: 500,
-      width: 340,
+      
+      height: 600,
+      width: 400,
       decoration: BoxDecoration(color: Color(0xFFFFFF),borderRadius: BorderRadius.circular(7)),
       child:Column(
         children: [
@@ -61,9 +61,10 @@ class _DashBoard extends State<DashBoard> {
               InfoDisplayer(path: "./images/temperature.svg", label: "Temperature", value: "123", unit: "")
               ,
               InfoDisplayer(path: "./images/sun.svg", label: "light", value: "123", unit: ""),
+             
 
-
-            ],)
+            ],),SizedBox(height: 65,),
+             Controle()
         ],
         
       )
