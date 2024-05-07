@@ -8,7 +8,7 @@ import '../comon/MyText.dart';
 import '../comon/Button.dart';
 class SignupScreen extends StatelessWidget {
    SignupScreen({super.key});
-   final   userName=InputText(text: "username",);
+   final   userName=InputText(text: "Username",);
   final   email=InputText(text: "Email",);
   final  password=PasswordInput();
   @override
