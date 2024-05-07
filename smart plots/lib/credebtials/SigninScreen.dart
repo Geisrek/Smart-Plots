@@ -17,8 +17,8 @@ class SigninScreen extends StatelessWidget {
       body: Container(child: Center(child:
        Column(children:
         <Widget>[
-          MyTitle(text: "Welcome back !",color: Colors.black,),
-          MyText(text: "Glad to See you !"),
+          MyTitle(text: "Welcome back ",color: Colors.black,),
+          MyText(text: "Glad to See you "),
           SizedBox(height: 20,),
           email,
           SizedBox(height: 20,),
