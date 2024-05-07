@@ -16,7 +16,7 @@ class UserType extends StatefulWidget {
     return InkWell( 
       onTap: widget.toggle(),
       child:  Container(height: 170,
-    width: 350,
+    width: 310,
     padding: EdgeInsets.only(left: 5),
     
     decoration: BoxDecoration(
