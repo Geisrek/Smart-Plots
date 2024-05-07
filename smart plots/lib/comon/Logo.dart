@@ -5,7 +5,7 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: 150,height: 200,child:ClipRRect(
+    return Container(width: 170,height: 240,child:ClipRRect(
         child:Image.asset("./images/Smartplots.png"),
         
       ));
