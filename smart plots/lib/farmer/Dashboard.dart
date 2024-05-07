@@ -30,7 +30,7 @@ class _DashBoard extends State<DashBoard> {
          Container(margin: EdgeInsets.only(right: 120,bottom: 70),child: MyTitle(text: "Dashboard",color: Colors.white,),),
          SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(children: [PlotWidget(path: "./images/farmer-avatar.png", name: "plot1", function:updateIndex, id: 2),InkWell(child: Container(height: 60,width: 60,color: Colors.blue,),onTap: ()=>updateIndex(0),),InkWell(child: Container(height: 60,width: 60,color: const Color.fromARGB(255, 243, 75, 33),),onTap: ()=>updateIndex(1),),InkWell(child: Container(height: 60,width: 60,color: const Color.fromARGB(255, 243, 33, 208),),onTap: ()=>updateIndex(2),),],))
+          child: Row(children: [PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),],))
        ],
      ),),
      body: Container(
