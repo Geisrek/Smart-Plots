@@ -39,9 +39,9 @@ class SignupScreen extends StatelessWidget {
             TextButton(style: TextButton.styleFrom(fixedSize: Size(75, 80)),child: 
             Text("Signin",style:TextStyle(fontSize: 16,color: Colors.black,fontFamily: 'Nunito')),onPressed: (){Navigator.of(context).pushReplacementNamed("/signin");},)],)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:
-             [Container(width: 130,child: Divider(thickness: 2,),)
-             ,MyText(text: "Signup with"),
-             Container(width: 130,child: Divider(thickness: 2,),)]),
+             [Container(width: 120,child: Divider(thickness: 2,),)
+             ,MyText(text: "Sign Up with"),
+             Container(width: 120,child: Divider(thickness: 2,),)]),
              Container(margin: EdgeInsets.only(left: 80,top: 10),child: 
              Row(children:
               [Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child: 
