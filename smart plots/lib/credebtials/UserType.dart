@@ -22,12 +22,12 @@ class UserType extends StatefulWidget {
     decoration: BoxDecoration(
       border: Border.all(width: widget.width,color: Color.fromARGB(225, 100, 200, 150)),
       borderRadius: BorderRadius.circular(7),color:widget.color ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [Container(height: 50,
         width: 50,
          child: ClipRRect(
-          child: Image.asset(widget.path),borderRadius:BorderRadius.circular(100) ,),),SizedBox(width: 200,),
+          child: Image.asset(widget.path),borderRadius:BorderRadius.circular(100) ,),),SizedBox(height: 5,),
          Text(this.widget.text,style: TextStyle(color: Colors.white,
          fontFamily: 'Nunito',
          fontSize: 18,
