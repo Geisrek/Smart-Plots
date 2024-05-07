@@ -54,7 +54,7 @@ class _DashBoard extends State<DashBoard> {
             SizedBox(height: 20,)
             ,
             Column(children: [
-              InfoDisplayer(path: "", label: "", value: "", unit: "")
+              InfoDisplayer(path: "./images/soil.svg", label: "EC", value: "123", unit: "")
             ],)
         ],
         
