@@ -42,11 +42,11 @@ class _DashBoard extends State<DashBoard> {
         children: [
           Row(
             children: [SizedBox(width: 300,),Container(height: 40,width: 40,decoration: BoxDecoration(color: const Color.fromARGB(255, 54, 53, 53)),child: Text("icon"),)],),
-            Row(children: [Container(margin: EdgeInsets.only(left: 10),child: MyTitle(text: "Plot 1"),),
+            Row(children: [Container(margin: EdgeInsets.only(left: 10),child: MyText(text: "Plot 1"),),
             ],),
             SizedBox(height: 5,)
             ,
-            Container(margin: EdgeInsets.only(left: 40),child: Container(width: 100,child: MyText(text: "Ai recomandation",),),)
+            Container(margin: EdgeInsets.only(left: 40),child: Container(width: 170,child: MyText(text: "Ai recomandation",),),)
         ],
         
       )
