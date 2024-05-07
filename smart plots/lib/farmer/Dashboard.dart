@@ -8,7 +8,7 @@ import '../comon/MyText.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'Plot.dart';
 import './Plot.dart';
-import './'
+import './';
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
