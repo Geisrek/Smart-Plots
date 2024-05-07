@@ -30,7 +30,12 @@ class _DashBoard extends State<DashBoard> {
           child: Row(children: [PlotWidget(path: "./images/farmer-avatar.png", name: "plot1", function:updateIndex, id: 2),InkWell(child: Container(height: 60,width: 60,color: Colors.blue,),onTap: ()=>updateIndex(0),),InkWell(child: Container(height: 60,width: 60,color: const Color.fromARGB(255, 243, 75, 33),),onTap: ()=>updateIndex(1),),InkWell(child: Container(height: 60,width: 60,color: const Color.fromARGB(255, 243, 33, 208),),onTap: ()=>updateIndex(2),),],))
        ],
      ),),
-     body: Text(data[index]),
+     body: Container(
+      margin:EdgeInsets.only(left: 10,top: 20),
+      height: 500,
+      width: 340,
+      decoration: BoxDecoration(color: Color(0xFFDEDEDE),borderRadius: BorderRadius.circular(7))
+     ,),
     );
   }
 }
