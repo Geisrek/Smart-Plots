@@ -44,7 +44,7 @@ class _DashBoard extends State<DashBoard> {
       child:Column(
         children: [
           Row(crossAxisAlignment: CrossAxisAlignment.center,
-            children: [MyText(text: "Plot 1",color: Color(0xFF00651F)),SizedBox(width: 260,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){},))],),
+            children: [MyText(text: "Plot 1",color: Color(0xFF00651F)),SizedBox(width: 260,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){Navigator.of(context).pushNamed('/create_Scduel');},))],),
           
             
             SizedBox(height: 5,)

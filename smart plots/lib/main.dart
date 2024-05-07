@@ -4,6 +4,7 @@ import 'credebtials/SigninScreen.dart';
 import 'credebtials/SingnupScreen.dart';
 import 'credebtials/PickUserTypeScreen.dart';
 import './farmer/Dashboard.dart';
+import './farmer/CreateScduelScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       "/signin":(context)=> SigninScreen(),
       "/signup":(context)=>SignupScreen(),
       "/pickuser":(context) => PickUserType(),
-      "/dashboard":(context) => DashBoard()
+      "/dashboard":(context) => DashBoard(),
+      "/create_Scduel":(context) => CreateScduelScreen()
      },
     );
   }
