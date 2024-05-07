@@ -66,6 +66,7 @@ flutter:
     - images/vendor-avatar.png
     - images/client-avatar.png
     - images/plot.svg
+    - images/add.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
