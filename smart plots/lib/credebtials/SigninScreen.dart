@@ -26,9 +26,9 @@ class SigninScreen extends StatelessWidget {
           SizedBox(height: 20,),
           Button(onPress: (){Navigator.of(context).pushReplacementNamed("/dashboard");}, text: "Login"),
           Container(padding: 
-          EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 10),height: 40,child:
+          EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 50),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
-            [Text( "do you want to create an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
+            [Text( "Dont have an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
             TextButton(style: TextButton.styleFrom(fixedSize: Size(75, 80)),child: 
             Text("Signup",style:TextStyle(fontSize: 16,color: Colors.black,fontFamily: 'Nunito')),onPressed: (){Navigator.of(context).pushReplacementNamed("/signup");},)],)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:
