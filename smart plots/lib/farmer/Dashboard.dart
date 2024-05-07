@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'Plot.dart';
 import './Plot.dart';
 import 'InfoDisplay.dart';
+import 'Controle.dart';
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
