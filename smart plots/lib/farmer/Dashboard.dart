@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import "../comon/MyTitle.dart";
 import '../comon/MyText.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'Plot.dart';
 import './Plot.dart';
 class DashBoard extends StatefulWidget {
@@ -37,16 +38,17 @@ class _DashBoard extends State<DashBoard> {
       margin:EdgeInsets.only(left: 10,top: 20),
       height: 500,
       width: 340,
-      decoration: BoxDecoration(color: Color(0xFFDEDEDE),borderRadius: BorderRadius.circular(7)),
+      decoration: BoxDecoration(color: Color(0xFFFFFF),borderRadius: BorderRadius.circular(7)),
       child:Column(
         children: [
-          Row(
-            children: [SizedBox(width: 300,),Container(height: 40,width: 40,decoration: BoxDecoration(color: const Color.fromARGB(255, 54, 53, 53)),child: Text("icon"),)],),
-            Row(children: [Container(margin: EdgeInsets.only(left: 10),child: MyText(text: "Plot 1"),),
-            ],),
+          Row(crossAxisAlignment: CrossAxisAlignment.center,
+            children: [MyText(text: "Plot 1",color: Color(0xFF00651F)),SizedBox(width: 230,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){},))],),
+          
+            
             SizedBox(height: 5,)
             ,
-            Container(margin: EdgeInsets.only(left: 40),child: Container(width: 170,child: MyText(text: "Ai recomandation",),),)
+            Container(margin: EdgeInsets.only(left: 10),child: Container(width: 170,child: MyText(text: "Ai recomandation",),),)
+            ,SizedBox(height: 20,),Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [MyText(text:"Air humidity"),SizedBox(width: 20,),MyText(text: "Sol humidity")],),)
         ],
         
       )
