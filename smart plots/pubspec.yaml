@@ -73,6 +73,9 @@ flutter:
     - images/temperature.svg
     - images/sun.svg
     - images/history.svg
+    - images/environment.svg
+    - images/remote.svg
+    - images/tasks.svg
     
 
   # To add assets to your application, add an assets section, like this:
