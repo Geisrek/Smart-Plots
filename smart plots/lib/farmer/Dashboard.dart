@@ -8,7 +8,7 @@ import '../comon/MyText.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'Plot.dart';
 import './Plot.dart';
-import './';
+import 'InfoDisplay.dart';
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
@@ -50,6 +50,12 @@ class _DashBoard extends State<DashBoard> {
             ,
             Container(margin: EdgeInsets.only(left: 10),child: Container(width: 170,child: MyText(text: "Ai recomandation",),),)
             ,SizedBox(height: 20,),Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [MyText(text:"Air humidity"),SizedBox(width: 20,),MyText(text: "Sol humidity")],),)
+            ,
+            SizedBox(height: 20,)
+            ,
+            Column(children: [
+              InfoDisplayer(path: "", label: "", value: "", unit: "")
+            ],)
         ],
         
       )

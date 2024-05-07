@@ -15,6 +15,11 @@ class _InfoDisplayer extends State<InfoDisplayer
 > {
   @override
   Widget build(BuildContext context) {
-    return Container(width: 350,height: 58,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFFEAEAEA)),);
+    return Container(
+      width: 350,
+      height: 58,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),border: Border.all(width: 1.0)),
+      child: Row(children: [],),
+      );
   }
 }
