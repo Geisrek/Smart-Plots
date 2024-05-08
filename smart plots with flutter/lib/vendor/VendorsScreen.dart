@@ -23,7 +23,7 @@ class _VendorScreenState extends State<VendorScreen> {
           children: [
             MyTitle(text: "Vendor"),
             SizedBox(width: 135,),
-            IconButton(onPressed: (){Navigator}, icon: SvgPicture.asset("./images/saved.svg"))
+            IconButton(onPressed: (){Navigator.of(context).pushNamed("/vendor_storage")}, icon: SvgPicture.asset("./images/saved.svg"))
           ],
         ),
       ),
