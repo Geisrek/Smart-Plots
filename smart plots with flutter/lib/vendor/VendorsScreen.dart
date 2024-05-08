@@ -34,7 +34,7 @@ class _VendorScreenState extends State<VendorScreen> {
             crossAxisAlignment: CrossAxisAlignment.center ,
             children: [
               MyText(text: "Strawbary "),
-              SizedBox()
+              SizedBox(width: 5,)
             ],
           )
           ),
