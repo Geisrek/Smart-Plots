@@ -13,7 +13,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(title: Center(child: MyTitle(text: "Sored product",),),),
-       body: ,
+       body:Container() ,
     );
   }
 }
