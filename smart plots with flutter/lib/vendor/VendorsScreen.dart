@@ -22,6 +22,7 @@ class _VendorScreenState extends State<VendorScreen> {
         title: Row(
           children: [
             MyTitle(text: "Vendor"),
+            SizedBox()
           ],
         ),
       ),
