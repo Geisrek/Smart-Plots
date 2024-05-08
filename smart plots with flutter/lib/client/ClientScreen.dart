@@ -7,7 +7,7 @@ class ClientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: ,),
+        title: Center(),),
     );
   }
 }
