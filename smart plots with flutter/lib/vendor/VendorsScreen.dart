@@ -23,7 +23,7 @@ class _VendorScreenState extends State<VendorScreen> {
           children: [
             MyTitle(text: "Vendor"),
             SizedBox(width: 200,),
-            IconButton(onPressed: (){}, icon: icon)
+            IconButton(onPressed: (){}, icon: Image)
           ],
         ),
       ),
