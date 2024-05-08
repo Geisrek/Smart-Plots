@@ -83,6 +83,8 @@ flutter:
     - images/water.svg
     - images/saved.svg
     - images/usd.svg
+    - images/remove.svg
+
     
 
   # To add assets to your application, add an assets section, like this:
