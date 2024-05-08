@@ -11,6 +11,7 @@ class StoreItem extends StatelessWidget {
       padding: EdgeInsets.all(5),
        child:Row(
         children: [Column(
+          crossAxisAlignment: ,
           children: [
             SvgPicture.asset("images/usd.svg"),
           MyText(text: this.price)
