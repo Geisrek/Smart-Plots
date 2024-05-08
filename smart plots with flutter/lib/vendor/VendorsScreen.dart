@@ -10,6 +10,8 @@ class VendorScreen extends StatefulWidget {
 class _VendorScreenState extends State<VendorScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: ,
+    );
   }
 }
