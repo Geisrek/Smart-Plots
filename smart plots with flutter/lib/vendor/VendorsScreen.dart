@@ -15,6 +15,7 @@ class _VendorScreenState extends State<VendorScreen> {
         toolbarHeight: 100 ,
         title: MyTitle(text: "Vendor"),
       ),
+      body: ,
     );
   }
 }
