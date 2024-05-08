@@ -17,7 +17,7 @@ class _VendorScreenState extends State<VendorScreen> {
         title: MyTitle(text: "Vendor"),
       ),
       body:Container(
-        child:Column() ,
+        child:Column(children: [],) ,
       ) ,
     );
   }
