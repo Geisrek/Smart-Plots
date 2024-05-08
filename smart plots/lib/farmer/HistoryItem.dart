@@ -8,8 +8,8 @@ class HistoryItem extends StatelessWidget {
   final String PH;
   final String Lux;
   final String C;
-  
-  const HistoryItem({super.key,required this.Date,required this.EC,required this.PH,required this.Lux, required this.C});
+  final Color color;
+  const HistoryItem({super.key,required this.Date,required this.EC,required this.PH,required this.Lux, required this.C,this.color=Colors.white});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class HistoryItem extends StatelessWidget {
       height: 150,
       margin: EdgeInsets.only(top: 10,bottom: 10),
       padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(7))
+      decoration: BoxDecoration(color:this.color,borderRadius: BorderRadius.circular(7))
       ,
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
