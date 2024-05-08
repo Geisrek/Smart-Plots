@@ -17,7 +17,10 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
         width:400 ,
         height: 600,
         child: Expanded(
-          child:  SingleChildScrollView(,
+          child:  SingleChildScrollView(
+             scrollDirection:
+          )
+
         ),
        ) ,
     );
