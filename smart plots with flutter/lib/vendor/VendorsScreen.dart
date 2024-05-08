@@ -8,7 +8,7 @@ class VendorScreen extends StatefulWidget {
    VendorScreen({super.key});
    final serial=InputText(text:"Enter your serial number" );
    final purchasing_price=InputText(text: "Enter the purchasing price");
-   final Selling_price=InputText(text: "Enter the selling price in \$");
+   final selling_price=InputText(text: "Enter the selling price in \$");
   @override
   State<VendorScreen> createState() => _VendorScreenState();
 }
