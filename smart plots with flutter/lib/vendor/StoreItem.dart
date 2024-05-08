@@ -15,7 +15,7 @@ class StoreItem extends StatelessWidget {
         children: [Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset("images/usd.svg"),
+            Container(child: SvgPicture.asset("images/usd.svg")),
           MyText(text: this.price)
           ],
         ),Container(height: 70,width:100 
@@ -23,7 +23,7 @@ class StoreItem extends StatelessWidget {
         ,crossAxisAlignment: CrossAxisAlignment.center
         ,children: [MyText(text: this.product_name,),
         IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon: SvgPicture.asset("images/history.svg"))],))
-        ,Container(width: 60,height: 60,child: IconButton(onPressed: (){}, icon: SvgPicture.asset("./images/remove.svg")))],
+        ,Container(width: 40,height: 40,child: IconButton(onPressed: (){}, icon: SvgPicture.asset("./images/remove.svg")))],
        ) ,
     );
   }
