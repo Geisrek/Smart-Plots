@@ -23,7 +23,7 @@ class _PickUserType extends State<PickUserType> {
     width_1=0;
     width_3=0;
     }
-    Navigator.of(context).pushReplacementNamed("/vendor");
+   
   }
   void userToggler3(){
   setState(){
