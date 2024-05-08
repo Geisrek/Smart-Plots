@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "AppBar.dart";
 import './Controle.dart';
+import './Plot.dart';
 class RemoteScreen extends StatelessWidget {
   const RemoteScreen({super.key});
 
