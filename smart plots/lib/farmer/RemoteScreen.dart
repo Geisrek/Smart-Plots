@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "AppBar.dart";
 import './Controle.dart';
 import './Plot.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 class RemoteScreen extends StatelessWidget {
   const RemoteScreen({super.key});
 
@@ -16,7 +17,17 @@ class RemoteScreen extends StatelessWidget {
           Container(
             height: 460
             ,width: 390,
-            child: Wrap(children: [Row()],
+            child: Center(
+              child: Wrap(
+                spacing: 7,
+                runSpacing: 7,
+                alignment: WrapAlignment.center,
+                children: [PlotWidget(name: "fan",id: 0,function: (){},path: "images/fan.svg"),
+               PlotWidget(name: "Light",id: 0,function: (){},path: "images/sun-black.svg"),
+                PlotWidget(name: "Water",id: 0,function: (){},path: "images/water.svg"),
+                 PlotWidget(name: "Tent",id: 0,function: (){},path: "images/open.svg"),
+                  PlotWidget(name: "spraying",id: 0,function: (){},path: "images/steame.svg")],
+              ),
             ),
             )
             ,Controle()],),) ,
