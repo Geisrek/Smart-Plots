@@ -39,7 +39,7 @@ class _VendorScreenState extends State<VendorScreen> {
               SizedBox(width: 8,),
               MyText(text: "Bikaa"),
               Expanded(child: SizedBox(width: 200,),),
-              IconButton(onPressed: (){Navigator}, icon: SvgPicture.asset("images/history.svg"))
+              IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon: SvgPicture.asset("images/history.svg"))
             ],
           )
           ),
