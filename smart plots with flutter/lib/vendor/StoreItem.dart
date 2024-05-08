@@ -18,7 +18,11 @@ class StoreItem extends StatelessWidget {
             SvgPicture.asset("images/usd.svg"),
           MyText(text: this.price)
           ],
-        ),Container(height: 70,width:100 ,child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween ,crossAxisAlignment: CrossAxisAlignment.center,children: [MyText(text: this.product_name)],))],
+        ),Container(height: 70,width:100 
+        ,child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween 
+        ,crossAxisAlignment: CrossAxisAlignment.center
+        ,children: [MyText(text: this.product_name,),
+        IconButton(onPressed: onPressed, icon: icon)],))],
        ) ,
     );
   }
