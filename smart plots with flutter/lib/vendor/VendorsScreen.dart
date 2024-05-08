@@ -21,7 +21,8 @@ class _VendorScreenState extends State<VendorScreen> {
         padding: EdgeInsets.all(10)
         ,
         child:Column(children: [
-          InputText(text: text)
+          widget.serial,
+          
         ],) ,
       ) ,
     );
