@@ -2,12 +2,16 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import './HistoryItem.dart';
-class TascksScreen extends StatelessWidget  {
-  const TascksScreen({super.key});
+import './AppBar.dart';
+class TasksScreen extends StatelessWidget  {
+  const TasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: MyBar(Title: "Tasks",),
+
+    );
   }
 }
 
