@@ -11,7 +11,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: ,),
+       appBar: AppBar(title: Center,),
     );
   }
 }
