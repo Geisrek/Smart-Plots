@@ -12,7 +12,7 @@ class _VendorScreenState extends State<VendorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: ,
+        title: MyTitle(text: text),
       ),
     );
   }
