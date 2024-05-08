@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../comon/MyTitle.dart';
 import '../comon/TextInputs.dart';
 class VendorScreen extends StatefulWidget {
-  const VendorScreen({super.key});
+   VendorScreen({super.key});
    final serial=InputText(text:"Enter your serial number" );
   @override
   State<VendorScreen> createState() => _VendorScreenState();
