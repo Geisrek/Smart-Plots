@@ -25,7 +25,7 @@ class MyBar extends AppBar{
    MyAppBarr(){
     return AppBar(toolbarHeight: 211,shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),backgroundColor: Color(0xFF00651F),title: Column(
        children: [
-         Container(margin: EdgeInsets.only(right: 120,bottom: 70),child: MyTitle(text: "Dashboard",color: Colors.white,),),
+         Container(margin: EdgeInsets.only(right: 120,bottom: 70),child: MyTitle(text: this.Title,color: Colors.white,),),
          SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: this.child is Widget? this.child :Container())
