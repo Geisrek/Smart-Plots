@@ -22,6 +22,7 @@ class _VendorScreenState extends State<VendorScreen> {
         ,
         child:Column(children: [
           widget.serial,
+          SizedBox()
           widget.price
         ],) ,
       ) ,
