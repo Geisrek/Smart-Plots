@@ -15,7 +15,7 @@ class StoreItem extends StatelessWidget {
         children: [Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(width: 40,child: SvgPicture.asset("images/usd.svg")),
+            Container(height: 60,width: 40,child: SvgPicture.asset("images/usd.svg")),
           MyText(text: this.price)
           ],
         ),Container(height: 70,width:100 
