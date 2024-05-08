@@ -11,7 +11,7 @@ class StoreItem extends StatelessWidget {
        child:Row(
         children: [Column(
           children: [
-            
+            SvgPicture
           ],
         )],
        ) ,
