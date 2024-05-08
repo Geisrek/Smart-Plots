@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:flutter/material.dart';
 import './HistoryItem.dart';
@@ -21,7 +21,15 @@ class Infos extends HistoryItem{
   
   @override
   Widget build(BuildContext context){
-   return Container( child:  super.build(context));
+   return Container( 
+    decoration: BoxDecoration(),
+    child:  Column(
+     children: [
+       super.build(context),
+       SizedBox(width: 200,),
+       ElevatedButton(onPressed: (){}, child: Text("Cansel",style: TextStyle(fontFamily: 'Nunito',fontSize: 12),))
+     ],
+   ));
   }
   
 }
