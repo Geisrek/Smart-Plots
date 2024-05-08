@@ -62,7 +62,7 @@ class _VendorScreenState extends State<VendorScreen> {
         SizedBox(height: 210,)
         ,
         widget.selling_price,
-        SizedBox()
+        SizedBox(height: ,)
         ,Button(onPress: (){}, text: "Save")],) ,
       ) ,
     );
