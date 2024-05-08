@@ -7,7 +7,7 @@ class StoreItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: ,
+      margin: EdgeInsets.all(5),
     );
   }
 }
