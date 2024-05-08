@@ -27,7 +27,7 @@ class _VendorScreenState extends State<VendorScreen> {
           SizedBox(height: 10,),
           Container(width: 300,
           height: 60 ,
-          decoration: BoxDecoration(),)
+          decoration: BoxDecoration(color: ),)
         ],) ,
       ) ,
     );
