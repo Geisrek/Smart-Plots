@@ -12,10 +12,11 @@ class StoreItem extends StatelessWidget {
       decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius: BorderRadius.circular(7)),
       padding: EdgeInsets.all(5),
        child:Row(
+        mainAxisAlignment: ,
         children: [Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(height: 60,width: 40,child: SvgPicture.asset("images/usd.svg")),
+            Container(height: 60,width: 60,child: SvgPicture.asset("images/usd.svg")),
           MyText(text: this.price)
           ],
         ),Container(height: 70,width:100 
