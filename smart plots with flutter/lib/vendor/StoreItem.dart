@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../comon/MyText.dart';
 class StoreItem extends StatelessWidget {
   final String price;
-  const StoreItem({super.key,});
+  const StoreItem({super.key, required this.price});
 
   @override
   Widget build(BuildContext context) {
