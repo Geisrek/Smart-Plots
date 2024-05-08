@@ -21,7 +21,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
              scrollDirection:Axis.vertical,
              child: Column(
               children: [
-                StoreItem(price: price, product_name: product_name)
+                StoreItem(price: '25', product_name: "Banana")
               ],
              ),
           )

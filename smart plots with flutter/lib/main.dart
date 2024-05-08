@@ -9,6 +9,7 @@ import './farmer/HistoryScreen.dart';
 import './farmer/RemoteScreen.dart';
 import './farmer/TasksScreen.dart';
 import './vendor/VendorsScreen.dart';
+import './vendor/VendorStoreScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
       "/history":(context) => HistoryScreen(),
       "/remote":(context) => RemoteScreen(),
       "/tasks":(context) => TasksScreen(),
-      "/vendor":(context)=>VendorScreen()
+      "/vendor":(context)=>VendorScreen(),
+      "/vendor_storage"
      },
     );
   }
