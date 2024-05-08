@@ -15,16 +15,19 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 250,
-      height: 100,
+      height: 150,
       margin: EdgeInsets.only(top: 10,bottom: 10),
+      padding: EdgeInsets.all(5),
       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(7))
       ,
       child:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         
         children: [
           Text(this.Date,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
-          ,Row(children:[MyText(text: "EC="+this.EC,),MyText(text: "PH="+this.PH)]),
-          Row(children: [MyText(text: "C="+this.C),MyText(text: "Lux="+this.Lux)],)],
+          ,Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:[MyText(text: "EC="+this.EC,),MyText(text: "PH="+this.PH)]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [MyText(text: "C="+this.C),MyText(text: "Lux="+this.Lux)],)],
       ),
     );
   }
