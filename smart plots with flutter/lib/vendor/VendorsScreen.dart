@@ -19,7 +19,11 @@ class _VendorScreenState extends State<VendorScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100 ,
-        title: MyTitle(text: "Vendor"),
+        title: Row(
+          children: [
+            MyTitle(text: "Vendor"),
+          ],
+        ),
       ),
       body:Container(
         padding: EdgeInsets.only(left:30)
