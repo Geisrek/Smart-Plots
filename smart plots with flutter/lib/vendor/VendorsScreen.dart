@@ -4,7 +4,7 @@ import '../comon/TextInputs.dart';
 class VendorScreen extends StatefulWidget {
    VendorScreen({super.key});
    final serial=InputText(text:"Enter your serial number" );
-   final price=
+   final price=InputText(text: )
   @override
   State<VendorScreen> createState() => _VendorScreenState();
 }
