@@ -18,7 +18,7 @@ class _VendorScreenState extends State<VendorScreen> {
         title: MyTitle(text: "Vendor"),
       ),
       body:Container(
-        padding: EdgeInsets.only(left:20)
+        padding: EdgeInsets.only(left:30)
         ,
         child:Column(children: [
           widget.serial,
