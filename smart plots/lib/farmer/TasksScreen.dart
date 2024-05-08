@@ -9,7 +9,8 @@ class TasksScreen extends StatelessWidget  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyBar(Title: "Tasks",),
+      appBar: MyBar(Title: "Tasks",).MyAppBarr(),
+      body: Column(children: [Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12")],),
 
     );
   }
