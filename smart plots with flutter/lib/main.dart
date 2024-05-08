@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       "/history":(context) => HistoryScreen(),
       "/remote":(context) => RemoteScreen(),
       "/tasks":(context) => TasksScreen(),
-      "/vendor"=>(context)=>VendorScreen()
+      "/vendor":(context)=>VendorScreen()
      },
     );
   }
