@@ -8,7 +8,8 @@ class Controle extends StatelessWidget {
     return Container(padding: EdgeInsets.all(5),
       width: 400
     ,height: 70,
-    decoration: BoxDecoration(color:Color(0xAAFFAA00),borderRadius: BorderRadius.circular(7)),
+    
+    decoration: BoxDecoration(color:Color(0xAAFFAA00),borderRadius: BorderRadius.circular(7),),
     child: Row(crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children:[
