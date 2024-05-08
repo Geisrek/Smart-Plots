@@ -7,6 +7,7 @@ import './farmer/Dashboard.dart';
 import './farmer/CreateScduelScreen.dart';
 import './farmer/HistoryScreen.dart';
 import './farmer/RemoteScreen.dart';
+import './farmer/TasksScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       "/create_Scduel":(context) => CreateScduelScreen(),
       "/history":(context) => HistoryScreen(),
       "/remote":(context) => RemoteScreen(),
-      
+      "/Tasks":(context) => TasksScreen()
      },
     );
   }
