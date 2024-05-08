@@ -47,7 +47,16 @@ class _VendorScreenState extends State<VendorScreen> {
           margin: EdgeInsets.only(top: 10,bottom: 10),
           width: 300,
           height: 100,
-          child: Expanded(child: SingleChildScrollView(),),
+          child: Column(
+            children: [
+              Expanded(child: 
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: ,
+              )
+              ,),
+            ],
+          ),
         )],) ,
       ) ,
     );
