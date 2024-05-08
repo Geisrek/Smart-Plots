@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       "/create_Scduel":(context) => CreateScduelScreen(),
       "/history":(context) => HistoryScreen(),
       "/remote":(context) => RemoteScreen(),
-      "/Tasks":(context) => TasksScreen()
+      "/tasks":(context) => TasksScreen()
      },
     );
   }
