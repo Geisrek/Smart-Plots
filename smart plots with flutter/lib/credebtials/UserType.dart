@@ -7,7 +7,7 @@ class UserType extends StatefulWidget {
   final toggle;
   final rout;
   double width;
-  UserType({super.key,required this.color,required this.text,required this.path,required this.toggle,required this.width});
+  UserType({super.key,this.rout="/",required this.color,required this.text,required this.path,required this.toggle,required this.width});
   State<UserType> createState() => _UserType();
   }
   class _UserType extends State<UserType> {
@@ -16,7 +16,7 @@ class UserType extends StatefulWidget {
   Widget build(BuildContext context) {
     return InkWell( 
       onTap:(){ 
-        Navigator.of(context).pushReplacementNamed(routeName)
+        Navigator.of(context).pushReplacementNamed(widget.)
         widget.toggle();},
       child:  Container(height: 170,
     width: 310,
