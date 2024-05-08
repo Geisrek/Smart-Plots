@@ -17,7 +17,7 @@ class StoreItem extends StatelessWidget {
             SvgPicture.asset("images/usd.svg"),
           MyText(text: this.price)
           ],
-        ),Container(width: ,child: Row())],
+        ),Container(width:100 ,child: Row())],
        ) ,
     );
   }
