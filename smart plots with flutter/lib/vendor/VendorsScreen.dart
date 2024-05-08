@@ -12,6 +12,7 @@ class _VendorScreenState extends State<VendorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: ,
         title: MyTitle(text: "Vendor"),
       ),
     );
