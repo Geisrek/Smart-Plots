@@ -20,7 +20,7 @@ class StoreItem extends StatelessWidget {
           MyText(text: this.price)
           ],
         ),Container(height: 70,width:100 ,
-        decoration: 
+        decoration: BoxDecoration()
         ,child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween 
         ,crossAxisAlignment: CrossAxisAlignment.center
         ,children: [MyText(text: this.product_name,),
