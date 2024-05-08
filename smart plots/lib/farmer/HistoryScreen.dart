@@ -11,6 +11,8 @@ class HistoryScreen extends StatelessWidget {
           child: MyTitle(text: "History"),
         ),
       ),
+      body: Container(height: 600,width: 400,padding: EdgeInsets.all(5),
+      ),
     );
   }
 }
