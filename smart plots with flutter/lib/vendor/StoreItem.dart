@@ -10,7 +10,9 @@ class StoreItem extends StatelessWidget {
       padding: EdgeInsets.all(5),
        child:Row(
         children: [Column(
-          children: [],
+          children: [
+            
+          ],
         )],
        ) ,
     );
