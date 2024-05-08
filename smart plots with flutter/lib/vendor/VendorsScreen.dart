@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../comon/MyTitle.dart';
 import '../comon/TextInputs.dart';
 import '../comon/MyText.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 class VendorScreen extends StatefulWidget {
    VendorScreen({super.key});
    final serial=InputText(text:"Enter your serial number" );
