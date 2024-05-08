@@ -12,7 +12,7 @@ class StoreItem extends StatelessWidget {
       decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius: BorderRadius.circular(7)),
       padding: EdgeInsets.all(5),
        child:Row(
-        mainAxisAlignment: ,
+        mainAxisAlignment:MainAxisAlignment.spaceBetween ,
         children: [Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
