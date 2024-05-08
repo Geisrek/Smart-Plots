@@ -14,7 +14,9 @@ class UserType extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell( 
-      onTap:(){ widget.toggle();},
+      onTap:(){ 
+        Navigator.of(context).pushReplacementNamed(routeName)
+        widget.toggle();},
       child:  Container(height: 170,
     width: 310,
     padding: EdgeInsets.only(left: 5),
