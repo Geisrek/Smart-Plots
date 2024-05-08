@@ -19,7 +19,9 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
         child: Expanded(
           child:  SingleChildScrollView(
              scrollDirection:Axis.vertical,
-             child: Column(),
+             child: Column(
+              children: [],
+             ),
           )
 
         ),
