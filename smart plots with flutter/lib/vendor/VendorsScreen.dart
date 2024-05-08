@@ -30,6 +30,7 @@ class _VendorScreenState extends State<VendorScreen> {
           height: 60 ,
           decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius:BorderRadius.circular(7)),
           child:Row(
+            crossAxisAlignment: ,
             children: [
               MyText(text: "Strawbary "),
             ],
