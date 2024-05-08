@@ -3,7 +3,7 @@ import '../comon/MyTitle.dart';
 import '../comon/TextInputs.dart';
 class VendorScreen extends StatefulWidget {
   const VendorScreen({super.key});
-
+   final serial=
   @override
   State<VendorScreen> createState() => _VendorScreenState();
 }
