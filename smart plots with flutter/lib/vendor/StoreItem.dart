@@ -8,7 +8,7 @@ class StoreItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-
+       child: ,
     );
   }
 }
