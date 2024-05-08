@@ -12,15 +12,19 @@ class TasksScreen extends StatelessWidget  {
     const color=Color(0xFFD9D9D9);
     return Scaffold(
       appBar: MyBar(Title: "Tasks",).MyAppBarr(),
-      body: Container(margin: EdgeInsets.all(5),child:Column(children: [ Stack(children:[SingleChildScrollView(
-          scrollDirection: Axis.vertical,child:  Column(children: [
-            Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
-            Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
-            Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
-            Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,)],)),
+      body: Container(margin: EdgeInsets.all(5),child:Column(children: [ Stack(children:[Container(
+        height: 400,
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,child:  Column(children: [
+              Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
+              Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
+              Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,),
+              Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,)],)),
+      ),
      Positioned(
      
-      top:450,
+      top:800
+      ,
       left: 0,
       right: 0,
       child: Controle(),
