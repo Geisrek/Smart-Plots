@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../comon/MyTitle.dart';
 class VendorScreen extends StatefulWidget {
   const VendorScreen({super.key});
 
