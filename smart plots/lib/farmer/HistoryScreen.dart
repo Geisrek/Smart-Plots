@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../comon/MyTitle.dart';
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class HistoryScreen extends StatelessWidget {
+  const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
