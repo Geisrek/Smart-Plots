@@ -52,7 +52,7 @@ class _VendorScreenState extends State<VendorScreen> {
               Expanded(child: 
               SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: ,
+                child: MyText(text: text),
               )
               ,),
             ],
