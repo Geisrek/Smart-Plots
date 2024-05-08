@@ -14,7 +14,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
     return Scaffold(
        appBar: AppBar(title: Center(child: MyTitle(text: "Sored product",),),),
        body:Container(
-        width: ,
+        width:400 ,
        ) ,
     );
   }
