@@ -9,7 +9,7 @@ class StoreItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+      decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius: ),
       padding: EdgeInsets.all(5),
        child:Row(
         children: [Column(
