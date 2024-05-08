@@ -58,7 +58,7 @@ class _VendorScreenState extends State<VendorScreen> {
             ],
           ),
         ),
-        SizedBox()
+        SizedBox(height: ,)
         ,Button(onPress: (){}, text: "Save")],) ,
       ) ,
     );
