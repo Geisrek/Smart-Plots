@@ -52,7 +52,7 @@ class _VendorScreenState extends State<VendorScreen> {
               Expanded(child: 
               SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: MyText(text: "Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"),
+                child: MyText(text: "Roma, Roma, O Roma! Legio, aeterna, aeterna victrix!Legio, aeterna, aeterna victrix!Verti est sua aeterniordanosta solum tibi Verti est sua aeterni Vita nostra solum tibi Roma, Roma, O Roma!Legio, aeterna, aeterna victrix! Legio, aeterna, aeterna victrix! Legio, aeterna, aeterna victrix! Legio, aeterna, aeterna victrix!!"),
               )
               ,),
             ],
