@@ -9,7 +9,7 @@ class StoreItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(5),
        child:Row(
-        children: [],
+        children: [Column()],
        ) ,
     );
   }
