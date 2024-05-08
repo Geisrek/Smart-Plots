@@ -16,6 +16,7 @@ class HistoryItem extends StatelessWidget {
     return Container(
       width: 250,
       height: 100,
+      margin: EdgeInsets.only(top: 10,bottom: 10),
       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(7))
       ,
       child:  Column(

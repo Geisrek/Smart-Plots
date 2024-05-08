@@ -12,6 +12,11 @@ class HistoryScreen extends StatelessWidget {
         ),
       ),
       body: Container(height: 600,width: 400,padding: EdgeInsets.all(5),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center
+      ,children: [
+        MyTitle(text: "Plot 1"),
+        
+      ],),
       ),
     );
   }
