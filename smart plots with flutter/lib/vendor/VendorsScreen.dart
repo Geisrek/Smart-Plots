@@ -33,7 +33,7 @@ class _VendorScreenState extends State<VendorScreen> {
           child:Row(
             crossAxisAlignment: CrossAxisAlignment.center ,
             children: [
-              MyText(text: "Strawbary "),
+              MyText(text: "Strawbary, "),
               SizedBox(width: 8,),
               MyText(text: "Bikaa")
             ],
