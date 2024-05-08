@@ -15,6 +15,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
        appBar: AppBar(title: Center(child: MyTitle(text: "Sored product",),),),
        body:Container(
         width:400 ,
+        height: ,,
        ) ,
     );
   }
