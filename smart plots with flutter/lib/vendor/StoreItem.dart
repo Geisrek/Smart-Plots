@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import '../comon/MyText.dart';
 class StoreItem extends StatelessWidget {
   const StoreItem({super.key});
 
@@ -11,7 +11,8 @@ class StoreItem extends StatelessWidget {
        child:Row(
         children: [Column(
           children: [
-            SvgPicture.asset("images/usd.svg")
+            SvgPicture.asset("images/usd.svg"),
+    
           ],
         )],
        ) ,
