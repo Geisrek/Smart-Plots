@@ -44,7 +44,7 @@ class _VendorScreenState extends State<VendorScreen> {
           )
           ),
         Container(
-          margin: ,
+          margin: EdgeInsets.only(top: 10),
         )],) ,
       ) ,
     );
