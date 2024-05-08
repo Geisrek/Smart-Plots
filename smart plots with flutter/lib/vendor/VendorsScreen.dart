@@ -22,7 +22,7 @@ class _VendorScreenState extends State<VendorScreen> {
         title: Row(
           children: [
             MyTitle(text: "Vendor"),
-            SizedBox(width: 130,),
+            SizedBox(width: 135,),
             IconButton(onPressed: (){}, icon: SvgPicture.asset("./images/saved.svg"))
           ],
         ),
