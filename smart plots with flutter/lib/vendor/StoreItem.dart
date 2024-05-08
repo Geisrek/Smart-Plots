@@ -23,7 +23,7 @@ class StoreItem extends StatelessWidget {
         ,crossAxisAlignment: CrossAxisAlignment.center
         ,children: [MyText(text: this.product_name,),
         IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon: SvgPicture.asset("images/history.svg"))],))
-        IconButton(onPressed: (){}, icon: icon)],
+        IconButton(onPressed: (){}, icon: SvgPicture.asset(assetName))],
        ) ,
     );
   }
