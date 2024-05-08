@@ -50,7 +50,7 @@ class _DashBoard extends State<DashBoard> {
             SizedBox(height: 5,)
             ,
             Container(margin: EdgeInsets.only(left: 10),child: Container(width: 170,child: MyText(text: "Ai recomandation",),),)
-            ,SizedBox(height: 20,),Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [MyText(text:"Air humidity"),SizedBox(width: 20,),MyText(text: "Sol humidity"),IconButton(onPressed: (){Navigator.of(context).pushNamed("/history")}, icon:  SvgPicture.asset("./images/history.svg") )],),)
+            ,SizedBox(height: 20,),Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [MyText(text:"Air humidity"),SizedBox(width: 20,),MyText(text: "Sol humidity"),IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon:  SvgPicture.asset("./images/history.svg") )],),)
             ,
             SizedBox(height: 20,)
             ,
