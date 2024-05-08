@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../comon/MyText.dart';
 class StoreItem extends StatelessWidget {
-  const StoreItem({super.key});
+  final String price;
+  const StoreItem({super.key,});
 
   @override
   Widget build(BuildContext context) {
