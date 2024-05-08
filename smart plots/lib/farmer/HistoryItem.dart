@@ -14,7 +14,7 @@ class HistoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 350,
       height: 150,
       margin: EdgeInsets.only(top: 10,bottom: 10),
       padding: EdgeInsets.all(5),
