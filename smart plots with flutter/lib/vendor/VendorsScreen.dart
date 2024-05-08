@@ -19,7 +19,9 @@ class _VendorScreenState extends State<VendorScreen> {
       body:Container(
         padding: EdgeInsets.all(10)
         ,
-        child:Column(children: [],) ,
+        child:Column(children: [
+          InputText(text: text)
+        ],) ,
       ) ,
     );
   }
