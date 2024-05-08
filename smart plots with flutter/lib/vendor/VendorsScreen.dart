@@ -35,7 +35,8 @@ class _VendorScreenState extends State<VendorScreen> {
             children: [
               MyText(text: "Strawbary, "),
               SizedBox(width: 8,),
-              MyText(text: "Bikaa")
+              MyText(text: "Bikaa"),
+              Expanded()
             ],
           )
           ),
