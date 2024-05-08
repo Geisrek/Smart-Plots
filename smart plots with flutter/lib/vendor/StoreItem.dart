@@ -13,7 +13,7 @@ class StoreItem extends StatelessWidget {
         children: [Column(
           children: [
             SvgPicture.asset("images/usd.svg"),
-          MyText(text: text)
+          MyText(text: this.price)
           ],
         )],
        ) ,
