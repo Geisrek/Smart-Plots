@@ -28,6 +28,7 @@ class _VendorScreenState extends State<VendorScreen> {
           SizedBox(height: 10,),
           Container(width: 300,
           height: 60 ,
+          padding: EdgeInsets,
           decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius:BorderRadius.circular(7)),
           child:Row(
             crossAxisAlignment: CrossAxisAlignment.center ,
