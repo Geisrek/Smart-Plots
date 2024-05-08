@@ -27,7 +27,7 @@ class _VendorScreenState extends State<VendorScreen> {
         child:Column(children: [
           widget.serial,
           SizedBox(height: 10,),
-          widget.price,
+          widget.purchasing_price,
           SizedBox(height: 10,),
           Container(width: 300,
           height: 60 ,
