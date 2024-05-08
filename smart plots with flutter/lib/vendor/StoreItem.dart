@@ -4,7 +4,7 @@ import '../comon/MyText.dart';
 class StoreItem extends StatelessWidget {
   final String price;
   final String product_name;
-  const StoreItem({super.key, required this.price});
+  const StoreItem({super.key, required this.price,required this.product_name});
 
   @override
   Widget build(BuildContext context) {
