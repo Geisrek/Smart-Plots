@@ -36,7 +36,8 @@ class _VendorScreenState extends State<VendorScreen> {
               MyText(text: "Strawbary, "),
               SizedBox(width: 8,),
               MyText(text: "Bikaa"),
-              Expanded(child: SizedBox(width: 200,),)
+              Expanded(child: SizedBox(width: 200,),),
+              IconButton(onPressed: onPressed, icon: icon)
             ],
           )
           ),
