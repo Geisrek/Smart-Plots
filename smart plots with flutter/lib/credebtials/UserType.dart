@@ -5,6 +5,7 @@ class UserType extends StatefulWidget {
   final String  text;
   final String  path;
   final toggle;
+  final rout;
   double width;
   UserType({super.key,required this.color,required this.text,required this.path,required this.toggle,required this.width});
   State<UserType> createState() => _UserType();
