@@ -31,7 +31,7 @@ class _VendorScreenState extends State<VendorScreen> {
           decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius:BorderRadius.circular(7)),
           child:Row(
             children: [
-              MyText(text: text)
+              MyText(text: "Strawbary "),
             ],
           )
           ),
