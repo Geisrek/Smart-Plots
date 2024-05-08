@@ -8,7 +8,7 @@ class ClientScreen extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         title: Center(
-          child: ,
+          child: Column(),
         ),),
     );
   }
