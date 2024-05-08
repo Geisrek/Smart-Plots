@@ -16,6 +16,7 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
        body:Container(
         width:400 ,
         height: 600,
+        child: ,
        ) ,
     );
   }
