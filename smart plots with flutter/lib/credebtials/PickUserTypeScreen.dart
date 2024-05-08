@@ -18,12 +18,12 @@ class _PickUserType extends State<PickUserType> {
     }
   }
   void userToggler2(){
-  setState(){
+ // setState(){
     width_2==0?3:0;
     width_1=0;
     width_3=0;
-    //Navigator.of(context).pushReplacementNamed("/vendor");
-    }
+    Navigator.of(context).pushReplacementNamed("/vendor");
+   // }
     
   }
   void userToggler3(){
