@@ -7,7 +7,8 @@ import '../comon/Button.dart';
 class VendorScreen extends StatefulWidget {
    VendorScreen({super.key});
    final serial=InputText(text:"Enter your serial number" );
-   final price=InputText(text: "Enter the purchasing price");
+   final purchasing_price=InputText(text: "Enter the purchasing price");
+   final 
   @override
   State<VendorScreen> createState() => _VendorScreenState();
 }
@@ -59,6 +60,8 @@ class _VendorScreenState extends State<VendorScreen> {
           ),
         ),
         SizedBox(height: 250,)
+        ,
+        
         ,Button(onPress: (){}, text: "Save")],) ,
       ) ,
     );
