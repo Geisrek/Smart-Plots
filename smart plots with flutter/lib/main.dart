@@ -8,6 +8,7 @@ import './farmer/CreateScduelScreen.dart';
 import './farmer/HistoryScreen.dart';
 import './farmer/RemoteScreen.dart';
 import './farmer/TasksScreen.dart';
+import './vendor/VendorsScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
