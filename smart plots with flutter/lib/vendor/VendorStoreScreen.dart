@@ -20,7 +20,9 @@ class _VendorStoreScreenState extends State<VendorStoreScreen> {
           child:  SingleChildScrollView(
              scrollDirection:Axis.vertical,
              child: Column(
-              children: [],
+              children: [
+                StoreItem(price: price, product_name: product_name)
+              ],
              ),
           )
 
