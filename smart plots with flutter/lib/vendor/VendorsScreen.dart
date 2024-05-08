@@ -26,7 +26,8 @@ class _VendorScreenState extends State<VendorScreen> {
           widget.price,
           SizedBox(height: 10,),
           Container(width: 300,
-          height: 60 ,)
+          height: 60 ,
+          decoration: BoxDecoration(),)
         ],) ,
       ) ,
     );
