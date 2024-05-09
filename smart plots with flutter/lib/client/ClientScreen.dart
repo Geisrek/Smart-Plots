@@ -9,6 +9,7 @@ class ClientScreen extends StatelessWidget {
       appBar: AppBar(
         title: Center(
           child: Column(
+            crossAxisAlignment: ,
             children: [],
           ),
         ),),
