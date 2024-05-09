@@ -1,5 +1,6 @@
 import 'package:Smart_pluts/comon/MyText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ClientScreen extends StatelessWidget {
   const ClientScreen({super.key});
@@ -46,7 +47,7 @@ class ClientScreen extends StatelessWidget {
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(borderRadius:BorderRadius.circular(50) ) ,
-                      child: Image,
+                      child: SvgPicture.asset("./images/vegetables.svg"),
                     )],
                   ),
                 )
