@@ -20,6 +20,7 @@ class ClientScreen extends StatelessWidget {
             ],
           ),
         ),),
+        body: ,
     );
   }
 }
