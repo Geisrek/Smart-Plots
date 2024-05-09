@@ -30,7 +30,9 @@ class ClientScreen extends StatelessWidget {
                   width: 380 ,
                   height:200 ,
                   child: Row(
-                    children: [],
+                    children: [
+                      Column()
+                    ],
                   ),
                 )
               ],
