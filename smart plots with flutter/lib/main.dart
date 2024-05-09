@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       "/tasks":(context) => TasksScreen(),
       "/vendor":(context)=>VendorScreen(),
       "/vendor_storage":(context) => VendorStoreScreen()
+      "/client":(context) => 
      },
     );
   }
