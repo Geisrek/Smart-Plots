@@ -7,6 +7,7 @@ class ClientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
+        toolbarHeight: ,
         title: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center ,
