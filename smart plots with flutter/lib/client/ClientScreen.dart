@@ -12,7 +12,7 @@ class ClientScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center ,
             children: [
               Container(
-                width: ,
+                width: 100 ,
               )
             ],
           ),
