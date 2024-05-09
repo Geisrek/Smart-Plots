@@ -28,6 +28,7 @@ class ClientScreen extends StatelessWidget {
               Center(
                 child: Container(
                   width: 380 ,
+                  height: ,
                 ),
               )
             ],
