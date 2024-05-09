@@ -31,7 +31,7 @@ class ClientScreen extends StatelessWidget {
                 Container(
                   
                   decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
-                  width: 250 ,
+                  width: 300 ,
                   height:150 ,
                   child: Row(
                     crossAxisAlignment:CrossAxisAlignment.center ,
