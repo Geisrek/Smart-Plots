@@ -10,6 +10,7 @@ import './farmer/RemoteScreen.dart';
 import './farmer/TasksScreen.dart';
 import './vendor/VendorsScreen.dart';
 import './vendor/VendorStoreScreen.dart';
+import './client/ClientScreen.dart';
 void main() {
   runApp(const MyApp());
 } 
