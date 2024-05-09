@@ -14,7 +14,7 @@ class ClientScreen extends StatelessWidget {
               Container(
                 width: 100 ,
                 height: 100,
-                child: ClipRRect(child: Image,),
+                child: ClipRRect(child: Image.asset("images/client-avatar.png"),),
               )
             ],
           ),
