@@ -28,6 +28,7 @@ class ClientScreen extends StatelessWidget {
             child: Column(
               children: [
                 Container(
+                  decoration: ,
                   width: 380 ,
                   height:200 ,
                   child: Row(
@@ -45,7 +46,7 @@ class ClientScreen extends StatelessWidget {
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(borderRadius:BorderRadius.circular(50) ) ,
-                      ,
+                      
                     )],
                   ),
                 )
