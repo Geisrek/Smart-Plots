@@ -41,7 +41,9 @@ class ClientScreen extends StatelessWidget {
                           MyText(text: "3\$",)
                         ],
                       )
-                    ,Container()],
+                    ,Container(
+                      width: ,
+                    )],
                   ),
                 )
               ],
