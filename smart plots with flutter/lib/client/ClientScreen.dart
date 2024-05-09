@@ -34,6 +34,7 @@ class ClientScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
+                        mainAxisAlignment: ,
                         children: [],
                       )
                     ],
