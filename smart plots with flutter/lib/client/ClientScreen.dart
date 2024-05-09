@@ -24,7 +24,9 @@ class ClientScreen extends StatelessWidget {
           width: 400,
           height:600 ,
           child: Column(
-            children: [],
+            children: [
+              Container()
+            ],
           ),
         ),
     );
