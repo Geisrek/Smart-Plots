@@ -53,7 +53,31 @@ class ClientScreen extends StatelessWidget {
                     )],
                   ),
                 )
-              ],
+              ,Container(
+                  
+                  decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
+                  padding: EdgeInsets.all(10),
+                  width: 300 ,
+                  height:150 ,
+                  child: Row(
+                    crossAxisAlignment:CrossAxisAlignment.center ,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween ,
+                        children: [
+                          MyText(text: "Cabage"),
+                          MyText(text: "3\$",)
+                        ],
+                      )
+                    ,Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(borderRadius:BorderRadius.circular(50) ) ,
+                      child: SvgPicture.asset("./images/vegetable.svg"),
+                    )],
+                  ),
+                )],
             ),
           ),
         ),
