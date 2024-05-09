@@ -1,7 +1,7 @@
 import 'package:Smart_pluts/comon/MyText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import '../comon/MyText.dart';
 class ClientScreen extends StatelessWidget {
   const ClientScreen({super.key});
 
