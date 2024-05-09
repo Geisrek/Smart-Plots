@@ -66,15 +66,15 @@ class ClientScreen extends StatelessWidget {
                       Column(
                         mainAxisAlignment:MainAxisAlignment.spaceBetween ,
                         children: [
-                          MyText(text: "Cabage"),
-                          MyText(text: "3\$",)
+                          MyText(text: "Banana"),
+                          MyText(text: "2\$",)
                         ],
                       )
                     ,Container(
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(borderRadius:BorderRadius.circular(50) ) ,
-                      child: SvgPicture.asset("./images/vegetable.svg"),
+                      child: SvgPicture.asset("./images/fruit.svg"),
                     )],
                   ),
                 )],
