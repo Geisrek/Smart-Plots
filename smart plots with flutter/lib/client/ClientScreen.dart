@@ -21,7 +21,7 @@ class ClientScreen extends StatelessWidget {
           ),
         ),),
         body: Container(
-          
+          width: 400,
         ),
     );
   }
