@@ -46,7 +46,7 @@ class ClientScreen extends StatelessWidget {
                       width: 70,
                       height: 70,
                       decoration: BoxDecoration(borderRadius:BorderRadius.circular(50) ) ,
-                      
+                      child: ,
                     )],
                   ),
                 )
