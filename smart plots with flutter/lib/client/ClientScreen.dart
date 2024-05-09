@@ -10,7 +10,9 @@ class ClientScreen extends StatelessWidget {
         title: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center ,
-            children: [],
+            children: [
+              Container()
+            ],
           ),
         ),),
     );
