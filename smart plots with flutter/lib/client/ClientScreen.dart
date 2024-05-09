@@ -42,7 +42,7 @@ class ClientScreen extends StatelessWidget {
                         ],
                       )
                     ,Container(
-                      width: ,
+                      width: 70,
                     )],
                   ),
                 )
