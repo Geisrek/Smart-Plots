@@ -54,7 +54,7 @@ class ClientScreen extends StatelessWidget {
                   ),
                 )
               ,
-              SizedBox(height: ,)
+              SizedBox(height: 20,)
               ,Container(
                   
                   decoration: BoxDecoration(color: Color(0xFFD9D9D9)),
