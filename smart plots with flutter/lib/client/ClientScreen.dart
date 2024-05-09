@@ -1,3 +1,4 @@
+import 'package:Smart_pluts/comon/MyText.dart';
 import 'package:flutter/material.dart';
 
 class ClientScreen extends StatelessWidget {
@@ -35,7 +36,9 @@ class ClientScreen extends StatelessWidget {
                     children: [
                       Column(
                         mainAxisAlignment:MainAxisAlignment.center ,
-                        children: [],
+                        children: [
+                          MyText(text: text)
+                        ],
                       )
                     ],
                   ),
