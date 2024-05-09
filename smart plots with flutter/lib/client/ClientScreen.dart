@@ -37,7 +37,8 @@ class ClientScreen extends StatelessWidget {
                       Column(
                         mainAxisAlignment:MainAxisAlignment.center ,
                         children: [
-                          MyText(text: text)
+                          MyText(text: "Cabage"),
+                          MyText()
                         ],
                       )
                     ],
