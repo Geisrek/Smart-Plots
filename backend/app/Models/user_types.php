@@ -9,4 +9,7 @@ class user_types extends Model
 {
     use HasFactory;
     protected $fillable = ["user_id",'user_type'];
+    public function users(){
+        
+    }
 }
