@@ -15,7 +15,7 @@ return new class extends Migration
           $table->id();
           $table->unsignedunsignedBigInteger("user_id");
           $table->foreign("user_id")->references("id")->on("users");
-          $table->string("user_type");
+          $table->enum("user_type",["farmer","vendor","client"]);
         });
     }
 
