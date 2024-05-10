@@ -55,7 +55,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'user_address'=>$request->user_address,
-            
+            'user_image'=>$request->user_image
         ]);
 
         $token = Auth::login($user);
