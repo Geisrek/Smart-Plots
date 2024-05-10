@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_types',function(Blueprint $table){
           $table->id();
-          $table->unsignedunsignedBigInteger("user_id");
+          $table->unsignedBigInteger("user_id");
           $table->foreign("user_id")->references("id")->on("users");
           $table->enum("user_type",["farmer","vendor","client"]);
         });
