@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_types',function(Blueprint $table){
           $table->id();
           $table->unsignedunsignedBigInteger("user_id");
-          $table->foreign("user_id")
+          $table->foreign("user_id")->references("id")->on("user");
         });
     }
 
