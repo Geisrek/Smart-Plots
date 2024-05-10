@@ -7,7 +7,7 @@ import '../comon/MyTitle.dart';
 import '../comon/MyText.dart';
 import '../comon/Button.dart';
 import 'package:http/http.dart' as http;
-
+import 'dart:convert';
 class SigninScreen extends StatelessWidget {
    SigninScreen({super.key});
   final   email=InputText(text: "Email");
@@ -26,7 +26,17 @@ class SigninScreen extends StatelessWidget {
           SizedBox(height: 20,),
           password,
           SizedBox(height: 20,),
-          Button(onPress: (){Navigator.of(context).pushReplacementNamed("/dashboard");}, text: "Login"),
+          Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
+          try{
+          dynamic response=await http.get(
+            //https://official-joke-api.appspot.com/random_joke
+            Uri.parse("http://192.168.0.100:8000/api/hello"),
+            );
+            print(response);}
+            catch(err){
+              print(err);
+            }
+            }, text: "Login"),
           Container(padding: 
           EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 50),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
