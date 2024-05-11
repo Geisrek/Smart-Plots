@@ -12,4 +12,7 @@ class user_types extends Model
     public function users(){
         return $this->belongsTo(User::class);
     }
+    public function usersTypesRelations(){
+        return $this->hasMany(User::class);
+    }
 }
