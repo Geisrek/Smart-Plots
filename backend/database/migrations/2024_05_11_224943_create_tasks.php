@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger("air_humidity");
             $table->unsignedBigInteger("temperature");
             $table->date("schedule_date");
+            $table->unsignedBigInteger("plot_id");
+            
             $table->timestamps();
         });
     }
