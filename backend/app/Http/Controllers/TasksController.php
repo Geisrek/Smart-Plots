@@ -12,7 +12,7 @@ class TasksController extends Controller
             'light'=>$req->light,
             'sol_humidity'=>$req->sol_humidity,
             'air_humidity'=>$req->air_humidity,
-            'temperature',
+            'temperature'=>$req->temperature,
             'schedule_date',
             'plot_id'
         ]);
