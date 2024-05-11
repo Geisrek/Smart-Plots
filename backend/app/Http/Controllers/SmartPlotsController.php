@@ -15,5 +15,8 @@ class SmartPlotsController extends Controller
         'address'=>$address,
         'product'=>$product
        ]);
+       return response()->json([
+        "status"=>"success"
+       ]);
     }
 }
