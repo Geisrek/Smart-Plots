@@ -8,6 +8,8 @@ use App\Models\tasks;
 class TasksController extends Controller
 {
     function createTask(Request $req){
-        
+        tasks::craete([
+            
+        ]);
     }
 }
