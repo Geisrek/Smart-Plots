@@ -19,7 +19,7 @@ class InsertUserTypeMidleware
         if(count(get_object_vars($user))>=1){
             return response()->json([
                 "success"=>"fail",
-                "message"
+                "message"=>"this user already have a type"
             ]);
         }
         return $next($request);
