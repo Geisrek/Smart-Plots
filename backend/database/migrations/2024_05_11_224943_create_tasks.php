@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("light");
-            
+            $table->unsignedBigInteger("sol_humidity");
+
             $table->timestamps();
         });
     }
