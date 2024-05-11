@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\SmartPlotsController;
+use App\Http\Controllers\TasksController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
