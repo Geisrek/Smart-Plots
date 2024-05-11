@@ -14,7 +14,8 @@ use App\Http\Controllers\UserTypeController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/insertUser',[UserTypeController::class,'createUserType']);
+
+Route::post('/insertUser',[UserTypeController::class,'createUserType'])->middleware('userType');
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
