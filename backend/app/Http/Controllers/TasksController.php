@@ -9,7 +9,12 @@ class TasksController extends Controller
 {
     function createTask(Request $req){
         tasks::craete([
-            
+            'light'=>$req->light,
+            'sol_humidity',
+            'air_humidity',
+            'temperature',
+            'schedule_date',
+            'plot_id'
         ]);
     }
 }
