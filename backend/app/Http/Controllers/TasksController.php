@@ -16,5 +16,8 @@ class TasksController extends Controller
             'schedule_date'=>$req->schedule_date,
             'plot_id'=>$req->plot_id
         ]);
+        return response()->json([
+            "status"=>"success"
+        ]);
     }
 }
