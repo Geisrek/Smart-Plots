@@ -15,7 +15,7 @@ use App\Http\Controllers\SmartPlotsController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::post('createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType'])->middleware('userType');
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
