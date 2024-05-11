@@ -15,6 +15,13 @@ class InsertUserTypeMidleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $user_type=user_types::where('user_type',$request['user_type'])->get();
+        if(count(get_object_vars($user))>=1){
+            return response()->json([
+                "success"=>"fail",
+                "message"
+            ]);
+        }
         return $next($request);
     }
 }
