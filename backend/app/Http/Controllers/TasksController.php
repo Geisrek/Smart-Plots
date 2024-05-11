@@ -11,7 +11,7 @@ class TasksController extends Controller
         tasks::craete([
             'light'=>$req->light,
             'sol_humidity'=>$req->sol_humidity,
-            'air_humidity',
+            'air_humidity'=>$req->air_humidity,
             'temperature',
             'schedule_date',
             'plot_id'
