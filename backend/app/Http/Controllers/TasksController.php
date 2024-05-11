@@ -14,7 +14,7 @@ class TasksController extends Controller
             'air_humidity'=>$req->air_humidity,
             'temperature'=>$req->temperature,
             'schedule_date'=>$req->schedule_date,
-            'plot_id'
+            'plot_id'=>$req->plot_id
         ]);
     }
 }
