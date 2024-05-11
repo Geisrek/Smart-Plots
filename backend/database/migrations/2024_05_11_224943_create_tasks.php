@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("light");
             $table->unsignedBigInteger("sol_humidity");
             $table->unsignedBigInteger("air_humidity");
+            $table->unsignedBigInteger("temperature");
             $table->timestamps();
         });
     }
