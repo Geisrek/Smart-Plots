@@ -16,6 +16,7 @@ use App\Http\Controllers\TasksController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/createTask',[TasksController::class,'createTask']);
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType'])->middleware('userType');
 Route::controller(UserController::class)->group(function () {
