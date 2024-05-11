@@ -7,8 +7,8 @@ use App\Models\user_types;
 class UserTypeController extends Controller
 {
     function createUserType(Request $req){
-        $user_id=$req->query('user_id');
-        $user_type=$req->query('user_type');
+        $user_id=$req->user_id;
+        $user_type=$req->user_type;
         user_types::insert([
             "user_id"=>$user_id,
             "user_type"=>$user_type
