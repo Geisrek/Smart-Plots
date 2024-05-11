@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class tasks extends Model
 {
     use HasFactory;
-    protected $fillable=['light','sol_humidity','air_humidity','temperature'];
+    protected $fillable=['light','sol_humidity','air_humidity','temperature','schedule_date'];
 }
