@@ -6,7 +6,8 @@ class PasswordInput extends StatefulWidget {
   @override
   State<PasswordInput> createState() => state;
   String getText(){
-    return state.getText();
+
+    return state._textController.text;
   }
 }
 
@@ -21,6 +22,7 @@ class _PasswordInput extends State<PasswordInput> {
   String getText(){
     return _textController.text;
   }
+  String get text =>getText();
   @override
   Widget build(BuildContext context) {
     return  Container(child:TextFormField(

@@ -28,11 +28,21 @@ class SigninScreen extends StatelessWidget {
           SizedBox(height: 20,),
           Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
           try{
-          dynamic response=await http.get(
+          dynamic response=await http.post(
             //https://official-joke-api.appspot.com/random_joke
-            Uri.parse("http://192.168.0.100:8000/api/hello"),
-            );
-            print(response);}
+            Uri.parse("http://192.168.0.100:8000/api/login"),
+             headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'email': email.getText(),
+      'password':password.getText()
+    }),
+           );
+           final data=jsonDecode(response.body);
+            if(data['status']=='success'){
+              Navigator.of(context).pushReplacementNamed("/dashboard");
+            };}
             catch(err){
               print(err);
             }

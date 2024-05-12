@@ -6,6 +6,8 @@ import '../comon/TextInputs.dart';
 import '../comon/MyTitle.dart';
 import '../comon/MyText.dart';
 import '../comon/Button.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class SignupScreen extends StatelessWidget {
    SignupScreen({super.key});
    final   userName=InputText(text: "Username",);
@@ -30,7 +32,33 @@ class SignupScreen extends StatelessWidget {
           SizedBox(height: 20,),
           password,
           SizedBox(height: 20,),
-          Button(onPress: (){Navigator.of(context).pushNamed("/pickuser");}, text: "Login"),
+          Button(onPress: ()async{
+          try{
+          dynamic response=await http.post(
+            //https://official-joke-api.appspot.com/random_joke
+            Uri.parse("http://192.168.0.100:8000/api/register"),
+             headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name':userName.getText(),
+      'email': email.getText(),
+      'password':password.getText(),
+      'user_address':"Saida"
+    }),
+           );
+           print(response.body+","+password.getText()+","+email.getText()+","+userName.getText());
+           final data=jsonDecode(response.body);
+            if(data['status']=='success'){
+              print("success");
+              Navigator.of(context).pushReplacementNamed("/pickuser");
+            };}
+            catch(err){
+              print(err);
+            }
+          
+          
+  }, text: "Login"),
           Container(padding: 
           EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 10),height: 40,child:
             Row(crossAxisAlignment: CrossAxisAlignment.center,children: 
