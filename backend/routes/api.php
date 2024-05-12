@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\SmartPlotsController;
 use App\Http\Controllers\TasksController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +18,7 @@ use App\Http\Controllers\TasksController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/deleteTask',[TasksController::class,'removeTask']);
 Route::post('/createTask',[TasksController::class,'createTask']);
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType'])->middleware('userType');
