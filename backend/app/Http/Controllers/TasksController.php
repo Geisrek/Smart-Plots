@@ -28,4 +28,12 @@ class TasksController extends Controller
             "status"=>"element deleted success"
         ]);
     }
+    function finishTask(Request $req){
+        $id = $req->id;
+        $task=tasks::where('id',$id)->first();
+        $task->delete();
+        return response()->json([
+            "status"=>"element deleted success"
+        ]);
+    }
 }
