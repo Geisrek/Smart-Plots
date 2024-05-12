@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tasks;
-
+use App\Models\history;
 class TasksController extends Controller
 {
     function createTask(Request $req){
@@ -31,6 +31,7 @@ class TasksController extends Controller
     function finishTask(Request $req){
         $id = $req->id;
         $task=tasks::where('id',$id)->first();
+        history::create($task);
         $task->delete();
         return response()->json([
             "status"=>"element deleted success"
