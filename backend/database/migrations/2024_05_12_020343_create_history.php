@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger("temperature");
             $table->date("schedule_date");
             $table->unsignedBigInteger("plot_id");
-            $table->foreign("plot_id")->references("plot_id")->on('tasks');
             $table->timestamps();
         });
     }

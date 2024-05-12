@@ -15,8 +15,10 @@ class InsertTaskMidleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+       
         $isExist=tasks::where('schedule_date',$request['schedule_date'])->first();
-        if(count(get_object_vars($isExist))>=1){
+       
+        if(!is_null($isExist)&&count(get_object_vars($isExist))>=1){
             return response()->json([
                 "success"=>"fail",
                 "message"=>"this user already have a type"

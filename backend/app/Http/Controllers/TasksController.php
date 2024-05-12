@@ -8,6 +8,7 @@ use App\Models\history;
 class TasksController extends Controller
 {
     function createTask(Request $req){
+       
         tasks::create([
             'light'=>$req->light,
             'sol_humidity'=>$req->sol_humidity,
@@ -31,10 +32,18 @@ class TasksController extends Controller
     function finishTask(Request $req){
         $id = $req->id;
         $task=tasks::where('id',$id)->first();
-        history::create($task);
-        $task->delete();
+       
+        history::create([
+            'light'=> $task['light'],
+            'air_humidity'=>$task['air_humidity'],
+            'schedule_date'=>$task['schedule_date'],
+            'sol_humidity'=>$task['sol_humidity'],
+            'temperature'=> $task['temperature'],
+            'plot_id'=> $task['plot_id']]);
+       $task->delete();
         return response()->json([
-            "status"=>"element deleted success"
+            "status"=>"Task is finished",
+           
         ]);
     }
 }

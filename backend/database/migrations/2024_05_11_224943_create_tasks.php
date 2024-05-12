@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("temperature");
             $table->date("schedule_date");
             $table->unsignedBigInteger("plot_id");
-            $table->foreign("plot_id")->references("user_id")->on('smart_plots');
+            $table->foreign("plot_id")->references("id")->on('smart_plots');
             $table->timestamps();
         });
     }
