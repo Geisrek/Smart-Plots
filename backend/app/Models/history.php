@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class history extends Model
 {
     use HasFactory;
+    protected $fillable=['light','sol_humidity','air_humidity','temperature','schedule_date','plot_id'];
 }
