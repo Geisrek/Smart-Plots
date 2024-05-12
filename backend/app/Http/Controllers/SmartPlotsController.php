@@ -19,4 +19,7 @@ class SmartPlotsController extends Controller
         "status"=>"success"
        ]);
     }
+    function getPlots(Request $req){
+        
+    }
 }

@@ -47,7 +47,7 @@ class SignupScreen extends StatelessWidget {
       'user_address':"Saida"
     }),
            );
-           );
+          
            final data=jsonDecode(response.body);
             if(data['status']=='success'){
               print("success");
