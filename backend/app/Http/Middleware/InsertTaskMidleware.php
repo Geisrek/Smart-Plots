@@ -13,7 +13,7 @@ class InsertTaskMidleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handleTask(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $isExist=tasks::where('schedule_date',$request['schedule_date'])->first();
         if(count(get_object_vars($isExist))>=1){

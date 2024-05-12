@@ -19,7 +19,7 @@ use App\Http\Controllers\TasksController;
 |
 */
 Route::post('/deleteTask',[TasksController::class,'removeTask']);
-Route::post('/createTask',[TasksController::class,'createTask']);
+Route::post('/createTask',[TasksController::class,'createTask'])->middleware('createTasks');
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType'])->middleware('userType');
 Route::controller(UserController::class)->group(function () {
