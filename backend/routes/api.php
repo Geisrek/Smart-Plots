@@ -18,6 +18,7 @@ use App\Http\Controllers\TasksController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/finishTask',[TasksController::class,'finishTask']);
 Route::post('/deleteTask',[TasksController::class,'removeTask']);
 Route::post('/createTask',[TasksController::class,'createTask'])->middleware('createTasks');
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
