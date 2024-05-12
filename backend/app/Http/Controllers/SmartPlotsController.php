@@ -21,7 +21,7 @@ class SmartPlotsController extends Controller
     }
     function getPlots(Request $req){
         $user_id=$req->user_id;
-        $plots=user_plots::where('user_id')->get();
+        $plots=user_plots::where('user_id',$user_id)->get();
         return response()->json([
             "message"=>"success",
             "plots"=>$plots
