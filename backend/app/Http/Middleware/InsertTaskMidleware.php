@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\tasks;
 class InsertTaskMidleware
 {
     /**
@@ -13,8 +13,15 @@ class InsertTaskMidleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handleTask(Request $request, Closure $next): Response
     {
+        $isExist=tasks::where('schedule_date',$request['schedule_date'])->first();
+        if(count(get_object_vars($isExist))>=1){
+            return response()->json([
+                "success"=>"fail",
+                "message"=>"this user already have a type"
+            ]);
+        }
         return $next($request);
     }
 }
