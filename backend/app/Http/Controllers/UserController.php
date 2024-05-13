@@ -16,6 +16,20 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+        $token = $request->bearerToken();
+
+    if ($token) {
+        // Authenticate using the token
+        $user = Auth::user();
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ],
+        ]);
+    }
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../comon/Logo.dart';
 import '../comon/TextInputs.dart';
 import '../comon/MyTitle.dart';
@@ -10,8 +13,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 class SigninScreen extends StatelessWidget {
    SigninScreen({super.key});
+   
   final   email=InputText(text: "Email");
   final  password=PasswordInput();
+  void setBearer (value) async{
+       final data=await SharedPreferences.getInstance();
+       data.setString('credential',value);
+  }
+   getBearer() async{
+    final data=await SharedPreferences.getInstance();
+    
+    return data.getString('credential');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +41,12 @@ class SigninScreen extends StatelessWidget {
           SizedBox(height: 20,),
           Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
           try{
+          final data=await SharedPreferences.getInstance();
+    
+           final token= data.getString('credential');
+           if(token==null){
           dynamic response=await http.post(
-            //https://official-joke-api.appspot.com/random_joke
+          
             Uri.parse("http://192.168.0.100:8000/api/login"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -40,9 +57,34 @@ class SigninScreen extends StatelessWidget {
     }),
            );
            final data=jsonDecode(response.body);
+           
             if(data['status']=='success'){
+              
+              final info=await SharedPreferences.getInstance();
+              info.setString('credential',data['authorisation']['token']);
               Navigator.of(context).pushReplacementNamed("/dashboard");
             };}
+            else{
+              print(token);
+              dynamic response=await http.post(
+          
+            Uri.parse("http://192.168.0.100:8000/api/login"),
+             headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',
+            'Authorization': 'Bearer $token'  
+        },
+    body:jsonEncode(<String, String>{ 
+      'email':email.getText()
+    })
+           );
+           final data=jsonDecode(response.body);
+           print('----->$data');
+            if(data['status']=='success'){
+              Navigator.of(context).pushReplacementNamed("/dashboard");
+            };
+            }
+           }
             catch(err){
               print(err);
             }
