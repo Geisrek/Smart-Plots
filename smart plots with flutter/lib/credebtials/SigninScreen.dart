@@ -74,9 +74,7 @@ class SigninScreen extends StatelessWidget {
             'Accept':'application/json',
             'Authorization': 'Bearer $token'  
         },
-    body:jsonEncode(<String, String>{ 
-      'email':email.getText()
-    })
+   
            );
            final data=jsonDecode(response.body);
            print('----->$data');
