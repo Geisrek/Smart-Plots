@@ -33,11 +33,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
      routes: {
-      '/':(context)=>Auth2(),
+      '/pickuser':(context)=>Auth2(),
       "/welcomw":(context)=> WelcomeScreen(),
       "/signin":(context)=> SigninScreen(),
       "/signup":(context)=>SignupScreen(),
-      "/pickuser":(context) => PickUserType(),
+      "/":(context) => PickUserType(),
       "/dashboard":(context) => DashBoard(),
       "/create_Scduel":(context) => CreateScduelScreen(),
       "/history":(context) => HistoryScreen(),

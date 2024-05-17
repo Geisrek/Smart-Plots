@@ -4,10 +4,18 @@ class UserType extends StatefulWidget {
   final  Color color;
   final String  text;
   final String  path;
-  final toggle;
   final rout;
-  double width;
-  UserType({super.key,this.rout="/",required this.color,required this.text,required this.path,required this.toggle,required this.width});
+  final onCardTap; 
+  final isSlected;
+  UserType({
+      super.key,
+      this.rout="/",
+      required this.color,
+      required this.text,
+      required this.path,
+      required this.onCardTap,
+      required this.isSlected
+  });
   State<UserType> createState() => _UserType();
   }
   class _UserType extends State<UserType> {
@@ -16,14 +24,18 @@ class UserType extends StatefulWidget {
   Widget build(BuildContext context) {
     return InkWell( 
       onTap:(){ 
-        Navigator.of(context).pushReplacementNamed(widget.rout);
-        widget.toggle();},
+       widget.onCardTap(!widget.isSlected);
+        //Navigator.of(context).pushReplacementNamed(widget.rout);
+        ;},
       child:  Container(height: 170,
     width: 310,
     padding: EdgeInsets.only(left: 5),
     
     decoration: BoxDecoration(
-      border: Border.all(width: widget.width,color: Color.fromARGB(225, 100, 200, 150)),
+      border: Border.all(
+        width: widget.isSlected?2:0,
+        color: Color.fromARGB(225, 100, 200, 150),
+        ),
       borderRadius: BorderRadius.circular(7),color:widget.color ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
