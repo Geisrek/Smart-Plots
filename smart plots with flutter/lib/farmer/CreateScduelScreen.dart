@@ -4,7 +4,7 @@ import '../comon/MyText.dart';
 import '../comon/TextInputs.dart';
 import '../comon/Button.dart';
 class CreateScduelScreen extends StatelessWidget {
-  final Yeare=InputText(text: "DD/MM/YYYY",);
+  final Yeare=InputText(text: "YYYY-MM-DD",);
   final EC=InputText(text: "",);
   final Water=InputText(text: "",);
   final Temperature=InputText(text: "",);
@@ -34,7 +34,11 @@ class CreateScduelScreen extends StatelessWidget {
           Row(children: [MyText(text: "Air"),Expanded(child: SizedBox(width: 40,)),this.Temperature]),
           
           SizedBox(height: 30,),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Save"),),),Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Default"),),)],),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: 
+          [
+          Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Save"),),),
+          Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Default"),),)
+          ],),
         ],),),
     );
   }
