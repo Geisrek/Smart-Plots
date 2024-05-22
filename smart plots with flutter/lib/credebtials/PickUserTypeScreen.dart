@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../comon/MyTitle.dart';
 import './UserType.dart';
 import '../comon/Button.dart';
+import 'package:http/http.dart' as http;
 class PickUserType extends StatefulWidget {
    PickUserType({super.key});
     State<PickUserType> createState() => _PickUserType();
@@ -19,76 +24,144 @@ class _PickUserType extends State<PickUserType> {
   };
   @override
   Widget build(BuildContext context) {
-    return Scaffold( appBar: AppBar(toolbarHeight: 80,
+    return Scaffold( appBar: AppBar(toolbarHeight: 30,
     title: Center(child: MyTitle(text: "Pick your user type",color: Colors.black,)
     ,)
     ,)
     ,
-    body:ListView.builder(
-      itemCount: userTypes.length,
-      itemBuilder:
-      (context,index){
-        final userType=userTypes[index][0];
-        final userColor=userTypes[index][1];
-        final userRoot=userTypes[index][2];
-        final userPath=userTypes[index][3];
-        final isSelected=selectedType[userType];
-        
-        return Container(
-          margin: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 0),
-          child: UserType(
-            color:userColor ,
-             text: userType, 
-             rout: userRoot,
-             path: userPath,
-             isSlected: isSelected,
-             onCardTap:(value){
-              setState(() {
-                selectedType[userType]=value;
-                for(String user in selectedType.keys){
-                  if (user != userType){
-                    print(user);
-                    selectedType[user]=false;
-                  }
+    body:Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+                itemCount: userTypes.length,
+                itemBuilder:
+                (context,index){
+                  final userType=userTypes[index][0];
+                  final userColor=userTypes[index][1];
+                  final userRoot=userTypes[index][2];
+                  final userPath=userTypes[index][3];
+                  final isSelected=selectedType[userType];
+                  
+                  return Container(
+                    margin: EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 0),
+                    child: UserType(
+                      color:userColor ,
+                       text: userType, 
+                       rout: userRoot,
+                       path: userPath,
+                       isSlected: isSelected,
+                       onCardTap:(value){
+                        setState(() {
+                          selectedType[userType]=value;
+                          for(String user in selectedType.keys){
+                            if (user != userType){
+                             
+                              selectedType[user]=false;
+                            }
+                          }
+                        });
+                       } ,),
+                  );
                 }
-              });
-             } ,),
-        );
+                 ),
+        ),
+      Button(onPress:() async{
+       final storage=await SharedPreferences.getInstance();
+ 
+      final String? isNull=storage.getString("user_information");
+      final String user_information=isNull??'';
+      final Map infos= json.decode(user_information);
+      for (String type in selectedType.keys){
+            if(selectedType[type]==true){
+               infos["type"]=type;
+            }
       }
-       ),);
+       print( infos);
+       try{
+       final response=await http.post(
+        Uri.parse("http://192.168.0.100:8000/api/register"),
+        headers:<String,String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',
+            },
+        body: jsonEncode(<String, String>{
+          "name":infos["name"],
+          "email":infos["email"],
+          "password":infos["password"],
+          "user_address":"Saida"
+
+        })
+       
+       );
+       if(response.statusCode==200){
+          final user=jsonDecode(response.body);
+          print("----------------------------");
+          
+          final type_res=await http.post(
+            Uri.parse("http://192.168.0.100:8000/api/insertUser"),
+            headers:<String,String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',}
+            ,
+            body:jsonEncode(<String, dynamic> {
+              "user_id":user["user"]["id"],
+            "user_type":infos["type"]
+            })
+          );
+          print(type_res.statusCode);
+          if(type_res.statusCode==200){
+            print("_______________________________");
+            if(infos["type"]=="Farmer"){
+             Navigator.of(context).pushReplacementNamed("/dashboard");
+            }
+            else if(infos["type"]=="Vendor"){
+             Navigator.of(context).pushReplacementNamed("/vendor");
+
+            }
+            else {
+             Navigator.of(context).pushReplacementNamed("/client");
+
+            }
+          }
+          else{
+            print(type_res.body);
+          }
+
+       }
+       else{
+        print(response.body);
+       };}
+       catch(err){
+        print(err);
+       }
+      } , text: "Sign up") ],
+    ),
+  );
   }
 }
 /**
- * double width_1=0;
-  double width_2=0;
-  double width_3=0;
-  void userToggler1(){
-  setState(){
-    width_1==0?3:0;
-    width_2=0;
-    width_3=0;
-    }
-  }
-  void userToggler2(){
-  setState(){
-    width_2==0?3:0;
-    width_1=0;
-    width_3=0;
-    
-    }
-    
-  }
-  void userToggler3(){
-  setState(){
-    width_3==0?3:0;
-    width_2=0;
-    width_1=0;
-    }
-  }
- * 
- * Center(child: 
-    Column(children: [SizedBox(height: 30,),UserType(color: Color(0x9900651F),text: "Farmer",path: "./images/farmer-avatar.png",toggle:  userToggler1,width: width_1,rout: "/dashboard",)
-    ,SizedBox(height: 20,),
-    UserType(color: Color(0x995508D1),text: "Vendor",path: "./images/vendor-avatar.png",toggle:  userToggler2,width: width_2,rout: "/vendor",)
-    ,SizedBox(height: 20,),
-    UserType(color: Color(0x99FFAA00),text: "Client",path: "./images/client-avatar.png",toggle:  userToggler3,width: width_3,rout: "/client",),SizedBox(height: 10,),Button(onPress: (){}, text: "Signup")],),) */
+ * try{
+          
+          dynamic response=await http.post(
+            //https://official-joke-api.appspot.com/random_joke
+            Uri.parse("http://192.168.0.100:8000/api/register"),
+             headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name':userName.getText(),
+      'email': email.getText(),
+      'password':password.getText(),
+      'user_address':"Saida"
+    }),
+           );
+          
+           final data=jsonDecode(response.body);
+            if(data['status']=='success'){
+              print("success");
+              Navigator.of(context).pushReplacementNamed("/pickuser");
+            };}
+            catch(err){
+              print(err);
+            }
+ */

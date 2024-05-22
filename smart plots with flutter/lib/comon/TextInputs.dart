@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class PasswordInput extends StatefulWidget {
    PasswordInput({super.key});
   final state=_PasswordInput();
-  @override
-  State<PasswordInput> createState() => state;
-  String getText(){
+   String getText(){
 
     return state._textController.text;
   }
+  @override
+  State<PasswordInput> createState() => state;
+ 
 }
 
 class _PasswordInput extends State<PasswordInput> {
@@ -19,12 +20,11 @@ class _PasswordInput extends State<PasswordInput> {
     _textController.dispose(); 
     super.dispose();
   }
-  String getText(){
-    return _textController.text;
-  }
-  String get text =>getText();
+ 
   @override
   Widget build(BuildContext context) {
+    
+   
     return  Container(child:TextFormField(
       
       controller: _textController,
@@ -50,14 +50,13 @@ class _PasswordInput extends State<PasswordInput> {
       ),
     ),height: 48,width: 300,);
   }
+   
 }
 class InputText extends StatelessWidget {
   String text;
   InputText({super.key,required this.text});
   final TextEditingController TextValue =TextEditingController();
-  String getText(){
-    return TextValue.text;
-  }
+  
   
   @override
   Widget build(BuildContext context) {
@@ -70,5 +69,8 @@ class InputText extends StatelessWidget {
         labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
     ),) ;
+  }
+ String getText(){
+    return TextValue.text;
   }
 }
