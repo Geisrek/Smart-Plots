@@ -47,7 +47,7 @@ class SigninScreen extends StatelessWidget {
            if(token==null){
           dynamic response=await http.post(
           
-            Uri.parse("http://192.168.0.100:8000/api/login"),
+            Uri.parse("http://192.168.1.3:8000/api/login"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -65,10 +65,10 @@ class SigninScreen extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed("/dashboard");
             };}
             else{
-              print(token);
+              print('---$token');
               dynamic response=await http.post(
           
-            Uri.parse("http://192.168.0.100:8000/api/login"),
+            Uri.parse("http://192.168.1.4:8000/api/login"),
              headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',

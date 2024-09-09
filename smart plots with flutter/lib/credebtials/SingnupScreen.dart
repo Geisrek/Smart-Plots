@@ -15,6 +15,17 @@ class SignupScreen extends StatelessWidget {
   final   email=InputText(text: "Email",);
   final  password=PasswordInput();
   @override
+  void signUp (userName,email,password) async{
+try{
+   final register_infos=await SharedPreferences.getInstance();
+   register_infos.setStringList("registers", <String>[userName,email,password]);
+          
+            //  Navigator.of(context).pushReplacementNamed("/pickuser");
+            }
+            catch(err){
+              print(err);
+            }
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       
@@ -63,7 +74,25 @@ class SignupScreen extends StatelessWidget {
               SvgPicture.asset('./images/google.svg',),),),
               SizedBox(width: 20,),
               Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child:
-               ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: (){},child: SvgPicture.asset('./images/facebook.svg',),)
+               ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),
+               onPressed: (){
+                print(password.getText());
+              signUp(userName.getText(), email.getText(), password.getText());
+               print("yyy");
+               void show()async{
+                try{
+                print('d');
+                final data = await SharedPreferences.getInstance();
+                print(data.getString("user_information"));}
+                catch(err){
+                  print(err);
+                  print("-----");
+                }
+              
+               }
+                 show();
+               },
+               child: SvgPicture.asset('./images/facebook.svg',),)
                )
                ],
                )),
@@ -76,7 +105,7 @@ class SignupScreen extends StatelessWidget {
  * try{
           dynamic response=await http.post(
             //https://official-joke-api.appspot.com/random_joke
-            Uri.parse("http://192.168.0.100:8000/api/register"),
+            Uri.parse("http://192.168.1.6/api/register"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
