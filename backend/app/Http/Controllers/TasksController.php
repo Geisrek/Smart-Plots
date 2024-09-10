@@ -8,9 +8,11 @@ use App\Models\history;
 class TasksController extends Controller
 {
     function getTasks(Request $req){
-        $tasks=tasks::get();
+        $plot_id=$req->plot_id;
+        $tasks=tasks::where('plot_id',$plot_id)->get();
         return response()->json(["tasks"=>$tasks]);
     }
+    
     function createTask(Request $req){
        
         tasks::create([

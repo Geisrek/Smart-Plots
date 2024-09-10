@@ -32,8 +32,8 @@ class _TasksScreenState extends State<TasksScreen> {
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{
-     
+    body: jsonEncode(<String, int>{
+     'plot_id':1
     }),
            );
            data=jsonDecode(response.body)['tasks'];
