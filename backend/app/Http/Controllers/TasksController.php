@@ -7,6 +7,10 @@ use App\Models\tasks;
 use App\Models\history;
 class TasksController extends Controller
 {
+    function getTasks(Request $req){
+        $tasks=tasks::get();
+        return response()->json(["tasks"=>$tasks]);
+    }
     function createTask(Request $req){
        
         tasks::create([
@@ -45,5 +49,10 @@ class TasksController extends Controller
             "status"=>"Task is finished",
            
         ]);
+    }
+    function getHistory(Request $req){
+        $plot_id=$req->plot_id;
+        $histories=history::where('plot_id',$plot_id)->get();
+        return response()->json( $histories);
     }
 }

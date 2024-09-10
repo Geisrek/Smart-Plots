@@ -32,9 +32,9 @@ class CreateScduelScreen extends StatelessWidget {
           Row(children: [MyText(text: "C"),Expanded(child: SizedBox(width: 40,)),this.Temperature]),
           
           SizedBox(height: 10,),
-          Row(children: [MyText(text: "Lux"),Expanded(child: SizedBox(width: 40,)),this.Temperature]),
+          Row(children: [MyText(text: "Lux"),Expanded(child: SizedBox(width: 40,)),this.Lux]),
           SizedBox(height: 10,),
-          Row(children: [MyText(text: "Air"),Expanded(child: SizedBox(width: 40,)),this.Temperature]),
+          Row(children: [MyText(text: "Air"),Expanded(child: SizedBox(width: 40,)),this.Air]),
           
           SizedBox(height: 30,),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: 
@@ -42,16 +42,22 @@ class CreateScduelScreen extends StatelessWidget {
           Container(width: 100,child: ElevatedButton(onPressed: ()async{
              try{
               final response=await http.post(
-                Uri.parse('http://192.168.1.4:8000/api/createTask'),
+                Uri.parse('http://192.168.1.6:8000/api/createTask'),
                 headers: {
                   'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json'
                 },
-                body:jsonEncode(<String, String>{
-      'email': email.getText(),
-      'password':password.getText()
+                body:jsonEncode(<String, dynamic>{
+              'light':Lux.getText(),
+            'sol_humidity':EC.getText(),
+            'air_humidity':Air.getText(),
+            'temperature':Temperature.getText(),
+            'schedule_date':Yeare.getText(),
+            'plot_id':1
     }) 
               );
+              print(jsonDecode(response.body));
+              Navigator.of(context).pushReplacementNamed('/dashboard');
              }catch(err){
               print(err);
              }

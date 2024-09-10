@@ -28,7 +28,7 @@ class _TasksScreenState extends State<TasksScreen> {
     try{
     dynamic response=await http.post(
           
-            Uri.parse("http://192.168.1.4:8000/api/getTasks"),
+            Uri.parse("http://192.168.1.6:8000/api/getTasks"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -36,7 +36,7 @@ class _TasksScreenState extends State<TasksScreen> {
      
     }),
            );
-            data=jsonDecode(response.body)['tasks'];
+           data=jsonDecode(response.body)['tasks'];
            print(data);
           }
            catch(err){
@@ -50,11 +50,10 @@ class _TasksScreenState extends State<TasksScreen> {
  }
   @override
   Widget build(BuildContext context) {
-getTasks();
-    const color=Color(0xFFD9D9D9);
-  
+    const color = Color(0xFFD9D9D9);
+
     return Scaffold(
-      appBar: MyBar(Title: "Tasks",).MyAppBarr(),
+      appBar: MyBar(Title: "Tasks").MyAppBarr(),
       body: FutureBuilder(
         future: getTasks(),
         builder: (context, snapshot) {
@@ -63,60 +62,60 @@ getTasks();
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            return Container(
-              height: 600,
-              margin: EdgeInsets.all(5),
-              child: Column(
-                children: [
-                  Stack(
+            return ListView(
+              children: [
+                Container(
+                  height: 600,
+                  margin: EdgeInsets.all(5),
+                  child: Column(
                     children: [
-                      Container(
-                        height: 520,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: [
-                              ListView(
-                                shrinkWrap: true,
-                                children: data.map((item) {
-                                  print('----->${item}');
-                                  return Infos(
-                                    C: item['temperature'].toString(),
-                                    EC: item['sol_humidity'].toString(),
-                                    Date: item['schedule_date'].toString(),
-                                    Lux: item['light'].toString(),
-                                    PH: item['air_humidity'].toString(),
-                                    color: color,
-                                  );
-                                }).toList(),
-                              ),
-                            ],
+                      Stack(
+                        children: [
+                          Container(
+                            height: 520,
+                            child: ListView(
+                              children: data.map((item) {
+                                return Infos(
+                                  C: item['temperature'].toString(),
+                                  EC: item['sol_humidity'].toString(),
+                                  Date: item['schedule_date'].toString(),
+                                  Lux: item['light'].toString(),
+                                  PH: item['air_humidity'].toString(),
+                                  color: color,
+                                  id: item['id'],
+                                  onCancel: 
+                           getTasks()
+                         ,
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 450,
-                        left: 0,
-                        right: 0,
-                        child: Controle(),
+                          Positioned(
+                            top: 450,
+                            left: 0,
+                            right: 0,
+                            child: Controle(),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           }
         },
       ),
     );
   }
+
 }
  
 
 class Infos extends HistoryItem{
- 
-  Infos({required super.C,required super.EC, required super.Date,required super.Lux,required super.PH,super.color});
-  
+   final onCancel;
+   Infos( {super.key,required this.onCancel,required super.id , required super.C,required super.EC, required super.Date,required super.Lux,required super.PH,super.color});
+
   @override
   Widget build(BuildContext context){
    return Container( 
@@ -126,10 +125,28 @@ class Infos extends HistoryItem{
     children: [
       super.build(context),
       Row(children:[SizedBox(width: 260,),
-      ElevatedButton(onPressed: (){}, child: Text("Cansel",style: TextStyle(fontFamily: 'Nunito',fontSize: 12),))])
+      ElevatedButton(onPressed: ()async{
+        try{
+         dynamic response= await http.post(
+          Uri.parse('http://192.168.1.6:8000/api/deleteTask'),
+              headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, int>{
+     'id':id
+    }));
+      print(jsonDecode(response.body));
+          this.onCancel();
+         }
+         catch(err){
+          print('$err : id=$id');
+         }
+      }, child: Text("Cansel",style: TextStyle(fontFamily: 'Nunito',fontSize: 12),))])
     ],
       ));
   }
+  
+
   
 }
 /**Container(height: 600,margin: EdgeInsets.all(5),child:Column(children: [ Stack(children:[Container(

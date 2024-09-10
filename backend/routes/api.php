@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\SmartPlotsController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\HelloController;
 
 
 /*
@@ -18,8 +19,10 @@ use App\Http\Controllers\TasksController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('/Hello',[HelloController::class,'HelloController']);
 Route::post('/finishTask',[TasksController::class,'finishTask']);
 Route::post('/deleteTask',[TasksController::class,'removeTask']);
+Route::post('/getTasks',[TasksController::class,'getTasks']);
 Route::post('/createTask',[TasksController::class,'createTask'])->middleware('createTasks');
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/getPlots',[SmartPlotsController::class,'getPlots']);

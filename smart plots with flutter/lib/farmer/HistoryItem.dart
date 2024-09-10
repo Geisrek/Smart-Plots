@@ -9,7 +9,9 @@ class HistoryItem extends StatelessWidget {
   final String Lux;
   final String C;
   final Color color;
-  const HistoryItem({super.key,required this.Date,required this.EC,required this.PH,required this.Lux, required this.C,this.color=Colors.white});
+  final int id;
+ 
+  const HistoryItem({super.key,required this.id,required this.Date,required this.EC,required this.PH,required this.Lux, required this.C,this.color=Colors.white});
 
   @override
   Widget build(BuildContext context) {

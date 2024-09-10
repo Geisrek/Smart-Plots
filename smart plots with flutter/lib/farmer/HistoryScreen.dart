@@ -26,10 +26,10 @@ class HistoryScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center
         ,children: [
           Container(margin: EdgeInsets.only(right: 250),child: MyTitle(text: "Plot 1")),
-          HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24"),
-           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24"),
-           HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24"),
-           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24"),
+          HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24",id: 1,),
+           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24",id: 1,),
+           HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24",id: 1,),
+           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24",id: 1,),
         ],),
       ),
       ),
