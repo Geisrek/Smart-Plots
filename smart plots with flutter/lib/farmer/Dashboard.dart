@@ -10,6 +10,8 @@ import 'Plot.dart';
 import './Plot.dart';
 import 'InfoDisplay.dart';
 import 'Controle.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
@@ -18,24 +20,64 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoard extends State<DashBoard> {
-  int index=0;
-  List data=["yow","bruh","pst"];
-  void updateIndex(int i){
-    setState(() {
-      index=i;
-    });
+ List<dynamic> data=[];
+   fetchPlots() async {
+    try {
+      final response = await http.post(Uri.parse('http://192.168.1.6:8000/api/getPlots'),
+           
+             headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, int>{
+     'user_id':1
+    }),
+      
+      );
+      if (response.statusCode == 200) {
+        data= jsonDecode(response.body)['plots'];
+      } else {
+        throw Exception('Failed to load plots');
+      }
+    } catch (err) {
+      print(err);
+      throw Exception('Failed to load plots');
+    }
   }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-     appBar: AppBar(toolbarHeight: 211,shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),backgroundColor: Color(0xFF00651F),title: Column(
+     appBar: AppBar(toolbarHeight: 211,shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),backgroundColor: Color(0xFF00651F)
+     
+     ,title:
+       Column(
        children: [
          Container(margin: EdgeInsets.only(right: 120,bottom: 70),child: MyTitle(text: "Dashboard",color: Colors.white,),),
          SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(children: [PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),PlotWidget(path: "./images/add.svg", name: "", function:updateIndex, id: 2)],))
+          child: Row(children: [
+            FutureBuilder(future: fetchPlots(), builder:(context,snapshot){
+      if(snapshot.connectionState==ConnectionState.waiting) {
+        return CircularProgressIndicator(color:Color(0xEEFFAA00),);
+      }
+      else
+          {
+            return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: data!.map((plot) {
+                        return PlotWidget(
+                          path: "./images/plot.svg",
+                          name: "Plot ${plot['id']}",
+                          function: (){},
+                          id: plot['id'],
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+          },)],))
        ],
-     ),),
+     )),
      body: Container(
       
       height: 600,
@@ -72,3 +114,4 @@ class _DashBoard extends State<DashBoard> {
     );
   }
 }
+//PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),PlotWidget(path: "./images/add.svg", name: "", function:updateIndex, id: 2)
