@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,7 +80,7 @@ class _PickUserType extends State<PickUserType> {
        print( infos);
        try{
        final response=await http.post(
-        Uri.parse("http://192.168.0.100:8000/api/register"),
+        Uri.parse("http://$IP:8000/api/register"),
         headers:<String,String> {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',
@@ -98,7 +99,7 @@ class _PickUserType extends State<PickUserType> {
           print("----------------------------");
           
           final type_res=await http.post(
-            Uri.parse("http://192.168.0.100:8000/api/insertUser"),
+            Uri.parse("http://$IP:8000/api/insertUser"),
             headers:<String,String> {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',}

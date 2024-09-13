@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +48,7 @@ class SigninScreen extends StatelessWidget {
            if(token==null){
           dynamic response=await http.post(
           
-            Uri.parse("http://192.168.1.6:8000/api/login"),
+            Uri.parse("http://$IP:8000/api/login"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -68,7 +69,7 @@ class SigninScreen extends StatelessWidget {
               print('---$token');
               dynamic response=await http.post(
           
-            Uri.parse("http://192.168.1.6:8000/api/login"),
+            Uri.parse("http://$IP:8000/api/login"),
              headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',
@@ -104,7 +105,7 @@ class SigninScreen extends StatelessWidget {
               SvgPicture.asset('./images/google.svg',),),),
               SizedBox(width: 20,),
               Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child:
-               ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: (){},child: SvgPicture.asset('./images/facebook.svg',),)
+               ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: (){ Navigator.of(context).pushReplacementNamed("/dashboard");},child: SvgPicture.asset('./images/facebook.svg',),)
                )
                ],
                )),
