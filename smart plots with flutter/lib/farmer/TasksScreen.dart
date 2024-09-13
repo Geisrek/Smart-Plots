@@ -2,7 +2,9 @@
 
 
 
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './HistoryItem.dart';
 import './AppBar.dart';
 import './Controle.dart';
@@ -26,14 +28,16 @@ class _TasksScreenState extends State<TasksScreen> {
   }
   getTasks()async{
     try{
+      final infos= await SharedPreferences.getInstance();
+    final int _id=await infos.getInt('plot')!;
     dynamic response=await http.post(
           
-            Uri.parse("http://192.168.1.6:8000/api/getTasks"),
+            Uri.parse("http://$IP:8000/api/getTasks"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, int>{
-     'plot_id':1
+     'plot_id':_id
     }),
            );
            data=jsonDecode(response.body)['tasks'];
@@ -128,7 +132,7 @@ class Infos extends HistoryItem{
       ElevatedButton(onPressed: ()async{
         try{
          dynamic response= await http.post(
-          Uri.parse('http://192.168.1.6:8000/api/deleteTask'),
+          Uri.parse('http://$IP:8000/api/deleteTask'),
               headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

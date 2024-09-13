@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import "../comon/MyTitle.dart";
 import '../comon/MyText.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,7 +25,7 @@ class _DashBoard extends State<DashBoard> {
  List<dynamic> data=[];
    fetchPlots() async {
     try {
-      final response = await http.post(Uri.parse('http://192.168.1.6:8000/api/getPlots'),
+      final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
            
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -40,7 +42,7 @@ class _DashBoard extends State<DashBoard> {
       }
     } catch (err) {
       print(err);
-      throw Exception('Failed to load plots');
+      throw Exception('Operation failed ');
     }
   }
   @override
@@ -64,11 +66,19 @@ class _DashBoard extends State<DashBoard> {
             return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: data!.map((plot) {
+                      children: data.map((plot) {
                         return PlotWidget(
                           path: "./images/plot.svg",
                           name: "Plot ${plot['id']}",
-                          function: (){},
+                          function: (id) async{
+                          try{
+                            final plot= await SharedPreferences.getInstance();
+                            plot.setInt('plot', id);
+                            
+                          }catch(e){
+                            print(e);
+                          }
+                          },
                           id: plot['id'],
                         );
                       }).toList(),

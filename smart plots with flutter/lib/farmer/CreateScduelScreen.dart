@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'AppBar.dart';
 import '../comon/MyText.dart';
 import '../comon/TextInputs.dart';
@@ -41,8 +43,10 @@ class CreateScduelScreen extends StatelessWidget {
           [
           Container(width: 100,child: ElevatedButton(onPressed: ()async{
              try{
+              final infos= await SharedPreferences.getInstance();
+    final int _id=await infos.getInt('plot')!;
               final response=await http.post(
-                Uri.parse('http://192.168.1.6:8000/api/createTask'),
+                Uri.parse('http://$IP/api/createTask'),
                 headers: {
                   'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json'
@@ -53,7 +57,7 @@ class CreateScduelScreen extends StatelessWidget {
             'air_humidity':Air.getText(),
             'temperature':Temperature.getText(),
             'schedule_date':Yeare.getText(),
-            'plot_id':1
+            'plot_id':_id
     }) 
               );
               print(jsonDecode(response.body));

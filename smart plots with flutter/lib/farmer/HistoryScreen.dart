@@ -1,4 +1,6 @@
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../comon/MyTitle.dart';
 import './HistoryItem.dart';
 import 'package:http/http.dart' as http;
@@ -13,22 +15,24 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   List<dynamic> data = [];
-
+  
   @override
   void initState() {
     super.initState();
     getHistory();
   }
   getHistory()async{
+    final infos= await SharedPreferences.getInstance();
+    final int _id=await infos.getInt('plot')!;
     try{
     dynamic response=await http.post(
           
-            Uri.parse("http://192.168.1.6:8000/api/getHistory"),
+            Uri.parse("http://$IP:8000/api/getHistory"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, int>{
-     'plot_id':1
+     'plot_id':_id
     }),
            );
            data=jsonDecode(response.body);

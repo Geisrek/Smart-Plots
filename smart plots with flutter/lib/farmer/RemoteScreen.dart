@@ -3,6 +3,7 @@ import "AppBar.dart";
 import './Controle.dart';
 import './Plot.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 class RemoteScreen extends StatelessWidget {
   const RemoteScreen({super.key});
 
@@ -22,7 +23,10 @@ class RemoteScreen extends StatelessWidget {
                 spacing: 7,
                 runSpacing: 7,
                 alignment: WrapAlignment.center,
-                children: [PlotWidget(name: "fan",id: 0,function: (int id){},path: "images/fan.svg"),
+                children: [PlotWidget(name: "fan",id: 0,function: (int id)async{
+                   http.get(
+                    Uri.parse('http://192.168.1.8/fan'));
+                },path: "images/fan.svg"),
                PlotWidget(name: "Light",id: 0,function: (int id){},path: "images/sun-black.svg"),
                 PlotWidget(name: "Water",id: 0,function: (int id){},path: "images/water.svg"),
                  PlotWidget(name: "Tent",id: 0,function: (int id){},path: "images/open.svg"),
