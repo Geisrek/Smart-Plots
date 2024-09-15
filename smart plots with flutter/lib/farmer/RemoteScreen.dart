@@ -27,10 +27,18 @@ class RemoteScreen extends StatelessWidget {
                    http.get(
                     Uri.parse('http://192.168.1.8/fan'));
                 },path: "images/fan.svg"),
-               PlotWidget(name: "Light",id: 0,function: (int id){},path: "images/sun-black.svg"),
-                PlotWidget(name: "Water",id: 0,function: (int id){},path: "images/water.svg"),
-                 PlotWidget(name: "Tent",id: 0,function: (int id){},path: "images/open.svg"),
-                  PlotWidget(name: "spraying",id: 0,function: (int id){},path: "images/steame.svg")],
+               PlotWidget(name: "Light",id: 0,function: (int id){
+                 http.get(
+                    Uri.parse('http://192.168.1.8/light'));
+               },path: "images/sun-black.svg"),
+                PlotWidget(name: "Water",id: 0,function: (int id){ http.get(
+                    Uri.parse('http://192.168.1.8/water'));},path: "images/water.svg"),
+                 PlotWidget(name: "Tent",id: 0,function: (int id){ http.get(
+                    Uri.parse('http://192.168.1.8/tent'));},path: "images/open.svg"),
+                  PlotWidget(name: "condition",id: 0,function: (int id){
+                          http.get(
+                    Uri.parse('http://192.168.1.8/condition'));
+                  },path: "images/steame.svg")],
               ),
             ),
             )
