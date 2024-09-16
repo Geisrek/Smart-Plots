@@ -1,3 +1,4 @@
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import "AppBar.dart";
 import './Controle.dart';
@@ -25,19 +26,19 @@ class RemoteScreen extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 children: [PlotWidget(name: "fan",id: 0,function: (int id)async{
                    http.get(
-                    Uri.parse('http://192.168.1.8/fan'));
+                    Uri.parse('http://$ESP32/fan'));
                 },path: "images/fan.svg"),
                PlotWidget(name: "Light",id: 0,function: (int id){
                  http.get(
-                    Uri.parse('http://192.168.1.8/light'));
+                    Uri.parse('http://$ESP32/light'));
                },path: "images/sun-black.svg"),
                 PlotWidget(name: "Water",id: 0,function: (int id){ http.get(
-                    Uri.parse('http://192.168.1.8/water'));},path: "images/water.svg"),
+                    Uri.parse('http://$ESP32/water'));},path: "images/water.svg"),
                  PlotWidget(name: "Tent",id: 0,function: (int id){ http.get(
-                    Uri.parse('http://192.168.1.8/tent'));},path: "images/open.svg"),
+                    Uri.parse('http://$ESP32/tent'));},path: "images/open.svg"),
                   PlotWidget(name: "condition",id: 0,function: (int id){
                           http.get(
-                    Uri.parse('http://192.168.1.8/condition'));
+                    Uri.parse('http://$ESP32/condition'));
                   },path: "images/steame.svg")],
               ),
             ),

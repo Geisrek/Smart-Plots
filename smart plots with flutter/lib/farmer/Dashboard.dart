@@ -23,6 +23,53 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoard extends State<DashBoard> {
  List<dynamic> data=[];
+ List<dynamic> censors=[];
+    readCensorsData()async{
+      
+     try{
+      final humidity=await http.get(
+        Uri.parse('http://$ESP32/humidity')
+      );
+      final temperature=await http.get(
+        Uri.parse('http://$ESP32/temperature')
+      );
+       final light=await http.get(
+        Uri.parse('http://$ESP32/light')
+      );
+       final solHumidity=await http.get(
+        Uri.parse('http://$ESP32/solHumidity')
+      );
+      if(humidity.statusCode==200){
+        censors.add(jsonDecode(humidity.body));
+      }
+      else{
+        censors.add('--');
+      }
+       if(temperature.statusCode==200){
+        censors.add(jsonDecode(temperature.body));
+      }
+      else{
+        censors.add('--');
+      }
+       if(light.statusCode==200){
+        censors.add(jsonDecode(light.body));
+      }
+      else{
+        censors.add('--');
+      }
+      if(solHumidity.statusCode==200){
+        censors.add(jsonDecode(solHumidity.body));
+      }
+      else{
+        censors.add('--');
+      }
+      
+     }
+     catch(e){
+
+     }
+    }
+   
    fetchPlots() async {
     try {
       final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
@@ -106,16 +153,23 @@ class _DashBoard extends State<DashBoard> {
             ,
             SizedBox(height: 20,)
             ,
-            Column(children: [
-              InfoDisplayer(path: "./images/soil.svg", label: "EC", value: "123", unit: ""),
-               InfoDisplayer(path: "./images/drop.svg", label: "PH", value: "123", unit: "")
+            Container(
+              child: FutureBuilder(future: readCensorsData(), builder:(context, snapshot) {
+                if(snapshot.connectionState==ConnectionState.waiting){
+                  return Text('Waiting...',style: TextStyle(fontFamily: 'Nunito'),);
+                }
+                    return Column(
+                      children: [
+                          InfoDisplayer(path: "./images/soil.svg", label: "EC", value: censors[0] , unit: ""),
+               InfoDisplayer(path: "./images/drop.svg", label: "PH", value: censors[1], unit: "")
               ,
-              InfoDisplayer(path: "./images/temperature.svg", label: "Temperature", value: "123", unit: "")
+              InfoDisplayer(path: "./images/temperature.svg", label: "Temperature", value:censors[2], unit: "")
               ,
-              InfoDisplayer(path: "./images/sun.svg", label: "light", value: "123", unit: ""),
-             
-
-            ],),SizedBox(height: 40,),
+              InfoDisplayer(path: "./images/sun.svg", label: "light", value: censors[3], unit: ""),
+                      ],
+                    );
+              },),
+            ),SizedBox(height: 40,),
              Controle()
         ],
         
