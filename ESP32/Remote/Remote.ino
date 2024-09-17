@@ -10,13 +10,17 @@
 #define WATER_PIN 6
 #define CONDITION_PIN 7
 #define TENT_PIN 10
-#define LIGHT_PIN 11
+#define LDR_PIN 2
 #define DHTPIN 26
-#define DHTTYPE    DHT11   
+#define DHTTYPE    DHT11  
+#define LIGHT_PIN 4 
+#define SOIL_PIN 12
 DHT dht(DHTPIN, DHTTYPE);
 
 const char *ssid = "Zaatari net 71503123(hijazi)"; // Change this
 const char *password = "20003000"; 
+int LIGHT=analogRead(LDR_PIN);
+int SOIL=analogRead(SOIL_PIN);
 AsyncWebServer server(80);
 
 
@@ -48,9 +52,33 @@ String readDHTHumidity() {
     return String(h);
   }
 }
+String readLIGHT() {
 
+  int l = LIGHT;
+  if (isnan(l)) {
+    Serial.println("Failed to read from light sensor!");
+    return "--";
+  }
+  else {
+    Serial.println(l);
+    return String(l);
+  }
+}
+String readSOIL() {
+
+  int s = SOIL;
+  if (isnan(s)) {
+    Serial.println("Failed to read from soil sensor!");
+    return "--";
+  }
+  else {
+    Serial.println(s);
+    return String(s);
+  }
+}
 
 void setup() {
+  
    pinMode(FAN_PIN, OUTPUT);
    pinMode(WATER_PIN, OUTPUT);
    pinMode(CONDITION_PIN, OUTPUT);
@@ -60,11 +88,11 @@ void setup() {
    digitalWrite(WATER_PIN,LOW);
    digitalWrite(CONDITION_PIN,LOW);
    digitalWrite(TENT_PIN,LOW);
-  digitalWrite(LIGHT_PIN, LOW);
+   digitalWrite(LIGHT_PIN,LOW);
     Serial.begin(115200);
 
   dht.begin();
-    WiFi.begin(ssid, password);
+   WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
         delay(1000);
         Serial.println("Connecting to WiFi...");
@@ -78,7 +106,13 @@ void setup() {
   server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", readDHTHumidity().c_str());
   });
-
+   server.on("/light", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", readLIGHT().c_str());
+  });
+   server.on("/solHumidity", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/plain", readSOIL().c_str());
+  });
+  
     
     server.on("/fan", HTTP_GET, [](AsyncWebServerRequest * request) {
      pinHandler(FAN_PIN);
