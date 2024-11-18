@@ -134,6 +134,7 @@ _message=m;
         try{
           final credentials=await SharedPreferences.getInstance();
           credentials.remove('user_information');
+          credentials.remove('credential');
            final response=await http.post(
             Uri.parse('http://$IP:8000/api/logout')
            );
@@ -219,7 +220,7 @@ _message=m;
             Container(margin: EdgeInsets.only(left: 10),child: Container(
             height: 75,
             width: 300,
-            child: FutureBuilder(future: callChatGPT(""), 
+            child: FutureBuilder(future: callChatGPT("give me the best environment for the potato group"), 
             builder: (context,snapshot){
               if (snapshot.connectionState == ConnectionState.waiting)
                { 

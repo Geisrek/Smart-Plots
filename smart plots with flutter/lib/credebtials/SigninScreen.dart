@@ -65,7 +65,10 @@ class SigninScreen extends StatelessWidget {
               info.setString('credential',data['authorisation']['token']);
               print('---$token####${data['authorisation']}');
               Navigator.of(context).pushReplacementNamed("/dashboard");
-            };}
+            }
+            else{
+              Navigator.of(context).pushReplacementNamed("/");
+            }}
             else{
              
               dynamic response=await http.post(
@@ -79,7 +82,7 @@ class SigninScreen extends StatelessWidget {
    
            );
            final data=jsonDecode(response.body);
-           print('----->$data');
+           print('token exist:$data');
             if(data['status']=='success'){
               Navigator.of(context).pushReplacementNamed("/dashboard");
             };

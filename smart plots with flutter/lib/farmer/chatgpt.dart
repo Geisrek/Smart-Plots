@@ -29,7 +29,7 @@ Future<String?> callChatGPT(String prompt) async {
             },
             {
                 "role": "user",
-                "content": "what is the tomatoes price if it grow up in Lebanon al Bikaa in green hous ."
+                "content": prompt
             }
         ]
     },
@@ -41,10 +41,10 @@ Future<String?> callChatGPT(String prompt) async {
       body: body,
     );
     if (response.statusCode == 200) {
-      print("#######################################");
+      
       final jsonResponse = jsonDecode(response.body);
       final result = jsonResponse['choices'][0]['message']["content"];
-      print("chatgpt: $result");
+
       return result;
     } else {
       print(
