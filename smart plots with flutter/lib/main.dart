@@ -1,3 +1,4 @@
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'credebtials/WelcomScreen.dart';
@@ -63,13 +64,13 @@ class Auth extends StatelessWidget {
            
             dynamic response=await http.post(
           
-            Uri.parse("http://192.168.0.100:8000/api/login"),
+            Uri.parse("http://${IP}:8000/api/login"),
              headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',
             'Authorization': 'Bearer $token'  });
            final info=jsonDecode(response.body);
-           print('----->$info');
+           print('----->$info  , ${info}');
             if(info['status']=='success'){
              return DashBoard();
             };

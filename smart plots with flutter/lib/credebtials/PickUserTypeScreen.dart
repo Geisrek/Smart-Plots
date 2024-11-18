@@ -99,14 +99,14 @@ class _PickUserType extends State<PickUserType> {
           print("----------------------------");
           
           final type_res=await http.post(
-            Uri.parse("http://$IP:8000/api/insertUser"),
+            Uri.parse("http://$IP:8000/api/register"),
             headers:<String,String> {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',}
             ,
             body:jsonEncode(<String, dynamic> {
               "user_id":user["user"]["id"],
-            "user_type":infos["type"]
+            "user_type":infos["type"],
             })
           );
           print(type_res.statusCode);
