@@ -35,11 +35,11 @@ class SigninScreen extends StatelessWidget {
         <Widget>[
           MyTitle(text: "Welcome back ",color: Colors.black,),
           MyText(text: "Glad to See you "),
-          SizedBox(height: 20,),
+          SizedBox(height: 10,),
           email,
-          SizedBox(height: 20,),
+          SizedBox(height: 10,),
           password,
-          SizedBox(height: 20,),
+          SizedBox(height: 10,),
           Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
           try{
           final data=await SharedPreferences.getInstance();
@@ -98,10 +98,8 @@ class SigninScreen extends StatelessWidget {
             [Text( "Dont have an account?",style: TextStyle(fontSize: 16,fontFamily: 'Nunito') ,),
             TextButton(style: TextButton.styleFrom(fixedSize: Size(90, 80)),child: 
             Text("Sign Up",style:TextStyle(fontSize: 16,color: Colors.black,fontFamily: 'Nunito')),onPressed: ()async{
-              //Navigator.of(context).pushReplacementNamed("/signup");
-              final info=await SharedPreferences.getInstance();
-              final cred=info.getString('user_information');
-              print(cred);},)],)),
+              Navigator.of(context).pushReplacementNamed("/signup");
+              },)],)),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children:
              [Container(width: 130,child: Divider(thickness: 2,),)
              ,MyText(text: "Login with"),

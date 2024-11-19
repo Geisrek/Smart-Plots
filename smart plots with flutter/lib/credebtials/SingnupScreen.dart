@@ -9,11 +9,21 @@ import '../comon/MyText.dart';
 import '../comon/Button.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
    SignupScreen({super.key});
    final   userName=InputText(text: "Username",);
   final   email=InputText(text: "Email",);
+   final   country=InputText(text: "country",);
   final  password=PasswordInput();
+  final countries=["Lebanon","Syria","KSA","UAE","Iraq"];
+  List<DropdownMenuItem> countriesItems(List countriesNames){
+    List<DropdownMenuItem> items=[];
+    for(var county in countriesNames){
+      items.add(DropdownMenuItem(child: Text(county),value: county,));
+    }
+    return items;
+  }
+  
   @override
   void signUp (userName,email,password) async{
 try{
@@ -26,30 +36,59 @@ try{
               print(err);
             }
   }
+  _SignupScreenState createState()=>_SignupScreenState();
+  }
+ class _SignupScreenState extends State<SignupScreen>{
+  dynamic selectedCountry;
+  void callBackCountriesDropDown(dynamic selectedCountry){
+    if(selectedCountry is String){
+      setState((){
+      this.selectedCountry=selectedCountry;
+      });
+    }
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       
       
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
-      body: Container(padding: EdgeInsets.only(bottom: 10),child: Center(child:
+      body: Expanded(child: 
+      SingleChildScrollView(child: 
+       Container(padding: EdgeInsets.only(bottom: 10),child: Center(child:
        Column(children:
         <Widget>[
           MyTitle(text: "Welcome back !"),
           MyText(text: "Glad to See you !"),
-          SizedBox(height: 20,),
-          userName
+          SizedBox(height: 10,),
+          widget.userName
           ,
-          SizedBox(height: 20,),
-          email,
-          SizedBox(height: 20,),
-          password,
-          SizedBox(height: 20,),
+          SizedBox(height: 10,),
+          widget.email,
+          SizedBox(height: 10,),
+          widget.password,
+          SizedBox(height: 10,),
+           widget.country,
+          SizedBox(height: 10,)
+          ,
+          Container(
+            width: 200,
+            height:40,
+            child:Row(
+            
+            children: [
+            DropdownButton(
+              items:widget.countriesItems(widget.countries),
+              value: selectedCountry,
+               onChanged: callBackCountriesDropDown
+               )
+          ],))
+          ,
           Button(onPress: ()async{
            final storage=await SharedPreferences.getInstance();
            Map<String,String> credantials={
-            "name":userName.getText(),
-            "email":email.getText(),
-            "password":password.getText()
+            "name":widget.userName.getText(),
+            "email":widget.email.getText(),
+            "password":widget.password.getText()
             };
         
            storage.setString('user_information',jsonEncode(credantials));
@@ -76,8 +115,8 @@ try{
               Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child:
                ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),
                onPressed: (){
-                print(password.getText());
-              signUp(userName.getText(), email.getText(), password.getText());
+               
+              widget.signUp(widget.userName.getText(),widget.email.getText(), widget.password.getText());
                print("yyy");
                void show()async{
                 try{
@@ -98,6 +137,7 @@ try{
                )),
                ]))
                ,)
+      ))
     );
   }
 }
