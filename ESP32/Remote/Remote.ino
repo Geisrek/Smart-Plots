@@ -2,7 +2,7 @@
 #include <ESPAsyncWebServer.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
-
+#include <ESPmDNS.h>
 
 
 
@@ -15,6 +15,7 @@
 #define DHTTYPE    DHT11  
 #define LIGHT_PIN 4 
 #define SOIL_PIN 12
+#define PIN_a 13
 DHT dht(DHTPIN, DHTTYPE);
 
 const char *ssid = "Zaatari net 71503123(hijazi)"; // Change this
@@ -97,9 +98,17 @@ void setup() {
         delay(1000);
         Serial.println("Connecting to WiFi...");
     }
-    Serial.print("ESP32 Web Server's IP address: ");
+    
+
+  if(!MDNS.begin("plot")){
+    Serial.println("Error starting mDNS");
+    return;
+  }
+  Serial.print("ESP32 Web Server's IP address: ");
     Serial.println(WiFi.localIP());
-  
+  server.on("/register",HTTP_GET,[](AsyncWebServerRequest *request){
+    request->send(200,"text/plain",WiFi.localIP().toString());
+  });
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/plain", readDHTTemperature().c_str());
   });
