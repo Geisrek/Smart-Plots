@@ -16,10 +16,38 @@ class SignupScreen extends StatefulWidget {
    final   country=InputText(text: "country",);
   final  password=PasswordInput();
   final countries=["Lebanon","Syria","KSA","UAE","Iraq"];
+  final Map<String,List<String>> cities={
+   "Lebanon":["Saida","Beirut","Tyre","Tripoli","Byblos","Bekaa","Mount Lebanon","El Chouf"],
+
+   "Syria":["Damascus","Aleppo","Homs","Deir ez-Zor","Suwayda","Al Hasakah","Delicacy","Al-Zabadani","Tartous"
+   ,"Albukamal","Al-Shaghour"],
+
+   "KSA":["Riyadh","Al-Medina","Macca","Jeddah","Der'aiyah"],
+
+   "UAE":["Abu Dhabi","Al Ain","Sharja"],
+
+   "Iraq":["Baghdad","Al-Najaf","Karbala","Ramadi","Fallujah","Sulaymaniyah","Kirkuk","Anbar","Mosul"
+   ,"Tikrit","Nineveh","Basra","Wasta","Dhi-Qar"]
+  };
+  final user_types=["Farmer","Vendor","Client",];
   List<DropdownMenuItem> countriesItems(List countriesNames){
     List<DropdownMenuItem> items=[];
     for(var county in countriesNames){
       items.add(DropdownMenuItem(child: Text(county),value: county,));
+    }
+    return items;
+  }
+  List<DropdownMenuItem>  CitiesItems(List Cities){
+    List<DropdownMenuItem> items=[];
+    for(var city in Cities){
+      items.add(DropdownMenuItem(child: Text( city),value:  city,));
+    }
+    return items;
+  }
+  List<DropdownMenuItem> TypesItems(List Types){
+    List<DropdownMenuItem> items=[];
+    for(var Type in Types){
+      items.add(DropdownMenuItem(child: Text( Type),value:  Type,));
     }
     return items;
   }
@@ -40,10 +68,26 @@ try{
   }
  class _SignupScreenState extends State<SignupScreen>{
   dynamic selectedCountry;
+  dynamic selectedCity;
+  dynamic selectedType;
   void callBackCountriesDropDown(dynamic selectedCountry){
     if(selectedCountry is String){
       setState((){
       this.selectedCountry=selectedCountry;
+      });
+    }
+  }
+  void callBackCitiesDropDown(dynamic selectedCity){
+    if(selectedCity is String){
+      setState((){
+      this.selectedCity=selectedCity;
+      });
+    }
+  }
+  void callBackTypesDropDown(dynamic selectedType){
+    if(selectedCity is String){
+      setState((){
+      this.selectedType=selectedType;
       });
     }
   }
@@ -71,16 +115,34 @@ try{
           SizedBox(height: 10,)
           ,
           Container(
-            width: 200,
-            height:40,
+            width: 440,
+            height:70,
             child:Row(
             
             children: [
             DropdownButton(
+               hint: Text("Select your country"),
               items:widget.countriesItems(widget.countries),
               value: selectedCountry,
                onChanged: callBackCountriesDropDown
+               ),
+               SizedBox(width: 10,),
+              selectedCountry != null ? DropdownButton(
+              hint: Text("Select City"),
+              items:selectedCountry!=null?widget.CitiesItems(widget.cities[selectedCountry]!):null,
+              value: selectedCity,
+               onChanged: selectedCountry!=null?callBackCitiesDropDown:null
+               ):Container(),
+                SizedBox(width: 10,),
+               DropdownButton(
+                hint: Text("Select your type"),
+                 itemHeight: 60,
+               
+              items:widget.TypesItems(widget.user_types),
+              value: selectedType,
+               onChanged: callBackTypesDropDown
                )
+               
           ],))
           ,
           Button(onPress: ()async{
