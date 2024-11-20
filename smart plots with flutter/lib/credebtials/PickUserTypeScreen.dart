@@ -96,7 +96,7 @@ class _PickUserType extends State<PickUserType> {
        );
        if(response.statusCode==200){
           final user=jsonDecode(response.body);
-          print("----------------------------");
+         
           
           final type_res=await http.post(
             Uri.parse("http://$IP:8000/api/register"),
@@ -109,9 +109,9 @@ class _PickUserType extends State<PickUserType> {
             "user_type":infos["type"],
             })
           );
-          print(type_res.statusCode);
+         
           if(type_res.statusCode==200){
-            print("_______________________________");
+            
             if(infos["type"]=="Farmer"){
              Navigator.of(context).pushReplacementNamed("/dashboard");
             }

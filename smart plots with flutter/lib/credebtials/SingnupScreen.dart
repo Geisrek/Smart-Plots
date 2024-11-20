@@ -1,4 +1,6 @@
+import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -99,7 +101,9 @@ try{
       body: Expanded(child: 
       SingleChildScrollView(child: 
        Container(padding: EdgeInsets.only(bottom: 10),child: Center(child:
-       Column(children:
+       Column(
+      
+        children:
         <Widget>[
           MyTitle(text: "Welcome back !"),
           MyText(text: "Glad to See you !"),
@@ -111,16 +115,18 @@ try{
           SizedBox(height: 10,),
           widget.password,
           SizedBox(height: 10,),
-           widget.country,
-          SizedBox(height: 10,)
-          ,
+          
           Container(
             width: 440,
-            height:70,
-            child:Row(
-            
-            children: [
+            height:100,
+            child:   Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 0.8,
+              runSpacing: 0.4,
+              children: [
+             
             DropdownButton(
+              
                hint: Text("Select your country"),
               items:widget.countriesItems(widget.countries),
               value: selectedCountry,
@@ -143,8 +149,8 @@ try{
                onChanged: callBackTypesDropDown
                )
                
-          ],))
-          ,
+          ]),)
+          ,SizedBox(height: 10,),
           Button(onPress: ()async{
            final storage=await SharedPreferences.getInstance();
            Map<String,String> credantials={
@@ -155,7 +161,64 @@ try{
         
            storage.setString('user_information',jsonEncode(credantials));
            //storage.remove('user_information');
-          Navigator.of(context).pushNamed("/pickuser");
+         // Navigator.of(context).pushNamed("/pickuser");
+           try{
+       final response=await http.post(
+        Uri.parse("http://$IP:8000/api/register"),
+        headers:<String,String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',
+            },
+        body: jsonEncode(<String, String>{
+          "name":widget.userName.getText(),
+          "email":widget.email.getText(),
+          "password":widget.password.getText(),
+          "user_address":selectedCountry+"-"+selectedCity
+
+        })
+       
+       );
+       if(response.statusCode==200){
+          final user=jsonDecode(response.body);
+         
+          
+          final type_res=await http.post(
+            Uri.parse("http://$IP:8000/api/insertUser"),
+            headers:<String,String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',}
+            ,
+            body:jsonEncode(<String, dynamic> {
+              "user_id":user["user"]["id"],
+            "user_type":selectedType,
+            })
+          );
+         
+          if(type_res.statusCode==200){
+            
+            if(selectedType=="Farmer"){
+             Navigator.of(context).pushReplacementNamed("/dashboard");
+            }
+            else if(selectedType=="Vendor"){
+             Navigator.of(context).pushReplacementNamed("/vendor");
+
+            }
+            else {
+             Navigator.of(context).pushReplacementNamed("/client");
+
+            }
+          }
+          else{
+            print(type_res.body);
+          }
+
+       }
+       else{
+        print(response.body);
+       };}
+       catch(err){
+        print(err);
+       }
   }, text: "Next"),
           Container(padding: 
           EdgeInsets.only(left: 10,right: 10), margin: EdgeInsets.only(bottom: 10,left: 10),height: 40,child:
