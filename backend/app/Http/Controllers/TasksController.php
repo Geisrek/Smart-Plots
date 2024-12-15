@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tasks;
 use App\Models\history;
+use Carbon\Carbon;
 class TasksController extends Controller
 {
     function getTasks(Request $req){
@@ -56,5 +57,11 @@ class TasksController extends Controller
         $plot_id=$req->plot_id;
         $histories=history::where('plot_id',$plot_id)->get();
         return response()->json( $histories);
+    }
+    function getCurrentTask(Request $req){
+        $plot_id=$req->plot_id;
+        $currentTask=tasks::where('plot_id',$plot_id)->where('schedule_date',">=",Carbon::today())->get()->sortBy('schedule');
+        
+        return response()->json( $currentTask[0]);
     }
 }

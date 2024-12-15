@@ -54,19 +54,20 @@ class _PasswordInput extends State<PasswordInput> {
 }
 class InputText extends StatelessWidget {
   String text;
-  InputText({super.key,required this.text});
+  double width;
+  InputText({super.key,required this.text,this.width=300});
   final TextEditingController TextValue =TextEditingController();
   
   
   @override
   Widget build(BuildContext context) {
-    return Container(width: 300,
+    return Container(width: this.width,
     height: 48
       ,child: TextFormField(
       controller: TextValue,
       decoration: InputDecoration(
         labelText: text,
-        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18),
+        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18,fontFamilyFallback: ['Nunito', 'Arial', 'sans-serif']),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
     ),) ;
   }

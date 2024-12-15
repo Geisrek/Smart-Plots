@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,6 +43,7 @@ class SignupScreen extends StatefulWidget {
   }
   List<DropdownMenuItem>  CitiesItems(List Cities){
     List<DropdownMenuItem> items=[];
+    
     for(var city in Cities){
       items.add(DropdownMenuItem(child: Text( city),value:  city,));
     }
@@ -72,6 +75,31 @@ try{
   dynamic selectedCountry;
   dynamic selectedCity;
   dynamic selectedType;
+  /*
+  use it to check time
+  Timer? _timer;
+    int _counter=0;
+    @override
+    void initState(){
+    //when a widget or state crated
+      super.initState();
+      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+         setState(() 
+         { 
+          _counter++; 
+         });
+         });
+    }
+    @override void dispose() { 
+    //Cleanup code here
+    //when an object die
+     print('dispose called'); 
+     super.dispose(); }
+     $_counter;*/
+    @override void dispose() { // Cleanup code here
+     print('dispose called'); 
+     super.dispose(); 
+     }
   void callBackCountriesDropDown(dynamic selectedCountry){
     if(selectedCountry is String){
       setState((){

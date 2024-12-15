@@ -63,8 +63,10 @@ class SigninScreen extends StatelessWidget {
               
               final info=await SharedPreferences.getInstance();
               info.setString('credential',data['authorisation']['token']);
+              info.setString('user', data['user']);
               print('---$token####${data['authorisation']}');
-              Navigator.of(context).pushReplacementNamed("/dashboard");
+             
+             Navigator.of(context).pushReplacementNamed("/dashboard");
             }
             else{
               Navigator.of(context).pushReplacementNamed("/");
@@ -82,9 +84,13 @@ class SigninScreen extends StatelessWidget {
    
            );
            final data=jsonDecode(response.body);
-           print('token exist:$data');
+           
+           
             if(data['status']=='success'){
-              Navigator.of(context).pushReplacementNamed("/dashboard");
+              print('token exist:$data');
+              final preferance=await SharedPreferences.getInstance();
+               preferance.setString("user", jsonEncode(data));
+             Navigator.of(context).pushReplacementNamed("/dashboard");
             };
             }
            }

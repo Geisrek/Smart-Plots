@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:Smart_pluts/comon/TextInputs.dart';
 import 'package:Smart_pluts/constants/constants.dart';
 import 'package:Smart_pluts/farmer/chatgpt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "../comon/MyTitle.dart";
 import '../comon/MyText.dart';
@@ -17,34 +19,47 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+   DashBoard({super.key});
+ 
+
 
   @override
   State<DashBoard> createState() => _DashBoard();
 }
 
 class _DashBoard extends State<DashBoard> {
+   @override
+    void initState() {
+      super.initState();
+      intializeData();
+    }
+    Future<void> intializeData() async{
+      await getUser();
+     await fetchPlots();
+    }
  List<dynamic> data=[];
  List<dynamic> censors=[];
- final openai=OpenAI.instance.build(token: Openai_Key,baseOption: HttpSetup(sendTimeout: Duration(seconds: 5)),enableLog: true);
- String _message="";
-  Future<void> getMessage(m)async{
-    await Future.delayed(Duration(seconds: 10));
-  try{setState((){
-_message=m;
-  });
+ dynamic current_user;
+ dynamic current_plot;
 
-   final request = ChatCompleteText(
-      messages:[Messages(role: Role.user,name: 'user',content: m).toJson()],
-      maxToken: 200,
-      model: GptTurbo16k0631Model(),
-    );
-  final response= await openai.onChatCompletion(request: request);
-  print(response);}
-  catch(e){
-    print('AI Error: $e');
+  getUser() async { 
+   
+  try{
+  final preferences = await SharedPreferences.getInstance(); 
+  final String? userData= preferences.getString('user'); 
+  print("user :>>${userData}");
+  
+  setState((){
+   current_user=jsonDecode(userData!);
+   });
+   
+   } 
+   catch(err){
+    print("FETCH USERS ERROR: $err");
+   }
   }
-}
+  
+ final plant=InputText(text: "Plant",);
     readCensorsData()async{
       
      try{
@@ -90,34 +105,38 @@ _message=m;
 
      }
     }
-   
+    
    fetchPlots() async {
     try {
+      
       final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
            
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, int>{
-     'user_id':1
+     'user_id':this.current_user["user"]["id"]
     }),
       
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         data= jsonDecode(response.body)['plots'];
+        print(data);
       } else {
         throw Exception('Failed to load plots');
       }
     } catch (err) {
-      print(err);
-      throw Exception('Operation failed ');
+      print("------------------------------------------errorr----------------------");
+      print(this.current_user["user"]["id"]);
+      throw Exception('Operation failed $err');
     }
   }
+  
+ 
   @override
   Widget build(BuildContext context) {
-    print('hello');
-    //getMessage("Hello chatgpt");
-    callChatGPT("Hello");
+   
     return  Scaffold(
      appBar: AppBar(toolbarHeight: 211,shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),backgroundColor: Color(0xFF00651F)
      
@@ -130,19 +149,21 @@ _message=m;
              MyTitle(text: "Dashboard",color: Colors.white,),
              SizedBox(width: 70,),
              Container( width: 26,height: 26,child: InkWell(onTap: ()async{
-        print('in');
+        
         try{
           final credentials=await SharedPreferences.getInstance();
-          credentials.remove('user_information');
-          credentials.remove('credential');
+          
            final response=await http.post(
             Uri.parse('http://$IP:8000/api/logout')
            );
            Navigator.of(context).pushReplacementNamed('/');
-           print('done');
+           
       }catch(err){
          print('Error:$err');
-      }},child: Column(crossAxisAlignment: CrossAxisAlignment.center,children:[Icon(Icons.logout_outlined,size: 23,color: Colors.white,)],),))
+      }},child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:[
+          Icon(Icons.logout_outlined,size: 23,color: Colors.white,)],),))
            ],
          ),),
          SingleChildScrollView(
@@ -150,27 +171,9 @@ _message=m;
           child: Row(children: [ PlotWidget(
                           path: "./images/add.svg",
                           name: "Add",
-                          function: (id) async{
-                          try{
-                           final plot=await http.get(
-                            Uri.parse("http://plot.local/register"));
-                            final info=await SharedPreferences.getInstance();
-                           final token= info.getString('credential');
-           
-            dynamic response=await http.post(
-          
-            Uri.parse("http://${IP}:8000/api/login"),
-             headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Accept':'application/json',
-            'Authorization': 'Bearer $token'  });
-           final _info=jsonDecode(response.body);
-           print('----->$_info  , ${_info}');
-                            
-                          }catch(e){
-                            print(e);
-                          }
-                          },
+                          function: (id){
+                            Navigator.of(context).pushNamed('/add');
+                             },
                           id:0,
                         ),
             FutureBuilder(future: fetchPlots(), builder:(context,snapshot){
@@ -179,6 +182,9 @@ _message=m;
       }
       else
           {
+             
+                  
+              
             return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -188,8 +194,10 @@ _message=m;
                           name: "Plot ${plot['id']}",
                           function: (id) async{
                           try{
-                            final plot= await SharedPreferences.getInstance();
-                            plot.setInt('plot', id);
+                            setState((){
+                            this.current_plot=plot;
+                            });
+                            
                             
                           }catch(e){
                             print(e);
@@ -220,15 +228,16 @@ _message=m;
             Container(margin: EdgeInsets.only(left: 10),child: Container(
             height: 75,
             width: 300,
-            child: FutureBuilder(future: callChatGPT("give me the best environment for the potato group"), 
+            child:this.current_plot!=null? FutureBuilder(future: callChatGPT("give me the best environment for the ${this.current_plot["product"]} group that developed in ${this.current_plot["address"]}"), 
             builder: (context,snapshot){
-              if (snapshot.connectionState == ConnectionState.waiting)
+              if (snapshot.connectionState == ConnectionState.waiting  )
                { 
                 return MyText(text: "--");
                  }
                else if 
                (snapshot.hasError) 
                { 
+                print("gpt errore:${this.current_plot}");
                 return Text('Error: ${snapshot.error}'); 
                 } 
                 else if 
@@ -244,10 +253,15 @@ _message=m;
                       }
             }
             
-            )
+            ):MyText(text: "Please select a plot")
             ,)
             ,)
-            ,SizedBox(height: 20,),Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [MyText(text:"Air humidity"),SizedBox(width: 20,),MyText(text: "Sol humidity"),IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon:  SvgPicture.asset("./images/history.svg") )],),)
+            ,SizedBox(height: 20,),
+            Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+              MyText(text:"Air humidity"),
+              SizedBox(width: 20,),
+              MyText(text: "Sol humidity"),
+              IconButton(onPressed: (){Navigator.of(context).pushNamed("/history");}, icon:  SvgPicture.asset("./images/history.svg") )],),)
             ,
             SizedBox(height: 10,)
             ,
@@ -266,7 +280,79 @@ _message=m;
                     );
                 }
                 else{
+                   void initState(){
+                        super.initState();
+                        Future currentTask()async{
+                          try{
+                          final plot= await SharedPreferences.getInstance();
+                          final plot_id=await plot.getInt("plot");
+                          dynamic currentTask=await http.post(
+                            Uri.parse("http://localhost:8000/api/schedule"),
+                            body: jsonEncode({
+                              "plot_id":plot_id
+                            })
+                          );
+                          return currentTask;}
+                          catch(err){
+                            return null;
+                          }
+                        }
+                       currentTask().then((taskResult)async{
+                        final info=await SharedPreferences.getInstance();
+                        DateTime now = DateTime.now(); // Format the date as YYYY-MM-DD 
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+                        DateTime becomeTask=DateTime.parse(taskResult["schedule_date"]) ;
+                        if(now.isAtSameMomentAs(becomeTask)){
+                          
+                          if(info.getString("schedule")!=null){
+                          Map old_task=jsonDecode(info.getString("schedule")!);
+                           http.post(
+                            Uri.parse("http://$IP:8000/api/finishTask"),
+                            body: jsonEncode({
+                              'id':old_task["id"]
+                            })
+                          );
+                          }
+                          info.setString("schedule", jsonEncode(taskResult));
+                        }
+                        if(info.containsKey("schedule")&&censors[0]is int && censors[1] is int && censors[2] is int && censors[3] is int){
+                        Map currentTask=jsonDecode( info.getString("schedule")!);
+                        int EC=int.parse(censors[0]);
+                        int PH =int.parse(censors[1]);
+                        int tem=int.parse(censors[2]);
+                        int light=int.parse(censors[3]);
+                        if(EC<currentTask["sol_humidity"] ){
+                       
+                         http.get(Uri.parse(
+                          "http://$ESP32/water"
+                         )
+                         );
+
+                        }
+                        if(PH<currentTask["air_humidity"]){
+                          http.get(
+                              Uri.parse(
+                                'http://$ESP32/fan'
+                                ));
+                        }
+                        if(tem<currentTask["temperature"]|| tem>currentTask["temperature"]){
+                            http.get( 
+                               Uri.parse(
+                                'http://$ESP32/condition'
+                                ));
+                        }
+                        if(light<currentTask["light"]){
+                          http.get(
+                              Uri.parse(
+                                'http://$ESP32/light'
+                              ));
+                          
+                        }
+                      }
+                        });
+                      }
                     return Column(
+                     
                       children: [
                           InfoDisplayer(path: "./images/soil.svg", label: "EC", value: censors[0] , unit: ""),
                InfoDisplayer(path: "./images/drop.svg", label: "PH", value: censors[1], unit: "")
@@ -287,5 +373,31 @@ _message=m;
   }
  
 }
+/**
+ * (id) async{
+                          try{
+                           final plot=await http.get(
+                            Uri.parse("http://plot.local/register"));
+                            final info=await SharedPreferences.getInstance();
+                           final token= info.getString('credential');
+           
+            dynamic response=await http.post(
+          
+            Uri.parse("http://${IP}:8000/api/login"),
+             headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',
+            'Authorization': 'Bearer $token'  });
+           final _info=jsonDecode(response.body);
+                            
+                          }catch(e){
+                            print(e);
+                          }
+                          }
 
-//PlotWidget(path: "./images/plot.svg", name: "plot1", function:updateIndex, id: 0),PlotWidget(path: "./images/plot.svg", name: "plot2", function:updateIndex, id: 1),PlotWidget(path: "./images/plot.svg", name: "plot3", function:updateIndex, id: 2),PlotWidget(path: "./images/plot.svg", name: "plot4", function:updateIndex, id: 2),PlotWidget(path: "./images/add.svg", name: "", function:updateIndex, id: 2)
+                          Uri.parse("http://plot.local/register"),
+     headers: { 'Content-Type': 'application/json' ,
+     'Origin': 'http://your-flutter-web-app.com',
+     "Access-Control-Allow-Origin": "*",
+     }
+ */

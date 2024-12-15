@@ -29,6 +29,7 @@ Route::post('/getPlots',[SmartPlotsController::class,'getPlots']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType']);
 //->middleware('userType');
 Route::post('/getHistory',[TasksController::class,'getHistory']);
+Route::post('/schedule',[TasksController::class,'getCurrentTask']);
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');

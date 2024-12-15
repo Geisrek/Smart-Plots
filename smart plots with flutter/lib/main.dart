@@ -1,10 +1,11 @@
 import 'package:Smart_pluts/constants/constants.dart';
+import 'package:Smart_pluts/farmer/AddScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'credebtials/WelcomScreen.dart';
 import 'credebtials/SigninScreen.dart';
 import 'credebtials/SingnupScreen.dart';
-import 'credebtials/PickUserTypeScreen.dart';
+
 import './farmer/Dashboard.dart';
 import './farmer/CreateScduelScreen.dart';
 import './farmer/HistoryScreen.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       "/welcomw":(context)=> WelcomeScreen(),
       "/":(context)=> SigninScreen(),
       "/signup":(context)=>SignupScreen(),
-      "/pickuser":(context) => PickUserType(),
+      "/add":(context)=>AddScreen(),
       "/dashboard":(context) => DashBoard(),
       "/create_Scduel":(context) => CreateScduelScreen(),
       "/history":(context) => HistoryScreen(),
