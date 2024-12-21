@@ -12,8 +12,7 @@ class InfoDisplayer extends StatefulWidget {
   State<InfoDisplayer> createState() => _InfoDisplayer();
 }
 
-class _InfoDisplayer extends State<InfoDisplayer
-> {
+class _InfoDisplayer extends State<InfoDisplayer> {
   @override
   Widget build(BuildContext context) {
     return Container(

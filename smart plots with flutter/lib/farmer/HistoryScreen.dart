@@ -1,3 +1,4 @@
+import 'package:Smart_pluts/comon/MyText.dart';
 import 'package:Smart_pluts/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,38 +16,40 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   List<dynamic> data = [];
+  dynamic current_user;
+  @override
+  Future<void>? _historyFuture;
+   @override 
+   void initState() {
+     super.initState();
+      _historyFuture = getHistory();
+      } // Store the Future in a variable to cache the result }
+ Future<void> getHistory() async { 
+  final infos = await SharedPreferences.getInstance(); 
+  final int? _id = infos.getInt('plot');
+   final String? userData = infos.getString('user'); 
+   if (_id == null || userData == null) { 
+    print("No plot or user data found in SharedPreferences."); 
+    return; 
+    } 
+    print("user :>> $userData");
+    print("id>>$_id");
+     setState(() {
+       current_user = jsonDecode(userData);
+        });
+       if (current_user == null) { 
+        return; 
+        } try { 
+          final response = await http.post( Uri.parse("http://$IP:8000/api/getHistory"), 
+          headers: <String, String>{ 'Content-Type': 'application/json; charset=UTF-8', }, 
+          body: jsonEncode(<String, int>{ 'plot_id': _id, }), ); 
+          setState(() { 
+            data = jsonDecode(response.body); 
+            }); 
+            print(data); }
+            catch (err) { print("schedule's error: $err"); }
+             }
   
-  @override
-  void initState() {
-    super.initState();
-    getHistory();
-  }
-  getHistory()async{
-    final infos= await SharedPreferences.getInstance();
-    final int _id=await infos.getInt('plot')!;
-    try{
-    dynamic response=await http.post(
-          
-            Uri.parse("http://$IP:8000/api/getHistory"),
-             headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, int>{
-     'plot_id':_id
-    }),
-           );
-           data=jsonDecode(response.body);
-           print(data);
-          }
-           catch(err){
-            print(err);
-           }
-  }
-  @override
- void didChangeDependencies(){
-    super.didChangeDependencies();
-    getHistory();
- }
  
   @override
   Widget build(BuildContext context) {
@@ -57,19 +60,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ),
       ),
       body: FutureBuilder(
-        future:getHistory(), 
+        future:_historyFuture, 
         builder: (context, snapshot)  {
           if(snapshot.connectionState==ConnectionState.waiting){
             return Center(
-              child: CircularProgressIndicator(),
+              child: MyText(text: ("Wating...")),
             );
           }
+          else if (data.isEmpty) { return Center( child: MyText(text: "No schedule found"), );}
+         
           else if(snapshot.hasError){
             return  Center(child: Text('Error: ${snapshot.error}'));
           }
           else{
+              if(data.length==0){
+            return Center(
+              child: MyText(text: ("No scheduel found")),
+            );
+          }
            return ListView(
-            
+           
             children: [
                 Container(
                   height: 900,
@@ -108,24 +118,3 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 }
-/**Container(height: 600
-      ,width: 400,
-      decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius: BorderRadius.circular(
-        7
-      ))
-      ,padding: EdgeInsets.all(5),
-      margin: EdgeInsets.only(top: 40,right: 5,left: 5)
-      ,
-      child:  SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center
-        ,children: [
-          Container(margin: EdgeInsets.only(right: 250),child: MyTitle(text: "Plot 1")),
-          HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24",id: 1,),
-           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24",id: 1,),
-           HistoryItem(Date: "11/3/2015", EC: "10", PH: "12", Lux: "100", C: "24",id: 1,),
-           HistoryItem(Date: "11/4/2015", EC: "20", PH: "5", Lux: "100", C: "24",id: 1,),
-        ],),
-      ),
-      ), */

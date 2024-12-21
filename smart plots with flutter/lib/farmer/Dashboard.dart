@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:Smart_pluts/comon/TextInputs.dart';
@@ -32,22 +33,29 @@ class _DashBoard extends State<DashBoard> {
     void initState() {
       super.initState();
       intializeData();
+
+      getCurrentTask();
+      print("<------${this.current_task}<------");
     }
-    Future<void> intializeData() async{
-      await getUser();
-     await fetchPlots();
-    }
- List<dynamic> data=[];
+    List<dynamic> data=[];
  List<dynamic> censors=[];
  dynamic current_user;
  dynamic current_plot;
+ dynamic current_task;
+   
+    Future<void> intializeData() async{
+      await getUser();
+     await fetchPlots();
+     await getCurrentTask();
+    }
+ 
 
   getUser() async { 
    
   try{
   final preferences = await SharedPreferences.getInstance(); 
   final String? userData= preferences.getString('user'); 
-  print("user :>>${userData}");
+  print(userData);
   
   setState((){
    current_user=jsonDecode(userData!);
@@ -61,43 +69,49 @@ class _DashBoard extends State<DashBoard> {
   
  final plant=InputText(text: "Plant",);
     readCensorsData()async{
-      
+      if(this.current_plot==null){
+        censors.add('pending...');
+        censors.add('pending...');
+        censors.add('pending...');
+        censors.add('pending...');
+        return;
+      }
      try{
       final humidity=await http.get(
-        Uri.parse('http://$ESP32/humidity')
+        Uri.parse('http://${this.current_plot["IP"]}/humidity')
       );
       final temperature=await http.get(
-        Uri.parse('http://$ESP32/temperature')
+        Uri.parse('http://${this.current_plot["IP"]}/temperature')
       );
        final light=await http.get(
-        Uri.parse('http://$ESP32/light')
+        Uri.parse('http://${this.current_plot["IP"]}/light')
       );
        final solHumidity=await http.get(
-        Uri.parse('http://$ESP32/solHumidity')
+        Uri.parse('http://${this.current_plot["IP"]}/solHumidity')
       );
       if(humidity.statusCode==200){
         censors.add(jsonDecode(humidity.body));
       }
       else{
-        censors.add('--');
+        censors.add('N/A');
       }
        if(temperature.statusCode==200){
         censors.add(jsonDecode(temperature.body));
       }
       else{
-        censors.add('--');
+        censors.add('N/A');
       }
        if(light.statusCode==200){
         censors.add(jsonDecode(light.body));
       }
       else{
-        censors.add('--');
+        censors.add('N/A');
       }
       if(solHumidity.statusCode==200){
         censors.add(jsonDecode(solHumidity.body));
       }
       else{
-        censors.add('--');
+        censors.add('N/A');
       }
       
      }
@@ -105,34 +119,132 @@ class _DashBoard extends State<DashBoard> {
 
      }
     }
-    
+     Future currentTask()async{
+          if(this.current_plot==null)   {
+            return;
+          } 
+          try{
+          
+         
+          dynamic currentTask=await http.post(
+            Uri.parse("http://$IP:8000/api/schedule"),
+            headers: <String,String>{'Content-Type': 'application/json; charset=UTF-8'},
+            
+            body: jsonEncode({
+              "plot_id":this.current_plot["id"]
+            })
+          );
+          this.current_task=currentTask;
+           print("current Task:${currentTask.body}, plot: ${this.current_plot["id"]}");
+          return currentTask;}
+          catch(err){
+            return null;
+          }
+        }
    fetchPlots() async {
     try {
       
-      final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
+     
+   final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
            
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      
     },
     body: jsonEncode(<String, int>{
      'user_id':this.current_user["user"]["id"]
     }),
       
       );
-      print(response.statusCode);
+      
+      print("res2=${response.body}");
       if (response.statusCode == 200) {
         data= jsonDecode(response.body)['plots'];
-        print(data);
+        
+        if(this.current_plot==null&&data.length>0){
+          setState(() {
+            print("in");
+            this.current_plot=data[0];
+            
+         
+        });
+        }
+        getCurrentTask();
+      
       } else {
         throw Exception('Failed to load plots');
       }
     } catch (err) {
-      print("------------------------------------------errorr----------------------");
-      print(this.current_user["user"]["id"]);
       throw Exception('Operation failed $err');
-    }
+    }//schedule_error schedule_date
   }
-  
+   Future<void> getCurrentTask() async{
+      if(this.current_plot!=null){
+     return currentTask().then((taskResult)async{
+      
+        final task=await taskResult;
+        final cur_Task=jsonDecode(task.body);
+
+        final info=await SharedPreferences.getInstance();
+        DateTime now = DateTime.now(); // Format the date as YYYY-MM-DD 
+        String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+          DateTime becomeTask=DateTime.parse(cur_Task["schedule_date"]) ;
+          final current_time="${now.year}-${now.month}-${now.day}";
+          print(current_time==cur_Task["schedule_date"]);
+          print("$current_time  <>  ${cur_Task["schedule_date"]}");
+          if(current_time==cur_Task["schedule_date"]){
+            print("old task:$cur_Task");
+             final response=await http.post(
+              Uri.parse("http://$IP:8000/api/finishTask"),
+                    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+              body: jsonEncode({
+                'id':cur_Task["id"]
+              })
+            );
+            final res=await response;
+          
+            info.setString("schedule", jsonEncode(cur_Task));
+          }
+          if(info.containsKey("schedule")&&censors[0]is int && censors[1] is int && censors[2] is int && censors[3] is int){
+          Map currentTask=jsonDecode( info.getString("schedule")!);
+          int EC=int.parse(censors[0]);
+          int PH =int.parse(censors[1]);
+          int tem=int.parse(censors[2]);
+          int light=int.parse(censors[3]);
+          print("--->$currentTask");
+          if(EC<cur_Task["sol_humidity"] ){
+          
+            http.get(Uri.parse(
+            "http://$ESP32/water"
+            )
+            );
+
+          }
+          if(PH<currentTask["air_humidity"]){
+            http.get(
+                Uri.parse(
+                  'http://$ESP32/fan'
+                  ));
+          }
+          if(tem<currentTask["temperature"]|| tem>currentTask["temperature"]){
+              http.get( 
+                  Uri.parse(
+                  'http://$ESP32/condition'
+                  ));
+          }
+          if(light<currentTask["light"]){
+            http.get(
+                Uri.parse(
+                  'http://$ESP32/light'
+                ));
+            
+          }
+          print("done");
+        }
+          }).catchError((error)=>print("schedule_error:$error"));};
+    }
  
   @override
   Widget build(BuildContext context) {
@@ -194,10 +306,13 @@ class _DashBoard extends State<DashBoard> {
                           name: "Plot ${plot['id']}",
                           function: (id) async{
                           try{
+                            final infos= await SharedPreferences.getInstance();
+                            await infos.setInt('plot',plot["id"]);
                             setState((){
                             this.current_plot=plot;
-                            });
                             
+                            });
+                          getCurrentTask();
                             
                           }catch(e){
                             print(e);
@@ -212,15 +327,19 @@ class _DashBoard extends State<DashBoard> {
           },)],))
        ],
      )),
-     body: Container(
+     body:Flex(
+      direction: Axis.vertical,
+      children:[ Expanded(child: SingleChildScrollView(
+      child: 
+      Container(
       
-      height: 600,
+      height: 800,
       width: 400,
       decoration: BoxDecoration(color: Color(0xFFFFFF),borderRadius: BorderRadius.circular(7)),
       child:Column(
         children: [
           Row(crossAxisAlignment: CrossAxisAlignment.center,
-            children: [MyText(text: "Plot 1",color: Color(0xFF00651F)),SizedBox(width: 260,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){Navigator.of(context).pushNamed('/create_Scduel');},))],),
+            children: [this.current_plot!=null?MyText(text:this.current_plot["product"],color: Color(0xFF00651F)):MyText(text: ""),SizedBox(width: 260,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){Navigator.of(context).pushNamed('/create_Scduel');},))],),
           
             
             SizedBox(height: 5,)
@@ -244,10 +363,11 @@ class _DashBoard extends State<DashBoard> {
                 (snapshot.hasData)
                  { 
                   return
-                  Expanded(child:  SingleChildScrollView (
+                 Flex(direction: Axis.horizontal,
+                 children: [ Expanded(child:  SingleChildScrollView (
                      scrollDirection: Axis.vertical,
                 child:MyText(text: snapshot.data!)
-                    ));
+                    ))]);
                    } else {
                      return  Text('No data');
                       }
@@ -270,87 +390,17 @@ class _DashBoard extends State<DashBoard> {
                 if(snapshot.connectionState==ConnectionState.waiting|| censors.length==0){
                   return Column(
                       children: [
-                          InfoDisplayer(path: "./images/soil.svg", label: "EC", value: "--", unit: ""),
-               InfoDisplayer(path: "./images/drop.svg", label: "PH", value: "--", unit: "")
+                          InfoDisplayer(path: "./images/soil.svg", label: "EC", value: censors[0], unit: ""),
+               InfoDisplayer(path: "./images/drop.svg", label: "PH", value: censors[1], unit: "")
               ,
-              InfoDisplayer(path: "./images/temperature.svg", label: "Temperature", value:"--", unit: "")
+              InfoDisplayer(path: "./images/temperature.svg", label: "Temperature", value:censors[2], unit: "")
               ,
-              InfoDisplayer(path: "./images/sun.svg", label: "light", value: "--", unit: ""),
+              InfoDisplayer(path: "./images/sun.svg", label: "light", value:censors[3], unit: ""),
                       ],
                     );
                 }
                 else{
-                   void initState(){
-                        super.initState();
-                        Future currentTask()async{
-                          try{
-                          final plot= await SharedPreferences.getInstance();
-                          final plot_id=await plot.getInt("plot");
-                          dynamic currentTask=await http.post(
-                            Uri.parse("http://localhost:8000/api/schedule"),
-                            body: jsonEncode({
-                              "plot_id":plot_id
-                            })
-                          );
-                          return currentTask;}
-                          catch(err){
-                            return null;
-                          }
-                        }
-                       currentTask().then((taskResult)async{
-                        final info=await SharedPreferences.getInstance();
-                        DateTime now = DateTime.now(); // Format the date as YYYY-MM-DD 
-                        String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-                        DateTime becomeTask=DateTime.parse(taskResult["schedule_date"]) ;
-                        if(now.isAtSameMomentAs(becomeTask)){
-                          
-                          if(info.getString("schedule")!=null){
-                          Map old_task=jsonDecode(info.getString("schedule")!);
-                           http.post(
-                            Uri.parse("http://$IP:8000/api/finishTask"),
-                            body: jsonEncode({
-                              'id':old_task["id"]
-                            })
-                          );
-                          }
-                          info.setString("schedule", jsonEncode(taskResult));
-                        }
-                        if(info.containsKey("schedule")&&censors[0]is int && censors[1] is int && censors[2] is int && censors[3] is int){
-                        Map currentTask=jsonDecode( info.getString("schedule")!);
-                        int EC=int.parse(censors[0]);
-                        int PH =int.parse(censors[1]);
-                        int tem=int.parse(censors[2]);
-                        int light=int.parse(censors[3]);
-                        if(EC<currentTask["sol_humidity"] ){
-                       
-                         http.get(Uri.parse(
-                          "http://$ESP32/water"
-                         )
-                         );
-
-                        }
-                        if(PH<currentTask["air_humidity"]){
-                          http.get(
-                              Uri.parse(
-                                'http://$ESP32/fan'
-                                ));
-                        }
-                        if(tem<currentTask["temperature"]|| tem>currentTask["temperature"]){
-                            http.get( 
-                               Uri.parse(
-                                'http://$ESP32/condition'
-                                ));
-                        }
-                        if(light<currentTask["light"]){
-                          http.get(
-                              Uri.parse(
-                                'http://$ESP32/light'
-                              ));
-                          
-                        }
-                      }
-                        });
-                      }
+                   
                     return Column(
                      
                       children: [
@@ -364,12 +414,60 @@ class _DashBoard extends State<DashBoard> {
                     );}
               },),
             ),
+            SizedBox(height: 10,),
+            Container(
+              height: 200,
+              child:Flex(
+                direction: Axis.horizontal,
+                children:[Expanded(child: SingleChildScrollView(child: 
+              
+               FutureBuilder(
+                future: fetchPlots(),
+                builder: (context,snapchot){
+                  if(snapchot.connectionState==ConnectionState.waiting){
+                    return MyText(text: "pending...");
+                  }
+                  else if(data.isEmpty){
+                    return MyText(text: "No roducts");
+                  }
+                  else{
+                    return Column(children:  data.asMap().entries.map((plot) {
+                      int index=plot.key;
+                       Map<String,dynamic> _plot=plot.value;
+
+                        return Row(children: [ SizedBox(width: 2,),Container(
+                          width: 300,
+                          height: 50,
+                          padding: EdgeInsets.only(left: 40,bottom: 10),
+                          margin: EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(border: Border(left: BorderSide(
+                            color: Color(0xFF00651F),
+                            width: 40
+                          ))),
+                          child:Row(children: [MyText(text: "Plot ${index}")
+                          ,SizedBox(width: 10,),
+                          MyText(text: _plot["product"])],) ,
+                        ),SizedBox(width: 10,),InkWell(child: Icon(
+                          Icons.currency_exchange,
+                          color: Color(0xFF00651F),
+                        ) ,onTap: ()async{
+                           final preferences = await SharedPreferences.getInstance(); 
+                           Map data_to_sale={"plot_id":_plot["id"],"supplier_id":this.current_user["user"]["id"],"product":_plot["product"]};
+                           preferences.setString("product", jsonEncode(data_to_sale));
+                          return;
+                        },)],);
+                      }).toList(),);
+                  }
+                },
+              ),)),
+            ]))
+            ,
              Controle()
         ],
         
       )
      ,),
-    );
+    ))]));
   }
  
 }

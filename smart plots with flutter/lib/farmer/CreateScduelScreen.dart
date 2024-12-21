@@ -21,7 +21,9 @@ class CreateScduelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyBar(Title: "Create a new sceduel",).MyAppBarr(),
-      body: Container(
+      body:Expanded(
+        child:SingleChildScrollView(child: 
+         Container(
         padding: EdgeInsets.only(left: 5,right: 5),
         child: Column(children: [SizedBox(height: 20,),
           Row(children: [MyText(text: "Date"),Expanded(child: SizedBox(width: 40,)),SizedBox(width: 10,),this.Yeare],
@@ -44,11 +46,15 @@ class CreateScduelScreen extends StatelessWidget {
           Container(width: 100,child: ElevatedButton(onPressed: ()async{
              try{
               final infos= await SharedPreferences.getInstance();
-    final int _id=await infos.getInt('plot')!;
+              final int _id=await infos.getInt('plot')!;
+              final String? data=await infos.getString('user');
+              final user=jsonDecode(data!);
+              print(_id);
+              print(user);
               final response=await http.post(
-                Uri.parse('http://$IP/api/createTask'),
+                Uri.parse('http://$IP:8000/api/createTask'),
                 headers: {
-                  'Content-Type': 'application/json; charset=UTF-8',
+              'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json'
                 },
                 body:jsonEncode(<String, dynamic>{
@@ -57,11 +63,19 @@ class CreateScduelScreen extends StatelessWidget {
             'air_humidity':Air.getText(),
             'temperature':Temperature.getText(),
             'schedule_date':Yeare.getText(),
-            'plot_id':_id
+            'plot_id':_id,
+            'user_id':user["user"]["id"]
     }) 
               );
+              if(response.statusCode==200){
               print(jsonDecode(response.body));
-              Navigator.of(context).pushReplacementNamed('/dashboard');
+              Navigator.of(context).pushReplacementNamed('/dashboard');}
+              else{
+                print(response.statusCode);
+                 print(user);
+                final data=await response;
+                print(data.body);
+              }
              }catch(err){
               print(err);
              }
@@ -69,6 +83,6 @@ class CreateScduelScreen extends StatelessWidget {
           Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Default"),),)
           ],),
         ],),),
-    );
+    )));
   }
 }

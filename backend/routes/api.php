@@ -7,6 +7,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\SmartPlotsController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\HelloController;
+use App\Http\Controllers\SalesController;
 
 
 /*
@@ -25,11 +26,14 @@ Route::post('/deleteTask',[TasksController::class,'removeTask']);
 Route::post('/getTasks',[TasksController::class,'getTasks']);
 Route::post('/createTask',[TasksController::class,'createTask'])->middleware('createTasks');
 Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
+Route::post('/get_tasks',[SmartPlotsController::class,'getTasks']);
 Route::post('/getPlots',[SmartPlotsController::class,'getPlots']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType']);
+Route::post('/getUserPlots',[UserController::class,'getUserPlots']);
 //->middleware('userType');
 Route::post('/getHistory',[TasksController::class,'getHistory']);
 Route::post('/schedule',[TasksController::class,'getCurrentTask']);
+Route::post('/Sale',[SalesController::class,'Sale']);
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');

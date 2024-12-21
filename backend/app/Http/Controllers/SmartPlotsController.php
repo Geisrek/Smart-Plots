@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Models\user_plots;
+use App\Models\UserPlots;
 use Exception;
 
 class SmartPlotsController extends Controller
@@ -16,7 +16,7 @@ class SmartPlotsController extends Controller
        $product=$req->product;
        $ip=$req->IP;
        
-       user_plots::create([
+       UserPlots::create([
         'user_id'=>$user_id,
         'address'=>$address,
         'product'=>$product,
@@ -32,10 +32,23 @@ class SmartPlotsController extends Controller
     }
     function getPlots(Request $req){
         $user_id=$req->user_id;
-        $plots=user_plots::where('user_id',$user_id)->get();
+        $plots=UserPlots::where('user_id',$user_id)->get();
         return response()->json([
             "message"=>"success",
             "plots"=>$plots
+        ]);
+
+    }
+    function getTasks(Request $req){
+        
+        $id=$req->plot_id;
+        $plot=UserPlots::where('id',$id)->first();
+        if (!$plot) { return response()->json(['error' => 'Plot not found'], 404); } 
+        $tasks = $plot->tasks;
+
+        return response()->json([
+            "message"=>"success",
+            "tasks"=>$tasks
         ]);
 
     }

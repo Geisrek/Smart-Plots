@@ -104,5 +104,13 @@ class UserController extends Controller
             ]
         ]);
     }
+    public function getUserPlots(Request $request){
+        $id=$request->user_id;
+        $user=User::where("id",$id)->first();
+        $plots=$user->plots;
+        return response()->json(["plots"=>$plots]);
+
+
+    }
 
 }

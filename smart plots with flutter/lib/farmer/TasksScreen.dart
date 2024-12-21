@@ -3,6 +3,7 @@
 
 
 import 'package:Smart_pluts/constants/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './HistoryItem.dart';
@@ -32,7 +33,7 @@ class _TasksScreenState extends State<TasksScreen> {
     final int _id=await infos.getInt('plot')!;
     dynamic response=await http.post(
           
-            Uri.parse("http://$IP:8000/api/getTasks"),
+            Uri.parse("http://$IP:8000/api/get_tasks"),
              headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -47,6 +48,7 @@ class _TasksScreenState extends State<TasksScreen> {
             print(err);
            }
   }
+
   @override
  void didChangeDependencies(){
     super.didChangeDependencies();
@@ -54,7 +56,7 @@ class _TasksScreenState extends State<TasksScreen> {
  }
   @override
   Widget build(BuildContext context) {
-    const color = Color(0xFFD9D9D9);
+    const color = Color( 0x88FFAA00);
 
     return Scaffold(
       appBar: MyBar(Title: "Tasks").MyAppBarr(),
@@ -76,7 +78,10 @@ class _TasksScreenState extends State<TasksScreen> {
                       Stack(
                         children: [
                           Container(
-                            height: 520,
+                            height: 150,
+                            width: 370,
+                            padding: EdgeInsets.only(bottom: 3),
+                            
                             child: ListView(
                               children: data.map((item) {
                                 return Infos(
@@ -87,8 +92,8 @@ class _TasksScreenState extends State<TasksScreen> {
                                   PH: item['air_humidity'].toString(),
                                   color: color,
                                   id: item['id'],
-                                  onCancel: 
-                           getTasks()
+                                  onCancel: (){
+                                      setState((){ getTasks();});}
                          ,
                                 );
                               }).toList(),
@@ -128,8 +133,8 @@ class Infos extends HistoryItem{
    child:  Column(
     children: [
       super.build(context),
-      Row(children:[SizedBox(width: 260,),
-      ElevatedButton(onPressed: ()async{
+      Row(children:[SizedBox(width: 310,),
+      InkWell(onTap: ()async{
         try{
          dynamic response= await http.post(
           Uri.parse('http://$IP:8000/api/deleteTask'),
@@ -145,35 +150,9 @@ class Infos extends HistoryItem{
          catch(err){
           print('$err : id=$id');
          }
-      }, child: Text("Cansel",style: TextStyle(fontFamily: 'Nunito',fontSize: 12),))])
+      }, child:Icon(CupertinoIcons.trash_circle_fill,color:  Color(0xFF00651F),))])
     ],
       ));
   }
   
-
-  
 }
-/**Container(height: 600,margin: EdgeInsets.all(5),child:Column(children: [ Stack(children:[Container(
-        height: 520,
-        child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,child:  Column(children: [
-              ListView(
-              shrinkWrap: true,
-              children:  data.entries.map((item){
-                return Infos(C: "12", EC: "12", Date: "12", Lux: "12", PH: "12",color:color ,);
-              }).toList(),
-            ),])),
-      ),
-     Positioned(
-     
-      top:450
-      ,
-      left: 0,
-      right: 0,
-      child: Controle(),
-    )])
-            ])),
-
-    );
-  }
-} */

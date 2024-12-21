@@ -110,7 +110,7 @@ class _AddScreenState extends State<AddScreen> {
                                             })
                                           );
                                          final body = await response;
-                                         print(body.body);
+                                       
                                          Navigator.of(context).pushReplacementNamed('/dashboard');
                                         }
                                         catch(e){

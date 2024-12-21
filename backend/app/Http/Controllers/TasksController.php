@@ -3,26 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\tasks;
+use App\Models\Tasks;
 use App\Models\history;
 use Carbon\Carbon;
 class TasksController extends Controller
 {
     function getTasks(Request $req){
         $plot_id=$req->plot_id;
-        $tasks=tasks::where('plot_id',$plot_id)->get();
+        $tasks=Tasks::where('plot_id',$plot_id)->get();
         return response()->json(["tasks"=>$tasks]);
     }
     
     function createTask(Request $req){
        
-        tasks::create([
+        Tasks::create([
             'light'=>$req->light,
             'sol_humidity'=>$req->sol_humidity,
             'air_humidity'=>$req->air_humidity,
             'temperature'=>$req->temperature,
             'schedule_date'=>$req->schedule_date,
-            'plot_id'=>$req->plot_id
+            'plot_id'=>$req->plot_id,
+            'user_id'=>$req->user_id
         ]);
         return response()->json([
             "status"=>"success"
@@ -30,7 +31,7 @@ class TasksController extends Controller
     }
     function removeTask(Request $req){
         $id = $req->id;
-        $task=tasks::where('id',$id)->first();
+        $task=Tasks::where('id',$id)->first();
         $task->delete();
         return response()->json([
             "status"=>"element deleted success"
@@ -38,7 +39,7 @@ class TasksController extends Controller
     }
     function finishTask(Request $req){
         $id = $req->id;
-        $task=tasks::where('id',$id)->first();
+        $task=Tasks::where('id',$id)->first();
        
         history::create([
             'light'=> $task['light'],
@@ -60,8 +61,10 @@ class TasksController extends Controller
     }
     function getCurrentTask(Request $req){
         $plot_id=$req->plot_id;
-        $currentTask=tasks::where('plot_id',$plot_id)->where('schedule_date',">=",Carbon::today())->get()->sortBy('schedule');
-        
-        return response()->json( $currentTask[0]);
+        $currentTask=Tasks::where('plot_id',$plot_id)->where('schedule_date',">=",Carbon::today())->get()->sortBy('schedule');
+        if(count($currentTask)==0){
+            return response()->json(["message"=>"No Tasks"]);
+        }
+        return response()->json( $currentTask[count($currentTask)-1]);
     }
 }
