@@ -26,7 +26,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       } // Store the Future in a variable to cache the result }
  Future<void> getHistory() async { 
   final infos = await SharedPreferences.getInstance(); 
-  final int? _id = infos.getInt('plot');
+  final int? _id = infos.getInt('plot_id');
    final String? userData = infos.getString('user'); 
    if (_id == null || userData == null) { 
     print("No plot or user data found in SharedPreferences."); 

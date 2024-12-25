@@ -17,7 +17,15 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   List<dynamic> register=[];
    dynamic selectedCity;
-  List<dynamic> Cities= ["Saida","Beirut","Tyre","Tripoli","Byblos","Bekaa","Mount Lebanon","El Chouf"];
+   String? country="";
+   List<String> Cities= [];
+   @override
+  initState(){
+    super.initState();
+    setAddress();
+  }
+
+  
     void callBackCitiesDropDown(dynamic selectedType){
     if(selectedType is String){
       setState((){
@@ -25,6 +33,7 @@ class _AddScreenState extends State<AddScreen> {
       });
     }
   }
+  
   final plant= InputText(text: "Your plant type",width:200);
   fetchEspInfo() async{
     try{
@@ -44,11 +53,20 @@ class _AddScreenState extends State<AddScreen> {
     }
     return items;
   }
+  Future<void> setAddress()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    dynamic country=jsonDecode(preferences.getString('user')!)["user_address"].split("-")[0];
+    
+     
+    setState(() {
+      Cities=cities[country]??[];
+    });
+  }
   @override
   Widget build(BuildContext context) {
    
     return Scaffold(appBar: MyBar(Title: "Add plot").MyAppBarr(),
-    body:  Expanded(
+    body: Flex(direction:Axis.vertical ,children: [ Expanded(
                       child: 
                             SingleChildScrollView(
                                 child:Column(children: <Widget>[ FutureBuilder(future: fetchEspInfo(), builder: (context,snapshot){
@@ -91,7 +109,7 @@ class _AddScreenState extends State<AddScreen> {
                                          final dynamic user=jsonDecode(data);
                                         try{
                                           //modify the esp response to send address
-                                          print('User ID: ${user["user"]["id"]}');
+                                          print('User ID: ${user["id"]}');
                                            print('Address: $selectedCity');
                                             print('Product: ${plant.getText()}');
                                              print('IP: ${register[0]["IP"]}');
@@ -103,7 +121,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 'Accept':'application/json',
                                               },
                                             body:jsonEncode(<String,dynamic>{
-                                              "user_id":user["user"]["id"],
+                                              "user_id":user["id"],
                                               "address":selectedCity,
                                               "product":plant.getText(),
                                               "IP":register[0]["IP"]
@@ -118,6 +136,6 @@ class _AddScreenState extends State<AddScreen> {
                                         }
                                        
                                       } , child: MyText(text: "accept"))])],
-                             ))),);
+                             ))),],));
   }
 }

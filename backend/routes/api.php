@@ -8,7 +8,7 @@ use App\Http\Controllers\SmartPlotsController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\SalesController;
-
+use App\Http\Controllers\SalesdetailesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +29,18 @@ Route::post('/createPlot',[SmartPlotsController::class,'CreatePlot']);
 Route::post('/get_tasks',[SmartPlotsController::class,'getTasks']);
 Route::post('/getPlots',[SmartPlotsController::class,'getPlots']);
 Route::post('/insertUser',[UserTypeController::class,'createUserType']);
+Route::post('/checkUser',[UserTypeController::class,'checkUserType']);
 Route::post('/getUserPlots',[UserController::class,'getUserPlots']);
+Route::post('/getUser',[SalesController::class,'getUser']);
 //->middleware('userType');
 Route::post('/getHistory',[TasksController::class,'getHistory']);
 Route::post('/schedule',[TasksController::class,'getCurrentTask']);
 Route::post('/Sale',[SalesController::class,'Sale']);
+Route::post('/getProducts',[SalesController::class,'getProducts']);
+Route::post('/getHistoryBySerial',[SalesdetailesController::class,'getHistoryBySerial']);
+Route::post('/addToCard',[SalesdetailesController::class,'addToCard']);
+Route::post('/geteDeals',[SalesdetailesController::class,'geteDeals']);
+Route::post('/makeDeal',[SalesdetailesController::class,'makeDeal']);
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');

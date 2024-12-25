@@ -18,4 +18,17 @@ class UserTypeController extends Controller
             "data"=>user_types::where('user_type',$user_type)->get()
         ]);
     }
+    function checkUserType(Request $req){
+        $user_id=$req->user_id;
+       
+        $user_type=user_types::where("user_id",$user_id)->first();
+        if(!empty($user_type)){
+        return response()->json([
+            "status"=>"success",
+            "type"=>$user_type["user_type"]
+        ]);}
+        else{
+            return response()->json(["failed","user not found"],404);
+        }
+    }
 }

@@ -27,7 +27,12 @@ class _VendorScreenState extends State<VendorScreen> {
           ],
         ),
       ),
-      body:Container(
+      body:Flex(
+        direction: Axis.vertical,
+        children:[Expanded(child:
+        SingleChildScrollView(
+          child: 
+        Container(
         padding: EdgeInsets.only(left:30)
         ,
         child:Column(children: [
@@ -69,8 +74,10 @@ class _VendorScreenState extends State<VendorScreen> {
         ,
         widget.selling_price,
         SizedBox(height: 10,)
-        ,Button(onPress: (){}, text: "Save")],) ,
-      ) ,
+        ,Button(onPress: (){}, text: "Save"),ElevatedButton(onPressed: (){
+          Navigator.of(context).pushNamed("/market");
+        }, child: MyText(text:  "Market"))],) ,
+      )))] ),
     );
   }
 }

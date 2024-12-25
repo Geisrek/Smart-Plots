@@ -35,7 +35,7 @@ class _DashBoard extends State<DashBoard> {
       intializeData();
 
       getCurrentTask();
-      print("<------${this.current_task}<------");
+      
     }
     List<dynamic> data=[];
  List<dynamic> censors=[];
@@ -47,6 +47,7 @@ class _DashBoard extends State<DashBoard> {
       await getUser();
      await fetchPlots();
      await getCurrentTask();
+     await setCurrentPlot();
     }
  
 
@@ -60,13 +61,16 @@ class _DashBoard extends State<DashBoard> {
   setState((){
    current_user=jsonDecode(userData!);
    });
-   
+   print("user done");
    } 
    catch(err){
     print("FETCH USERS ERROR: $err");
    }
   }
-  
+  Future<void> setCurrentPlot()async{
+    SharedPreferences infos=await SharedPreferences.getInstance();
+     await infos.setString("plot", jsonEncode(this.current_plot));
+  }
  final plant=InputText(text: "Plant",);
     readCensorsData()async{
       if(this.current_plot==null){
@@ -152,7 +156,7 @@ class _DashBoard extends State<DashBoard> {
       
     },
     body: jsonEncode(<String, int>{
-     'user_id':this.current_user["user"]["id"]
+     'user_id':this.current_user["id"]
     }),
       
       );
@@ -168,6 +172,7 @@ class _DashBoard extends State<DashBoard> {
             
          
         });
+       
         }
         getCurrentTask();
       
@@ -268,6 +273,8 @@ class _DashBoard extends State<DashBoard> {
            final response=await http.post(
             Uri.parse('http://$IP:8000/api/logout')
            );
+           credentials.remove('credential');
+           credentials.remove('user');
            Navigator.of(context).pushReplacementNamed('/');
            
       }catch(err){
@@ -307,7 +314,7 @@ class _DashBoard extends State<DashBoard> {
                           function: (id) async{
                           try{
                             final infos= await SharedPreferences.getInstance();
-                            await infos.setInt('plot',plot["id"]);
+                            await infos.setInt('plot_id',plot["id"]);
                             setState((){
                             this.current_plot=plot;
                             
@@ -428,7 +435,7 @@ class _DashBoard extends State<DashBoard> {
                     return MyText(text: "pending...");
                   }
                   else if(data.isEmpty){
-                    return MyText(text: "No roducts");
+                    return MyText(text: "No products");
                   }
                   else{
                     return Column(children:  data.asMap().entries.map((plot) {
@@ -452,8 +459,9 @@ class _DashBoard extends State<DashBoard> {
                           color: Color(0xFF00651F),
                         ) ,onTap: ()async{
                            final preferences = await SharedPreferences.getInstance(); 
-                           Map data_to_sale={"plot_id":_plot["id"],"supplier_id":this.current_user["user"]["id"],"product":_plot["product"]};
+                           Map data_to_sale={"plot_id":_plot["id"],"supplier_id":this.current_user["id"],"product":_plot["product"],"address":_plot["address"]};
                            preferences.setString("product", jsonEncode(data_to_sale));
+                          Navigator.of(context).pushReplacementNamed("/export");
                           return;
                         },)],);
                       }).toList(),);

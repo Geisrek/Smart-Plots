@@ -17,6 +17,7 @@ class SigninScreen extends StatelessWidget {
    
   final   email=InputText(text: "Email");
   final  password=PasswordInput();
+  
   void setBearer (value) async{
        final data=await SharedPreferences.getInstance();
        data.setString('credential',value);
@@ -28,6 +29,34 @@ class SigninScreen extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    void navigate(id)async{
+      
+    try{
+   dynamic response=await http.post(
+      Uri.parse("http://$IP:8000/api/checkUser"),
+       headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+       body: jsonEncode({
+        'user_id':id
+       })
+    );
+    final user_type=jsonDecode(response.body);
+  
+    if(user_type["type"]=="farmer"){
+      Navigator.of(context).pushReplacementNamed("/dashboard");
+    }
+    else if(user_type["type"]=="vendor"){
+      Navigator.of(context).pushReplacementNamed("/vendor");
+    }
+    else if(user_type["type"]=="client"){
+      Navigator.of(context).pushReplacementNamed("/client");
+    }
+    }catch(e){
+      print("check user error:$e");
+    }
+
+  }
     return Scaffold(
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
       body: Container(child: Center(child:
@@ -43,7 +72,7 @@ class SigninScreen extends StatelessWidget {
           Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
           try{
           final data=await SharedPreferences.getInstance();
-    
+         
            final token= data.getString('credential');
            if(token==null){
           dynamic response=await http.post(
@@ -58,15 +87,13 @@ class SigninScreen extends StatelessWidget {
     }),
            );
            final data=jsonDecode(response.body);
-           
             if(data['status']=='success'){
-              
               final info=await SharedPreferences.getInstance();
-              info.setString('credential',data['authorisation']['token']);
-              info.setString('user', data['user']);
-              print('---$token####${data['authorisation']}');
+              info.setString('credential',jsonEncode(data['authorisation']['token']));
+              info.setString('user', jsonEncode(data['user']));
+              print('---$token####${jsonEncode(data['authorisation'])}');
              
-             Navigator.of(context).pushReplacementNamed("/dashboard");
+             navigate(data['user']['id']);
             }
             else{
               Navigator.of(context).pushReplacementNamed("/");
@@ -89,8 +116,8 @@ class SigninScreen extends StatelessWidget {
             if(data['status']=='success'){
               print('token exist:$data');
               final preferance=await SharedPreferences.getInstance();
-               preferance.setString("user", jsonEncode(data));
-             Navigator.of(context).pushReplacementNamed("/dashboard");
+               preferance.setString("user", jsonEncode(data["user"]));
+             navigate(data['user']['id']);
             };
             }
            }

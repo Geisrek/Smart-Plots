@@ -75,27 +75,7 @@ try{
   dynamic selectedCountry;
   dynamic selectedCity;
   dynamic selectedType;
-  /*
-  use it to check time
-  Timer? _timer;
-    int _counter=0;
-    @override
-    void initState(){
-    //when a widget or state crated
-      super.initState();
-      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-         setState(() 
-         { 
-          _counter++; 
-         });
-         });
-    }
-    @override void dispose() { 
-    //Cleanup code here
-    //when an object die
-     print('dispose called'); 
-     super.dispose(); }
-     $_counter;*/
+  
     @override void dispose() { // Cleanup code here
      print('dispose called'); 
      super.dispose(); 
@@ -187,7 +167,8 @@ try{
             "password":widget.password.getText()
             };
         
-           storage.setString('user_information',jsonEncode(credantials));
+           storage.setString('credential',jsonEncode(credantials));
+           storage.setString('user',jsonEncode(credantials['user']));
            //storage.remove('user_information');
          // Navigator.of(context).pushNamed("/pickuser");
            try{
@@ -319,3 +300,24 @@ try{
               print(err);
             }
  */
+/*
+  use it to check time
+  Timer? _timer;
+    int _counter=0;
+    @override
+    void initState(){
+    //when a widget or state crated
+      super.initState();
+      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+         setState(() 
+         { 
+          _counter++; 
+         });
+         });
+    }
+    @override void dispose() { 
+    //Cleanup code here
+    //when an object die
+     print('dispose called'); 
+     super.dispose(); }
+     $_counter;*/

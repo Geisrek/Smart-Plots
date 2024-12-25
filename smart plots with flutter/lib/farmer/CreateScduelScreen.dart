@@ -49,8 +49,7 @@ class CreateScduelScreen extends StatelessWidget {
               final int _id=await infos.getInt('plot')!;
               final String? data=await infos.getString('user');
               final user=jsonDecode(data!);
-              print(_id);
-              print(user);
+              
               final response=await http.post(
                 Uri.parse('http://$IP:8000/api/createTask'),
                 headers: {
@@ -64,7 +63,7 @@ class CreateScduelScreen extends StatelessWidget {
             'temperature':Temperature.getText(),
             'schedule_date':Yeare.getText(),
             'plot_id':_id,
-            'user_id':user["user"]["id"]
+            'user_id':user["id"]
     }) 
               );
               if(response.statusCode==200){

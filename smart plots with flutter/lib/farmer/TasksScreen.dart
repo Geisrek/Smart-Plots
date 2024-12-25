@@ -30,7 +30,7 @@ class _TasksScreenState extends State<TasksScreen> {
   getTasks()async{
     try{
       final infos= await SharedPreferences.getInstance();
-    final int _id=await infos.getInt('plot')!;
+    final int _id=await infos.getInt('plot_id')!;
     dynamic response=await http.post(
           
             Uri.parse("http://$IP:8000/api/get_tasks"),
