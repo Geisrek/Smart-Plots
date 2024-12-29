@@ -9,5 +9,5 @@ class salesdetails extends Model
 {
     use HasFactory;
     protected $table="salesdetails";
-    protected $fillable=['client_id','product_serial','product_id','opened'];
+    protected $fillable=['client_id','product_serial','product_id','opened','cost','currency_unit','product'];
 }

@@ -40,10 +40,7 @@ class _PasswordInput extends State<PasswordInput> {
           ),
           onPressed: () {
             setState(() {
-              //print("------------------------");
-             //  print(_textController.text);
-              // print(" <------------");
-              _passwordVisible = !_passwordVisible; // Toggle state
+              _passwordVisible = !_passwordVisible;
             });
           },
         ),
@@ -72,6 +69,36 @@ class InputText extends StatelessWidget {
     ),) ;
   }
  String getText(){
+    return TextValue.text;
+  }
+}
+
+class InputTextR extends StatefulWidget {
+  String text;
+  double width;
+  dynamic onChanged;
+  InputTextR({super.key,required this.text,this.width=300, this.onChanged=""});
+  
+  @override
+  State<InputTextR> createState() => _InputTextRState();
+}
+
+class _InputTextRState extends State<InputTextR> {
+   final TextEditingController TextValue =TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return  Container(width: widget.width,
+    height: 48
+      ,child: TextFormField(
+        onChanged: widget.onChanged,
+      controller: TextValue,
+      decoration: InputDecoration(
+        labelText: widget.text,
+        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18,fontFamilyFallback: ['Nunito', 'Arial', 'sans-serif']),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
+    ),) ;
+  }
+  String getText(){
     return TextValue.text;
   }
 }

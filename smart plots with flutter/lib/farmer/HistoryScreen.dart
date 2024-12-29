@@ -94,10 +94,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               children: data.map((item) {
                                 return HistoryItem(
                                   C: item['temperature'].toString(),
-                                  EC: item['sol_humidity'].toString(),
+                                  EC: item['air_humidity'].toString(),
                                   Date: item['schedule_date'].toString(),
                                   Lux: item['light'].toString(),
-                                  PH: item['air_humidity'].toString(),
+                                  PH: item['sol_humidity'].toString(),
                                  
                                   id: item['id'],
                             

@@ -74,6 +74,7 @@ class _AddtobasketscreenState extends State<Addtobasketscreen> {
         print("user:${userData} , product_id:${product_id}");
         print(response.statusCode);
        }
-    }, child: MyText(text: "Add to basket"))],),);
+    }, child: MyText(text: "Add to basket"),
+   ), ],),);
   }
 }

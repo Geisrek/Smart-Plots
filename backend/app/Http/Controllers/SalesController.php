@@ -8,6 +8,7 @@ use App\Models\UserPlots;
 use App\Models\user_types;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\history;
 class SalesController extends Controller
 {
     function Sale(Request $req){
@@ -69,5 +70,49 @@ class SalesController extends Controller
         }
     
     }
+    }
+    
+    function getHistoryBySerial(Request $req){
+        $serial=$req->serial;
+        if(!$serial){
+            return response()->json([
+                "message"=>"failed no serial received"
+            ],500);
+        }
+        $sale=sales::where("product_serial",$serial)->first();
+        if(!$sale){
+            return response()->json([
+                "message"=>"failed the serial is not exist"
+            ],500);
+        }
+        $history=history::where("plot_id",$sale["plot_id"])->get();
+        return response()->json($history);
+    }
+    function getSaleBySerial(Request $req){
+        $serial=$req->serial;
+        if(!$serial){
+            return response()->json([
+                "message"=>"failed no serial received"
+            ],500);
+        }
+        $sale=sales::where("product_serial",$serial)->first();
+        if(!$sale){
+            return response()->json([
+                "message"=>"failed the serial is not exist"
+            ],500);
+        }
+        return response()->json($sale);
+    }
+    function updateCost(Request $req){
+        $cost=$req->cost;
+        $product_id=$req->product_id;
+        $sale=sales::where("plot_id",$product_id)->first();
+        if($sale){
+        $sale->update([
+            "cost"=>$cost
+        ]);}
+        return response()->json([
+            "message"=>"done"
+        ]);
     }
 }

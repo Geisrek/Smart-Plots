@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:Smart_pluts/comon/MyText.dart';
+import 'package:Smart_pluts/comon/MyTitle.dart';
 import 'package:Smart_pluts/constants/constants.dart';
 import 'package:Smart_pluts/farmer/AppBar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +18,7 @@ class Makedealscreen extends StatefulWidget {
 
 class _MakedealscreenState extends State<Makedealscreen> {
   dynamic product_id;
+  dynamic products;
   @override
   Future<List > getUser()async{
     final preferences = await SharedPreferences.getInstance(); 
@@ -32,9 +35,6 @@ class _MakedealscreenState extends State<Makedealscreen> {
            
       );
        if(response.statusCode==200){
-        print("ok");
-        print(userData);
-        print(jsonDecode(response.body));
         
         return jsonDecode(response.body);
        }
@@ -65,10 +65,9 @@ class _MakedealscreenState extends State<Makedealscreen> {
           return MyText(text: "Oooops something went wrong! ${snapshot.error}");
         }else{
           final data = snapshot.data ;
+          products=snapshot.data;
           return Container(child:  Column(
-            children:data!.map((item)=>InkWell(
-                      
-                      child:Container(
+            children:data!.map((item)=>Container(
                          height: 220,
                       width: 170,
                       margin: EdgeInsets.all(10),
@@ -114,39 +113,86 @@ class _MakedealscreenState extends State<Makedealscreen> {
                               fontWeight: FontWeight.bold
 
                             ),)],) ,
-                            
+                           
 
-                          ],
+                          IconButton(onPressed: ()async{
+
+
+                                                  dynamic response=await http.post(
+                          Uri.parse("http://$IP:8000/api/removeSale"),
+                          headers:<String,String> {
+                                  'Content-Type': 'application/json; charset=UTF-8',
+                                  'Accept':'application/json',},
+                                  body: jsonEncode({
+                                    "id":item["id"]
+                                  })
+                                  
+                        );
+                        if(response.statusCode==200){
+                          setState(() {
+                            
+                          });
+                        }
+                          }, icon: Icon(
+                            Icons.remove_circle,
+                            color: Colors.red,
+                            size: 25,
+                          ))],
                         ),
-                      )])),onTap: ()async{
-                          SharedPreferences preferences=await SharedPreferences.getInstance();
-                          preferences.setString("deal",jsonEncode(item));
-                          Navigator.of(context).pushReplacementNamed("/deal");
-                     
-                      },)).toList()
+                      )]))).toList()
     ));
         }
       }),))
     ,ElevatedButton(onPressed: ()async{
-       
-      /*dynamic response=await http.post(
-        Uri.parse("http://$IP:8000/api/addToCard"),
+       SharedPreferences preferences=await SharedPreferences.getInstance();
+       dynamic userData=jsonDecode(preferences.getString("user")!);
+      if(products==null){
+         return showDialog(context: context, builder: (BuildContext contex){
+                    return Container(
+                      width: 300,
+                      height:400,
+                      child:  CupertinoAlertDialog(
+                    title: MyTitle(text: "Value missing"),
+                    content: MyText(text: "There are no deals to execute"),
+                    
+                  ));
+                  }) ;
+      }
+      print(products);
+      for(var item in products){
+        
+        Future.delayed(Duration(milliseconds: 25),()async{
+          print(item);
+          try{
+           dynamic response=await http.post(
+        Uri.parse("http://$IP:8000/api/makeDeal"),
           headers:<String,String> {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept':'application/json',},
             body: jsonEncode({
-              "client_id":userData["id"],
-              "product_id":product_id
+              "saledetail_id":item["id"],
+              "cost":item["cost"]
             })
            
       );
+      print(response.body);
        if(response.statusCode==200){
-        Navigator.of(context).pushReplacementNamed("/market");
+        setState(() {
+          
+        });
        }
        else{
         print("user:${userData} , product_id:${product_id}");
         print(response.statusCode);
-       }*/
+       }}
+       catch(e){
+        print(e);
+       }
+        });
+
+        
+      };
+     
     }, child: MyText(text: "Add to basket"))],),);
   }
 }

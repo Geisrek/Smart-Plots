@@ -7,6 +7,9 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(this.text,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: 'Nunito',color: this.color,),textAlign: TextAlign.center,);
+    return Text(this.text,style: TextStyle(fontSize: 18,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'Nunito',
+    color: this.color,),textAlign: TextAlign.center,);
   }
 }

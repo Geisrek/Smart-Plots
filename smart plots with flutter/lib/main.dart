@@ -5,6 +5,8 @@ import 'package:Smart_pluts/vendor/AddToBasketScreen.dart';
 import 'package:Smart_pluts/vendor/DealScreent.dart';
 import 'package:Smart_pluts/vendor/MarketScreen.dart';
 import 'package:Smart_pluts/vendor/MakeDealScreen.dart';
+import 'package:Smart_pluts/vendor/PurshasingDateScreen.dart';
+import 'package:Smart_pluts/vendor/updateStoreItemScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'credebtials/WelcomScreen.dart';
@@ -57,7 +59,9 @@ class MyApp extends StatelessWidget {
       "/market":(context) =>Marketscreen(),
       "/basket":(context) =>Addtobasketscreen(),
       "/make_Deale":(context) =>Makedealscreen(),
-      "/deal":(context) =>Deal()
+      "/deal":(context) =>Deal(),
+      '/purchase':(context)=>Purshasingdatescreen(),
+      '/updateStore':(context)=>Updatestoreitemscreen()
      },
     );
   }
