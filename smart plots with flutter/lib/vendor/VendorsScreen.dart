@@ -13,7 +13,7 @@ import '../comon/Button.dart';
 import 'package:http/http.dart' as http;
 class VendorScreen extends StatefulWidget {
    VendorScreen({super.key});
-   final serial=InputText(text:"Enter your serial number" );
+   final serial=InputText(text:"Enter your serial code" );
    final purchasing_price=InputText(text: "Enter the purchasing price");
    final selling_price=InputText(text: "Enter the selling price in \$");
   @override

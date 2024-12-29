@@ -90,6 +90,8 @@ flutter:
     - images/remove.svg
     - images/vegetable.svg
     - images/fruit.svg
+    - images/vegetables-bg.jpg
+    - images/fruit-bg.jpg
 
     
 

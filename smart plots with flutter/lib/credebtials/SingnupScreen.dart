@@ -189,7 +189,8 @@ try{
        );
        if(response.statusCode==200){
           final user=jsonDecode(response.body);
-         
+         SharedPreferences preferences=await SharedPreferences.getInstance();
+         preferences.setString('user', user);
           
           final type_res=await http.post(
             Uri.parse("http://$IP:8000/api/insertUser"),
