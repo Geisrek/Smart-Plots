@@ -315,8 +315,10 @@ class _DashBoard extends State<DashBoard> {
                           try{
                             final infos= await SharedPreferences.getInstance();
                             await infos.setInt('plot_id',plot["id"]);
+                             await infos.setString("plot", jsonEncode(plot));
                             setState((){
                             this.current_plot=plot;
+
                             
                             });
                           getCurrentTask();

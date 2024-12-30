@@ -22,9 +22,10 @@ class _RemoteScreenState extends State<RemoteScreen> {
     super.initState();
     setPlot();
   }
-  Map current_plot={"IP":"0000"};
+  Map current_plot={"IP":"192.168.1.8"};
  Future<void> setPlot()async{
     final infos= await SharedPreferences.getInstance();
+    print("Remote:${infos.getString("plot")}");
     
     setState(() {
       current_plot=jsonDecode(infos.getString("plot")!);
@@ -48,25 +49,48 @@ class _RemoteScreenState extends State<RemoteScreen> {
                 runSpacing: 7,
                 alignment: WrapAlignment.center,
                 children: [PlotWidget(name: "fan",id: 0,function: (int id)async{
-                   http.get(
-                    Uri.parse('http://${current_plot[IP]}/fan'));
+                  try{
+                 final respons=await  http.get(
+                    Uri.http('${current_plot["IP"]}',"/fan")
+                    );
+                    print(respons.statusCode);}
+                    catch(e){
+                      print(e);
+                    }
                 },path: "images/fan.svg"),
-               PlotWidget(name: "Light",id: 0,function: (int id){
-                 http.get(
-                    Uri.parse('http://${current_plot[IP]}/light'));
+               PlotWidget(name: "Light",id: 0,function: (int id) async{
+                try{
+                final respons=await http.get(
+                    Uri.http('${current_plot["IP"]}',"/light"));}
+                    catch(e){
+                      print(e);
+                    }
                },path: "images/sun-black.svg"),
-                PlotWidget(name: "Water",id: 0,function: (int id){ http.get(
-                    Uri.parse('http://${current_plot[IP]}/water'));},path: "images/water.svg"),
-                 PlotWidget(name: "Tent",id: 0,function: (int id){ http.get(
-                    Uri.parse('http://${current_plot[IP]}/tent'));},path: "images/open.svg"),
-                  PlotWidget(name: "condition",id: 0,function: (int id){
-                          http.get(
-                    Uri.parse('http://${current_plot[IP]}/condition'));
+                PlotWidget(name: "Water",id: 0,function: (int id)async{ 
+                   try{
+                final respons=await http.get(
+                    Uri.http('${current_plot["IP"]}',"/water"));}
+                    catch(e){
+                      print(e);
+                    }},path: "images/water.svg"),
+                 PlotWidget(name: "Tent",id: 0,function: (int id)async{ try{
+                final respons=await http.get(
+                    Uri.http('${current_plot["IP"]}',"/tent"));}
+                    catch(e){
+                      print(e);
+                    }},path: "images/open.svg"),
+                  PlotWidget(name: "condition",id: 0,function: (int id)async{
+                        try{
+                final respons=await http.get(
+                    Uri.http('${current_plot["IP"]}',"/steam"));}
+                    catch(e){
+                      print(e);
+                    }
                   },path: "images/steame.svg")],
               ),
             ),
             )
             ,Controle()],),) ,
-    );;
+    );
   }
 }

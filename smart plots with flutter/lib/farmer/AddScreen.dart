@@ -82,7 +82,7 @@ class _AddScreenState extends State<AddScreen> {
                                     return  Center(child: Column(
                                       children: [Container(child: MyText(text: register[0]["IP"]),),
                                       SizedBox( height:5),
-                                     Container(child: MyText(text: register[0]["Address"]),) ,
+                                     
                                       SizedBox( height:5),
                                       DropdownButton(
               hint: Text("Select City"),
