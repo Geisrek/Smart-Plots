@@ -48,6 +48,7 @@ class _DashBoard extends State<DashBoard> {
      await fetchPlots();
      await getCurrentTask();
      await setCurrentPlot();
+     await readCensorsData();
     }
  
 
@@ -72,7 +73,7 @@ class _DashBoard extends State<DashBoard> {
      await infos.setString("plot", jsonEncode(this.current_plot));
   }
  final plant=InputText(text: "Plant",);
-    readCensorsData()async{
+  Future<void>  readCensorsData()async{
       if(this.current_plot==null){
         censors.add('pending...');
         censors.add('pending...');
@@ -91,7 +92,7 @@ class _DashBoard extends State<DashBoard> {
         Uri.parse('http://${this.current_plot["IP"]}/light')
       );
        final solHumidity=await http.get(
-        Uri.parse('http://${this.current_plot["IP"]}/solHumidity')
+        Uri.parse('http://${this.current_plot["IP"]}/soil')
       );
       if(humidity.statusCode==200){
         censors.add(jsonDecode(humidity.body));
@@ -112,7 +113,8 @@ class _DashBoard extends State<DashBoard> {
         censors.add('N/A');
       }
       if(solHumidity.statusCode==200){
-        censors.add(jsonDecode(solHumidity.body));
+        censors.add(jsonDecode(solHumidity.body)["soil"]);
+        print(jsonDecode(solHumidity.body));
       }
       else{
         censors.add('N/A');
@@ -124,7 +126,7 @@ class _DashBoard extends State<DashBoard> {
      }
     }
      Future currentTask()async{
-          if(this.current_plot==null)   {
+          if(this.current_plot==null || this.current_user==null)   {
             return;
           } 
           try{
@@ -148,7 +150,6 @@ class _DashBoard extends State<DashBoard> {
    fetchPlots() async {
     try {
       
-     
    final response = await http.post(Uri.parse('http://$IP:8000/api/getPlots'),
            
              headers: <String, String>{
@@ -161,13 +162,13 @@ class _DashBoard extends State<DashBoard> {
       
       );
       
-      print("res2=${response.body}");
+    
       if (response.statusCode == 200) {
         data= jsonDecode(response.body)['plots'];
         
         if(this.current_plot==null&&data.length>0){
           setState(() {
-            print("in");
+            
             this.current_plot=data[0];
             
          
@@ -180,8 +181,10 @@ class _DashBoard extends State<DashBoard> {
         throw Exception('Failed to load plots');
       }
     } catch (err) {
-      throw Exception('Operation failed $err');
-    }//schedule_error schedule_date
+      print("plots:${this.current_user}");
+     
+     
+    }
   }
    Future<void> getCurrentTask() async{
       if(this.current_plot!=null){
@@ -307,17 +310,17 @@ class _DashBoard extends State<DashBoard> {
             return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: data.map((plot) {
+                      children: data.asMap().entries.map((plot) {
                         return PlotWidget(
                           path: "./images/plot.svg",
-                          name: "Plot ${plot['id']}",
+                          name: "Plot ${plot.key}",
                           function: (id) async{
                           try{
                             final infos= await SharedPreferences.getInstance();
-                            await infos.setInt('plot_id',plot["id"]);
-                             await infos.setString("plot", jsonEncode(plot));
+                            await infos.setInt('plot_id',plot.value["id"]);
+                             await infos.setString("plot", jsonEncode(plot.value));
                             setState((){
-                            this.current_plot=plot;
+                            this.current_plot=plot.value;
 
                             
                             });
@@ -327,7 +330,7 @@ class _DashBoard extends State<DashBoard> {
                             print(e);
                           }
                           },
-                          id: plot['id'],
+                          id: plot.value['id'],
                         );
                       }).toList(),
                     ),
@@ -348,7 +351,8 @@ class _DashBoard extends State<DashBoard> {
       child:Column(
         children: [
           Row(crossAxisAlignment: CrossAxisAlignment.center,
-            children: [this.current_plot!=null?MyText(text:this.current_plot["product"],color: Color(0xFF00651F)):MyText(text: ""),SizedBox(width: 260,),Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){Navigator.of(context).pushNamed('/create_Scduel');},))],),
+            children: [this.current_plot!=null?MyText(text:this.current_plot["product"],color: Color(0xFF00651F)):MyText(text: ""),SizedBox(width: 260,),
+            Container(width: 45,height: 45,child: IconButton(icon: SvgPicture.asset("./images/settings.svg"),onPressed: (){Navigator.of(context).pushNamed('/create_Scduel');},))],),
           
             
             SizedBox(height: 5,)
@@ -463,7 +467,7 @@ class _DashBoard extends State<DashBoard> {
                            final preferences = await SharedPreferences.getInstance(); 
                            Map data_to_sale={"plot_id":_plot["id"],"supplier_id":this.current_user["id"],"product":_plot["product"],"address":_plot["address"]};
                            preferences.setString("product", jsonEncode(data_to_sale));
-                          Navigator.of(context).pushReplacementNamed("/export");
+                          Navigator.of(context).pushNamed("/export");
                           return;
                         },)],);
                       }).toList(),);

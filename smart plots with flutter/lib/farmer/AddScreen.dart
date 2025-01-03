@@ -115,7 +115,7 @@ class _AddScreenState extends State<AddScreen> {
                                              print('IP: ${register[0]["IP"]}');
                                              final Uri url = Uri.http("local:8000", "/api/createPlot");
                                          dynamic response=await http.post(
-                                           Uri.parse("http://localhost:8000/api/createPlot"),
+                                           Uri.parse("http://$IP:8000/api/createPlot"),
                                              headers: <String, String>{
                                                 'Content-Type': 'application/json; charset=UTF-8',
                                                 'Accept':'application/json',

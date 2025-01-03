@@ -64,7 +64,7 @@ class StoreItem extends StatelessWidget {
   );
   if(response.statusCode==200){
     print(response.body);
-   Navigator.of(context).pushReplacementNamed("/vendor_storage");
+   Navigator.of(context).pushNamed("/vendor_storage");
   }
   else{
     print(response.body.toString().substring(0,700));

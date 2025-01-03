@@ -49,20 +49,14 @@ class SalesController extends Controller
         $user_type=user_types::where("user_id",$user_id)->first();
         if(! empty($user_type)){
             if($user_type["user_type"]=="vendor"){
-                $products=DB::table('sales')->join('user_types','sales.supplier_id',"=","user_types.user_id")->select('sales_id','product','supplier_id','cost','product_serial','currency_unit','plot_id')->where('user_types.user_type',"farmer")->get();
-                foreach ($products as $product) { 
-                    $user_id = $product->supplier_id;
-                     $user = User::where('id', $user_id)->first(); 
-                     $product->supplier_name = $user->name; }
+                $products=DB::table('sales')->join('user_types','sales.supplier_id',"=","user_types.user_id")->join('users','sales.supplier_id','=','users.id')->select("name","product","plot_id","product_serial","cost","currency_unit")->where('user_types.user_type',"farmer")->get();
+              
                 return response()->json($products);
         }
         
         else if($user_type["user_type"]=="client"){
-            $products=DB::table('sales')->join('user_types','sales.supplier_id',"=","user_types.user_id")->select('sales_id','product','supplier_id','cost','product_serial','currency_unit','plot_id')->where('user_types.user_type',"vendor")->get();
-            foreach ($products as $product) { 
-                $user_id = $product->supplier_id; 
-                $user = User::where('id', $user_id)->first(); 
-                $product->supplier_name = $user->name; }
+            $products=DB::table('sales')->join('user_types','sales.supplier_id',"=","user_types.user_id")->join('users','sales.supplier_id','=','users.id')->select("name","product","plot_id","product_serial","cost","currency_unit")->where('user_types.user_type',"vendor")->get();
+           
             return response()->json($products);
             }
         else{
@@ -114,5 +108,27 @@ class SalesController extends Controller
         return response()->json([
             "message"=>"done"
         ]);
+    }
+    function searchProduct(Request $req){
+        $product=$req->product;
+        $id=$req->id;
+       
+        $user=user_types::where("user_id",$id)->first();
+        if($user["user_type"]=="vendor"){
+            $products=DB::table("sales")->join('user_types',"sales.supplier_id","=","user_types.user_id")->join('users','sales.supplier_id','=','users.id')->select("name","product","plot_id","product_serial","cost","currency_unit")->where("user_types.user_type","farmer")->where("sales.product","like","%".$product."%")->get();
+            if(count($products)==0){
+                return response()->json([]);
+            }
+            return response()->json($products);
+        }
+        else if($user["user_type"]=="client"){
+            $products=DB::table("sales")->join('user_types',"sales.supplier_id","=","user_types.user_id")->join('users','sales.supplier_id','=','users.id')->select("name","product","plot_id","product_serial","cost","currency_unit")->where("user_types.user_type","vendor")->where("sales.product","like","%".$product."%")->get();
+            if(count($products)==0){
+                return response()->json([]);
+            }
+            return response()->json($products);
+        }
+        
+       
     }
 }

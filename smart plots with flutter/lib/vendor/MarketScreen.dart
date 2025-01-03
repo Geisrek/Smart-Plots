@@ -20,11 +20,16 @@ class _MarketscreenState extends State<Marketscreen> {
     super.initState();
     setData();
   }
+  @override void dispose() {
+     _product.dispose(); 
+     super.dispose(); 
+     }
   dynamic current_user={};
-  List product=[];
+  final TextEditingController _product = TextEditingController(); 
+  List<dynamic> product=[];
   Future<void> setData()async{
     await getUser();
-    await getProduct();
+   // await getProduct(_product.text);
   }
   Future<void> getUser()async{
    SharedPreferences preferences= await SharedPreferences.getInstance();
@@ -36,9 +41,11 @@ class _MarketscreenState extends State<Marketscreen> {
      this.current_user=user;
    });
   }
-  Future<List> getProduct()async{
-    print('in');
+  Future<List> getProduct(String value)async{
+   
     try{
+      print(value);
+      if(value==''){
       dynamic response= await http.post(
         Uri.parse("http://$IP:8000/api/getProducts"),
         headers:<String,String> {
@@ -57,6 +64,30 @@ class _MarketscreenState extends State<Marketscreen> {
             }
             else{
               print(response.statusCode);
+            }}
+            else{
+              SharedPreferences preferences=await SharedPreferences.getInstance();
+              dynamic user=jsonDecode(preferences.getString("user")!);
+                dynamic response= await http.post(
+        Uri.parse("http://$IP:8000/api/search"),
+        headers:<String,String> {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept':'application/json',},
+            body: jsonEncode({
+              "product":_product.text,
+              "id":user["id"]
+            }));
+            if(response.statusCode==200){
+             
+                 this.product=jsonDecode(response.body);
+                 print(jsonDecode(response.body));
+                 return jsonDecode(response.body);
+             
+            
+            }
+            else{
+              print('---${response.statusCode} : ${response.body.message}');
+            }
             }
             return [];
     }
@@ -72,11 +103,29 @@ class _MarketscreenState extends State<Marketscreen> {
       body:Container(
         padding: EdgeInsets.all(20),
         child: Flex(
-          direction: Axis.horizontal,
+          direction: Axis.vertical,
           children: [
-            Expanded(child: 
+            Container(width: 250,
+    height: 48
+      ,child: TextFormField(
+      controller: _product,
+       onChanged:(value){
+        
+          
+             setState(() {
+               
+             });
+       
+        }
+        ,
+      decoration: InputDecoration(
+        labelText: "product",
+        labelStyle: TextStyle(fontFamily: 'Nunito',fontSize: 18,fontFamilyFallback: ['Nunito', 'Arial', 'sans-serif']),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(7))),
+    ),)
+            ,Expanded(child: 
             SingleChildScrollView(
-              child: FutureBuilder(future: getProduct(),builder: (context,snapshot){
+              child: FutureBuilder(future: getProduct(_product.text),builder: (context,snapshot){
                 if(snapshot.connectionState==ConnectionState.waiting){
                   return MyText(text: "pending...");
                 }
@@ -84,12 +133,12 @@ class _MarketscreenState extends State<Marketscreen> {
                   return const MyText(text: "Oooops something went wrong");
                 }
                 else{
-                  final  data=snapshot.data;
+                  List<dynamic> data=[];
+                  
+                    data=snapshot.data!;
+                    print(data);
                   return Wrap(
-                    
-                    
-                    children: data!.map((item)=>InkWell(
-                      
+                    children: data.map((item)=>InkWell(
                       child:Container(
                          height: 220,
                       width: 170,
@@ -136,7 +185,7 @@ class _MarketscreenState extends State<Marketscreen> {
                               fontWeight: FontWeight.bold
 
                             ),)],) ,
-                            Text( item["supplier_name"],style: TextStyle(
+                            Text( item["name"],style: TextStyle(
                               color:  Color(0xFFC6E976),
                               fontSize: 13,
                               
@@ -147,7 +196,7 @@ class _MarketscreenState extends State<Marketscreen> {
                       )])),onTap: ()async{
                           SharedPreferences preferences=await SharedPreferences.getInstance();
                           preferences.setString('basket', jsonEncode(item));
-                          Navigator.of(context).pushReplacementNamed("/basket");
+                          Navigator.of(context).pushNamed("/basket");
                       },)).toList(),
                   );
                 }

@@ -39,6 +39,7 @@ Route::post('/getHistorySaleBySerial',[SalesController::class,'getHistoryBySeria
 Route::post('/getSaleBySerial',[SalesController::class,'getSaleBySerial']);
 Route::post('/updateCost',[SalesController::class,'updateCost']);
 Route::post('/getProducts',[SalesController::class,'getProducts']);
+Route::post('/search',[SalesController::class,'searchProduct']);
 Route::post('/getHistoryBySerial',[SalesdetailesController::class,'getHistoryBySerial']);
 Route::post('/addToCard',[SalesdetailesController::class,'addToCard']);
 Route::post('/geteDeals',[SalesdetailesController::class,'geteDeals']);

@@ -106,7 +106,9 @@ try{
       
       
       appBar: AppBar(toolbarHeight: 200,title: Center(child: Logo(),),),
-      body: Expanded(child: 
+      body:Flex ( 
+        direction: Axis.vertical
+        ,children:[Expanded(child: 
       SingleChildScrollView(child: 
        Container(padding: EdgeInsets.only(bottom: 10),child: Center(child:
        Column(
@@ -138,7 +140,14 @@ try{
                hint: Text("Select your country"),
               items:widget.countriesItems(widget.countries),
               value: selectedCountry,
-               onChanged: callBackCountriesDropDown
+               onChanged:( country) {
+                setState(() {
+                  selectedCountry=null;
+                  selectedCity=null;
+
+                });
+                callBackCountriesDropDown(country);
+                }
                ),
                SizedBox(width: 10,),
               selectedCountry != null ? DropdownButton(
@@ -169,8 +178,7 @@ try{
         
            storage.setString('credential',jsonEncode(credantials));
            storage.setString('user',jsonEncode(credantials['user']));
-           //storage.remove('user_information');
-         // Navigator.of(context).pushNamed("/pickuser");
+          
            try{
        final response=await http.post(
         Uri.parse("http://$IP:8000/api/register"),
@@ -190,7 +198,7 @@ try{
        if(response.statusCode==200){
           final user=jsonDecode(response.body);
          SharedPreferences preferences=await SharedPreferences.getInstance();
-         preferences.setString('user', user);
+         preferences.setString('user',jsonEncode(user["user"]) );
           
           final type_res=await http.post(
             Uri.parse("http://$IP:8000/api/insertUser"),
@@ -272,7 +280,7 @@ try{
                )),
                ]))
                ,)
-      ))
+      ))])
     );
   }
 }

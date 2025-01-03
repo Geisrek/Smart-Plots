@@ -111,9 +111,9 @@ class _ClientScreenState extends State<ClientScreen> {
             crossAxisAlignment: CrossAxisAlignment.center ,
             children: [
               Container(
-                width: 100 ,
-                height: 100,
-                child: ClipRRect(child: Image.asset("images/client-avatar.png"),),
+                width: 300 ,
+                height:100,
+                child: MyTitle(text: "Welcom ${user["name"]}",color:  Color(0xFF00651F),),
               )
             ],
           ),

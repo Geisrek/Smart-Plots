@@ -21,7 +21,9 @@ class CreateScduelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyBar(Title: "Create a new sceduel",).MyAppBarr(),
-      body:Expanded(
+      body:Flex (
+           direction: Axis.vertical
+        ,children:[Expanded(
         child:SingleChildScrollView(child: 
          Container(
         padding: EdgeInsets.only(left: 5,right: 5),
@@ -46,7 +48,7 @@ class CreateScduelScreen extends StatelessWidget {
           Container(width: 100,child: ElevatedButton(onPressed: ()async{
              try{
               final infos= await SharedPreferences.getInstance();
-              final int _id=await infos.getInt('plot')!;
+              final int _id=await infos.getInt('plot_id')!;
               final String? data=await infos.getString('user');
               final user=jsonDecode(data!);
               
@@ -82,6 +84,6 @@ class CreateScduelScreen extends StatelessWidget {
           Container(width: 100,child: ElevatedButton(onPressed: (){},child: Text("Default"),),)
           ],),
         ],),),
-    )));
+    ))]));
   }
 }

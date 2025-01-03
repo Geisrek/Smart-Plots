@@ -77,7 +77,7 @@ class SalesdetailesController extends Controller
         $currency_unit=$sale["currency_unit"];
         $product=$sale["product"];
         $user_type=user_types::where("user_id",$client_id)->first();
-        if($user_type["type"]=="vendor"){
+        if($user_type["user_type"]=="vendor"){
        sales::create([
             "cost"=>$cost,
             "supplier_id"=>$client_id,

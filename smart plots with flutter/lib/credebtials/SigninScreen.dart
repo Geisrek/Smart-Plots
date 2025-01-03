@@ -69,12 +69,12 @@ class SigninScreen extends StatelessWidget {
           SizedBox(height: 10,),
           password,
           SizedBox(height: 10,),
-          Button(onPress: ()async{//Navigator.of(context).pushReplacementNamed("/dashboard")
+          Button(onPress: ()async{
           try{
           final data=await SharedPreferences.getInstance();
-         
-           final token= data.getString('credential');
-           if(token==null){
+          data.remove("credential");
+          final token= data.getString('credential');
+          if(token==null){
           dynamic response=await http.post(
           
             Uri.parse("http://$IP:8000/api/login"),
@@ -86,19 +86,19 @@ class SigninScreen extends StatelessWidget {
       'password':password.getText()
     }),
            );
-           final data=jsonDecode(response.body);
-            if(data['status']=='success'){
+           final _data=jsonDecode(response.body);
+            if(_data['status']=='success'){
               final info=await SharedPreferences.getInstance();
-              info.setString('credential',jsonEncode(data['authorisation']['token']));
-              info.setString('user', jsonEncode(data['user']));
-              print('---$token####${jsonEncode(data['authorisation'])}');
-             
-             navigate(data['user']['id']);
+              info.setString('credential',jsonEncode(_data['authorisation']['token']));
+              info.setString('user', jsonEncode(_data['user']));
+         
+             print(jsonEncode(_data));
+             navigate(_data['user']['id']);
             }
             else{
               Navigator.of(context).pushReplacementNamed("/");
-            }}
-            else{
+            }
+         }  else{
              
               dynamic response=await http.post(
           

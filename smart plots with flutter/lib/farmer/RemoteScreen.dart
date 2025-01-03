@@ -82,7 +82,7 @@ class _RemoteScreenState extends State<RemoteScreen> {
                   PlotWidget(name: "condition",id: 0,function: (int id)async{
                         try{
                 final respons=await http.get(
-                    Uri.http('${current_plot["IP"]}',"/steam"));}
+                    Uri.http('${current_plot["IP"]}',"/condition"));}
                     catch(e){
                       print(e);
                     }
