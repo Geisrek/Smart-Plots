@@ -91,7 +91,7 @@ class SigninScreen extends StatelessWidget {
               final info=await SharedPreferences.getInstance();
               info.setString('credential',jsonEncode(_data['authorisation']['token']));
               info.setString('user', jsonEncode(_data['user']));
-         
+         //     print('---$token####${jsonEncode(_data['authorisation'])}');
              print(jsonEncode(_data));
              navigate(_data['user']['id']);
             }
