@@ -225,7 +225,7 @@ class _DashBoard extends State<DashBoard> {
           if(EC<cur_Task["sol_humidity"] ){
           
             http.get(Uri.parse(
-            "http://$ESP32/water"
+            "http://${this.current_plot["IP"]}/water"
             )
             );
 
@@ -233,19 +233,19 @@ class _DashBoard extends State<DashBoard> {
           if(PH<currentTask["air_humidity"]){
             http.get(
                 Uri.parse(
-                  'http://$ESP32/fan'
+                  'http://${this.current_plot["IP"]}/fan'
                   ));
           }
           if(tem<currentTask["temperature"]|| tem>currentTask["temperature"]){
               http.get( 
                   Uri.parse(
-                  'http://$ESP32/condition'
+                  'http://${this.current_plot["IP"]}/condition'
                   ));
           }
           if(light<currentTask["light"]){
             http.get(
                 Uri.parse(
-                  'http://$ESP32/light'
+                  'http://${this.current_plot["IP"]}/light'
                 ));
             
           }
