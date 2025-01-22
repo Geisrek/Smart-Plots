@@ -38,7 +38,6 @@ class _ClientScreenState extends State<ClientScreen> {
       print("$isSet");
       if(isSet){   
           try{
-        print("2");
     dynamic response=await http.post(
       Uri.parse("http://$IP:8000/api/getHistorySaleBySerial"),
        headers:<String,String> {
@@ -63,7 +62,6 @@ class _ClientScreenState extends State<ClientScreen> {
     Future<Map> getSaleBySerial()async{
       if(isSet){   
           try{
-        print("2");
     dynamic response=await http.post(
       Uri.parse("http://$IP:8000/api/getSaleBySerial"),
        headers:<String,String> {
@@ -90,15 +88,17 @@ class _ClientScreenState extends State<ClientScreen> {
         isSet=!isSet;
       });
     }
-    Future<void> getUser()async{
+    Future<dynamic> getUser()async{
       SharedPreferences preferences=await SharedPreferences.getInstance();
       if(user==null){
-        print(preferences.getKeys());
-        print(preferences.getString("user"));
-      setState(() {
-        user=  jsonDecode( preferences.getString("user")!);
-      });}
+        print("key=${preferences.getKeys()}");
+        print("user=${preferences.getString("user")}");
+     
+        this.user=  jsonDecode( preferences.getString("user")!);
+        dynamic data=this.user;
+      return data;
       
+    }
     }
      @override
   Widget build(BuildContext context) {
@@ -113,7 +113,18 @@ class _ClientScreenState extends State<ClientScreen> {
               Container(
                 width: 300 ,
                 height:100,
-                child: MyTitle(text: "Welcom ${user["name"]}",color:  Color(0xFF00651F),),
+                child:FutureBuilder(future: getUser(), builder:(context,snpshot){
+                  if(snpshot.connectionState==ConnectionState.waiting){
+                    return MyText(text: "");
+                  }
+                  else if(snpshot.hasError){
+                    return MyTitle(text: "");
+                  }
+                  else{
+                    dynamic data = snpshot.data;
+                    return  MyTitle(text: "Welcom ${user["name"]}",color:  Color(0xFF00651F),);
+                  }
+                }) ,
               )
             ],
           ),
@@ -121,7 +132,9 @@ class _ClientScreenState extends State<ClientScreen> {
         body: Container(
           height: 800,
           width: 300,
-          child:Flex(direction: Axis.vertical,children: [
+          margin: EdgeInsets.only(left: 25),
+          child:Flex(
+            direction: Axis.vertical,children: [
             Expanded(child: 
             SingleChildScrollView(
               child:Flex(
@@ -132,6 +145,12 @@ class _ClientScreenState extends State<ClientScreen> {
             children: [
           IconButton(onPressed: (){Navigator.of(context).pushNamed("/purchase");}, icon: Icon(
             Icons.archive
+          )),IconButton(onPressed: (){
+            Navigator.of(context).pushReplacementNamed("/profile");
+          }, icon: Icon(
+            Icons.person,
+            size: 23,
+            color: Colors.black
           )),InkWell(onTap: ()async{
         try{
           final credentials=await SharedPreferences.getInstance();
@@ -148,8 +167,17 @@ class _ClientScreenState extends State<ClientScreen> {
       }},child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children:[
-          Icon(Icons.logout_outlined,size: 23,color: Colors.black,)],))],)
-           ,Container(
+          Icon(Icons.logout_outlined,size: 23,color: Colors.black,)],)),
+          ],)
+           ,
+           Flex(direction: Axis.horizontal,
+           children: [
+              Expanded(child: 
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                   Container(
             height: 200,
             width: 300,
             padding: EdgeInsets.all(5),
@@ -174,7 +202,7 @@ class _ClientScreenState extends State<ClientScreen> {
                 ) ;
               }
             }):MyText(text: "Pending...") ,
-           ),SizedBox(height: 40,),
+           ),SizedBox(width: 10,),
            Container(
             height: 200,
             width: 300,
@@ -200,7 +228,12 @@ class _ClientScreenState extends State<ClientScreen> {
                 ) ;
               }
             }):MyText(text: "Pending...") ,
-           ),
+           )
+                  ],
+                ),
+              ))
+           ],)
+           ,
           SizedBox(height: 10,),
           serial,
           SizedBox(height: 10,),

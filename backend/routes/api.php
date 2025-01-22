@@ -9,7 +9,7 @@ use App\Http\Controllers\TasksController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesdetailesController;
-
+use App\Http\Controllers\profileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,7 +20,9 @@ use App\Http\Controllers\SalesdetailesController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('/Hello',[HelloController::class,'HelloController']);
+
+Route::post('/profile',[profileController::class,'getUserInfo']);
+Route::post('/uploadProfileImage',[profileController::class,'uploadProfileImage']);
 Route::post('/finishTask',[TasksController::class,'finishTask']);
 Route::post('/deleteTask',[TasksController::class,'removeTask']);
 Route::post('/getTasks',[TasksController::class,'getTasks']);

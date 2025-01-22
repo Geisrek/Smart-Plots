@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="Smart Pluts"
+        android:label="Smart Plots"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

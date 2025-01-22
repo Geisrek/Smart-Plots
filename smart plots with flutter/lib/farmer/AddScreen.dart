@@ -39,10 +39,19 @@ class _AddScreenState extends State<AddScreen> {
     try{
      final response=await http.get(Uri.http("plot.local","/register"));
      dynamic the_plot=json.decode( response.body);
-     register.add(the_plot) ;
+     if (response.statusCode == 200) { 
+      print('Success with mDNS: ${response.body}');
+       register.add(the_plot) ;
+       } 
+     else {
+       print('mDNS Error: ${response.statusCode} - ${response.reasonPhrase}'); 
+
+     }
+    
     }catch(e){
+       
          register.add("error") ;
-         print("Errore:$e");
+         print("Errore:$e ");
     }
   }
   List<DropdownMenuItem>  CitiesItems(List Cities){

@@ -1,3 +1,4 @@
+import 'package:Smart_pluts/comon/profileScreen.dart';
 import 'package:Smart_pluts/constants/constants.dart';
 import 'package:Smart_pluts/farmer/AddScreen.dart';
 import 'package:Smart_pluts/farmer/ExportsScreen.dart';
@@ -23,7 +24,17 @@ import './vendor/VendorStoreScreen.dart';
 import './client/ClientScreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-void main() {
+
+//import 'package: firebase_core';
+/**
+ * cloud_firestore: ^5.6.1
+  firebase_storage: ^12.4.0
+  firebase_core: ^3.10.0
+
+ */
+void main() async{
+  
+
   runApp(const MyApp());
 } 
 
@@ -61,7 +72,8 @@ class MyApp extends StatelessWidget {
       "/make_Deale":(context) =>Makedealscreen(),
       "/deal":(context) =>Deal(),
       '/purchase':(context)=>Purshasingdatescreen(),
-      '/updateStore':(context)=>Updatestoreitemscreen()
+      '/updateStore':(context)=>Updatestoreitemscreen(),
+      '/profile':(context)=>Profilescreen()
      },
     );
   }

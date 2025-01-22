@@ -140,7 +140,9 @@ class SigninScreen extends StatelessWidget {
              Container(margin: EdgeInsets.only(left: 80,top: 10),child: 
              Row(children:
               [Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child: 
-              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: (){},child: 
+              ElevatedButton(style: ElevatedButton.styleFrom(elevation: 0,backgroundColor: Color(0x0000)),onPressed: (){
+                Navigator.of(context).pushReplacementNamed('/profile');
+              },child: 
               SvgPicture.asset('./images/google.svg',),),),
               SizedBox(width: 20,),
               Container(width: 85,height: 40,decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),color: Color(0xFF000000)),child:

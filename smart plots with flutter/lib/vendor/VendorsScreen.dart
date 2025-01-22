@@ -130,7 +130,13 @@ class _VendorScreenState extends State<VendorScreen> {
       }},child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children:[
-          Icon(Icons.logout_outlined,size: 23,color: Colors.black,)],))],),
+          Icon(Icons.logout_outlined,size: 23,color: Colors.black,)],)), IconButton(onPressed: (){
+            Navigator.of(context).pushReplacementNamed("/profile");
+          }, icon: Icon(
+            Icons.person,
+            size: 23,
+            color: Colors.black
+          ))],),
           SizedBox(height: 10,),
           widget.serial,
           SizedBox(height: 10,),
