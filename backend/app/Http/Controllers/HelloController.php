@@ -30,5 +30,8 @@ class HelloController extends Controller
                 }
                  return response('File not found. '.$path.','.getcwd().',', 404);
                  }
+        public function sensors(Request $req){
+            return ["soil"=>rand(3000,4000),"temperature"=>rand(15,23),"humidity"=>'%'.rand(10,40),"lux"=>rand(40,50)];
+        }
     
 }

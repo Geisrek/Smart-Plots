@@ -20,7 +20,10 @@ use App\Http\Controllers\profileController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::get('/Hello',[HelloController::class,'HelloController']);
+Route::post('/sensors',[HelloController::class,'sensors']);
+Route::post('/upload',[HelloController::class,'upload']);
+Route::post('/image',[HelloController::class,'getImage']);
 Route::post('/profile',[profileController::class,'getUserInfo']);
 Route::post('/uploadProfileImage',[profileController::class,'uploadProfileImage']);
 Route::post('/finishTask',[TasksController::class,'finishTask']);
